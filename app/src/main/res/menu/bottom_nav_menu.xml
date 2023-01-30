@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_home"
+        android:title="首页"
+        android:icon="@drawable/ic_video_selector"
+        android:checkable="true"/>
+    <item
+        android:id="@+id/navigation_mine"
+        android:title="我的"
+        android:icon="@drawable/ic_mine_selector"
+        android:checkable="true" />
+<!--    <item-->
+<!--        android:id="@+id/navigation_diy"-->
+<!--        android:title="@string/title_hor"-->
+<!--        android:icon="@drawable/ic_diy_selector"-->
+<!--        android:checkable="true" />-->
+<!--    <item-->
+<!--        android:id="@+id/navigation_rank"-->
+<!--        android:title="@string/title_rank"-->
+<!--        android:icon="@drawable/ic_mine_selector"-->
+<!--        android:checkable="true" />-->
+<!--    <item-->
+<!--        android:id="@+id/navigation_album"-->
+<!--        android:title="@string/title_album"-->
+<!--        android:icon="@drawable/ic_mine_selector"-->
+<!--        android:checkable="true" />-->
+</menu>

@@ -16,7 +16,7 @@
         <item name="windowNoTitle">true</item>
         <item name="android:keepScreenOn">true</item>
         <!--        <item name="android:windowBackground">@drawable/main_bg</item>-->
-        <item name="android:windowBackground">@drawable/app_bg</item>
+<!--        <item name="android:windowBackground">@drawable/app_bg</item>-->
     </style>
     <!-- 自定义dialog样式 -->
     <style name="CustomDialogStyle" parent="@android:style/Theme.Dialog">
@@ -38,5 +38,9 @@
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowFullscreen">true</item>
+    </style>
+    <style name="TabLayoutTextSize1">
+        <item name="android:textSize">20sp</item>
+        <item name="android:includeFontPadding">false</item>
     </style>
 </resources>

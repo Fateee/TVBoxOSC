@@ -48,4 +48,22 @@
         <attr name="endColor" />
         <attr name="topDelta" />
     </declare-styleable>
+    <declare-styleable name="SimpleCornerTextView">
+        <attr name="bgColor" format="color"/>
+        <attr name="borderColor" format="color"/>
+        <attr name="borderWidth" format="dimension"/>
+        <attr name="bottomRightRadius" format="dimension"/>
+        <attr name="bottomLeftRadius" format="dimension"/>
+        <attr name="topRightRadius" format="dimension"/>
+        <attr name="topLeftRadius" format="dimension"/>
+        <attr name="radius" format="dimension"/>
+        <attr name="drawableWidth_left" format="dimension" />
+        <attr name="drawableHeight_left" format="dimension" />
+        <attr name="drawableWidth_top" format="dimension" />
+        <attr name="drawableHeight_top" format="dimension" />
+        <attr name="drawableWidth_right" format="dimension" />
+        <attr name="drawableHeight_right" format="dimension" />
+        <attr name="drawableWidth_bottom" format="dimension" />
+        <attr name="drawableHeight_bottom" format="dimension" />
+    </declare-styleable>
 </resources>

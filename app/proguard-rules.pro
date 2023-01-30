@@ -192,10 +192,10 @@
 # 实体类
 #-keep class com.github.tvbox.osc.bean.** { *; }
 #CardView
--keep class com.github.tvbox.osc.ui.tv.widget.card.**{*;}
+-keep class study.strengthen.china.tv.ui.tv.widget.card.**{*;}
 #ViewObj
--keep class com.github.tvbox.osc.ui.tv.widget.ViewObj{
+-keep class study.strengthen.china.tv.ui.tv.widget.ViewObj{
     <methods>;
 }
 
--keep class com.github.catvod.crawler.*{*;}
+-keep class com.study.catvod.crawler.*{*;}
