@@ -17,7 +17,7 @@ import study.strengthen.china.tv.base.BaseLazyFragment
 import study.strengthen.china.tv.bean.Movie
 import study.strengthen.china.tv.ui.activity.DetailActivity
 import study.strengthen.china.tv.ui.activity.SearchActivity
-import study.strengthen.china.tv.ui.adapter.HomeHotVodAdapter
+import study.strengthen.china.tv.ui.adapter.GridAdapter
 import study.strengthen.china.tv.util.DensityUtil
 import study.strengthen.china.tv.util.GridSpaceItemDecoration
 import study.strengthen.china.tv.util.HawkConfig
@@ -31,7 +31,7 @@ class HotFragment : BaseLazyFragment() {
         }
     }
     private var homeSourceRec: List<Movie.Video?>? = null
-    private var homeHotVodAdapter: HomeHotVodAdapter? = null
+    private var homeHotVodAdapter: GridAdapter? = null
 
     fun setArguments(recVod: List<Movie.Video?>?): HotFragment {
         homeSourceRec = recVod
@@ -39,7 +39,7 @@ class HotFragment : BaseLazyFragment() {
     }
 
     override fun init() {
-        homeHotVodAdapter = HomeHotVodAdapter()
+        homeHotVodAdapter = GridAdapter()
         homeHotVodAdapter?.onItemClickListener = BaseQuickAdapter.OnItemClickListener { adapter, view, position ->
             if (ApiConfig.get().sourceBeanList.isEmpty()) return@OnItemClickListener
             val vod = adapter.getItem(position) as Movie.Video?
@@ -56,7 +56,7 @@ class HotFragment : BaseLazyFragment() {
             }
         }
         tvHotList?.layoutManager = GridLayoutManager(context,3)
-//        tvHotList?.addItemDecoration(GridSpaceItemDecoration(3, DensityUtil.dip2px(4f), DensityUtil.dip2px(0f)))
+        tvHotList?.addItemDecoration(GridSpaceItemDecoration(3, DensityUtil.dip2px(6f), DensityUtil.dip2px(6f)))
         tvHotList?.setAdapter(homeHotVodAdapter)
         homeHotVodAdapter?.let {
             initHomeHotVod(it)
@@ -65,7 +65,7 @@ class HotFragment : BaseLazyFragment() {
 
     override fun getLayoutResID() = R.layout.recommend_fragment
 
-    private fun initHomeHotVod(adapter: HomeHotVodAdapter) {
+    private fun initHomeHotVod(adapter: GridAdapter) {
         if (Hawk.get(HawkConfig.HOME_REC, 0) == 1) {
             if (homeSourceRec != null) {
                 adapter.setNewData(homeSourceRec)

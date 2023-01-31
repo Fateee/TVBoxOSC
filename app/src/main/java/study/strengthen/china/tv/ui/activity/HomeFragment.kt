@@ -35,6 +35,7 @@ import org.greenrobot.eventbus.ThreadMode
 import study.strengthen.china.tv.R
 import study.strengthen.china.tv.bean.MovieSort
 import study.strengthen.china.tv.ui.fragment.HotFragment
+import study.strengthen.china.tv.ui.fragment.KindFragment
 import study.strengthen.china.tv.util.*
 import java.util.*
 
@@ -286,7 +287,7 @@ class HomeFragment : BaseLazyFragment() {
                         fragments.add(HotFragment.newInstance(null))
                     }
                 } else {
-                    fragments.add(GridFragment.newInstance(data))
+                    fragments.add(KindFragment.newInstance(data))
                 }
             }
             pageAdapter = HomePageAdapter(childFragmentManager, fragments)
@@ -453,7 +454,7 @@ class HomeFragment : BaseLazyFragment() {
 
     private fun onTabChecked(tab: TabLayout.Tab?) {
         val textView = tab?.customView as TextView?
-        textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, DensityUtil.sp2px(22f).toFloat())
+        textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, DensityUtil.sp2px(24f).toFloat())
         textView?.setTextColor(resources.getColor(R.color.cC50723))
         textView?.isSingleLine = true
         textView?.typeface = Typeface.defaultFromStyle(Typeface.BOLD)

@@ -9,14 +9,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import study.strengthen.china.tv.R;
 import study.strengthen.china.tv.bean.Movie;
-import study.strengthen.china.tv.picasso.RoundTransformation;
 import study.strengthen.china.tv.util.DefaultConfig;
-import study.strengthen.china.tv.util.MD5;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import me.jessyan.autosize.utils.AutoSizeUtils;
 
 /**
  * @author pj567
@@ -66,10 +63,10 @@ public class GridAdapter extends BaseQuickAdapter<Movie.Video, BaseViewHolder> {
         if (!TextUtils.isEmpty(item.pic)) {
             Picasso.get()
                     .load(DefaultConfig.checkReplaceProxy(item.pic))
-                    .transform(new RoundTransformation(MD5.string2MD5(item.pic + "position=" + helper.getLayoutPosition()))
-                            .centerCorp(true)
-                            .override(AutoSizeUtils.mm2px(mContext, 300), AutoSizeUtils.mm2px(mContext, 400))
-                            .roundRadius(AutoSizeUtils.mm2px(mContext, 10), RoundTransformation.RoundType.ALL))
+//                    .transform(new RoundTransformation(MD5.string2MD5(item.pic + "position=" + helper.getLayoutPosition()))
+//                            .centerCorp(true)
+//                            .roundRadius(DensityUtil.dip2px( 14f), RoundTransformation.RoundType.ALL))
+//                    .centerCrop()
                     .placeholder(R.drawable.img_loading_placeholder)
                     .error(R.drawable.img_loading_placeholder)
                     .into(ivThumb);

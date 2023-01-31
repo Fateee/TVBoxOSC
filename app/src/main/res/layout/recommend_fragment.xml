@@ -7,6 +7,5 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tvHotList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginHorizontal="5dp"/>
+        android:layout_height="match_parent" />
 </FrameLayout>
