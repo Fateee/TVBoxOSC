@@ -35,6 +35,7 @@ class MainActivity : BaseActivity() {
         listFragment.apply {
             add(HomeFragment())
             add(HomeFragment())
+            add(HomeFragment())
 //            add(staticHorFragment)
 //            add(hotRankFragment)
 //            add(albumFragment)
@@ -56,9 +57,13 @@ class MainActivity : BaseActivity() {
 //                    SAStatistics.track("main_tab","dynamic")
                     mainPager.setCurrentItem(0,false)
                 }
-                R.id.navigation_mine -> {
+                R.id.navigation_live -> {
 //                    SAStatistics.track("main_tab","quiet")
                     mainPager.setCurrentItem(1,false)
+                }
+                R.id.navigation_mine -> {
+//                    SAStatistics.track("main_tab","quiet")
+                    mainPager.setCurrentItem(2,false)
                 }
 //                R.id.navigation_diy -> {
 ////                    SAStatistics.track("home","diy_tab_click")

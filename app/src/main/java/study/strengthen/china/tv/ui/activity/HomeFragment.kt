@@ -22,15 +22,10 @@ import study.strengthen.china.tv.bean.AbsSortXml
 import study.strengthen.china.tv.event.RefreshEvent
 import study.strengthen.china.tv.server.ControlManager
 import study.strengthen.china.tv.ui.adapter.HomePageAdapter
-import study.strengthen.china.tv.ui.adapter.SortAdapter
 import study.strengthen.china.tv.ui.dialog.TipDialog
 import study.strengthen.china.tv.ui.fragment.GridFragment
-import study.strengthen.china.tv.ui.fragment.UserFragment
 import study.strengthen.china.tv.ui.tv.widget.DefaultTransformer
 import study.strengthen.china.tv.ui.tv.widget.FixedSpeedScroller
-import study.strengthen.china.tv.util.AppManager
-import study.strengthen.china.tv.util.DefaultConfig
-import study.strengthen.china.tv.util.HawkConfig
 import study.strengthen.china.tv.viewmodel.SourceViewModel
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -39,7 +34,8 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import study.strengthen.china.tv.R
 import study.strengthen.china.tv.bean.MovieSort
-import study.strengthen.china.tv.util.DensityUtil
+import study.strengthen.china.tv.ui.fragment.HotFragment
+import study.strengthen.china.tv.util.*
 import java.util.*
 
 class HomeFragment : BaseLazyFragment() {
@@ -49,7 +45,7 @@ class HomeFragment : BaseLazyFragment() {
 //    private var mGridView: TvRecyclerView? = null
 //    private var mViewPager: NoScrollViewPager? = null
     private var sourceViewModel: SourceViewModel? = null
-    private var sortAdapter: SortAdapter? = null
+//    private var sortAdapter: SortAdapter? = null
     private var pageAdapter: HomePageAdapter? = null
     private val fragments: MutableList<BaseLazyFragment> = ArrayList()
     private var isDownOrUp = false
@@ -188,7 +184,7 @@ class HomeFragment : BaseLazyFragment() {
 //                sortAdapter?.setNewData(DefaultConfig.adjustSort(ApiConfig.get().homeSourceBean.key, ArrayList(), true))
             }
             initView(data)
-            initViewPager(absXml)
+            initViewPager(absXml,data)
         })
     }
 
@@ -280,14 +276,14 @@ class HomeFragment : BaseLazyFragment() {
         }, activity)
     }
 
-    private fun initViewPager(absXml: AbsSortXml?) {
-        if (sortAdapter?.data?.size ?:0 > 0) {
-            for (data in sortAdapter?.data!!) {
+    private fun initViewPager(absXml: AbsSortXml?, rootData: MutableList<MovieSort.SortData>) {
+        if (rootData.size > 0) {
+            for (data in rootData) {
                 if (data.id == "my0") {
                     if (Hawk.get(HawkConfig.HOME_REC, 0) == 1 && absXml != null && absXml.videoList != null && absXml.videoList.size > 0) {
-                        fragments.add(UserFragment.newInstance(absXml.videoList))
+                        fragments.add(HotFragment.newInstance(absXml.videoList))
                     } else {
-                        fragments.add(UserFragment.newInstance(null))
+                        fragments.add(HotFragment.newInstance(null))
                     }
                 } else {
                     fragments.add(GridFragment.newInstance(data))
@@ -444,7 +440,7 @@ class HomeFragment : BaseLazyFragment() {
     private fun onTabChecked(tab: TabLayout.Tab?) {
         val textView = tab?.customView as TextView?
         textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, DensityUtil.sp2px(22f).toFloat())
-        textView?.setTextColor(resources.getColor(R.color.c4CA4FF))
+        textView?.setTextColor(resources.getColor(R.color.cC50723))
         textView?.isSingleLine = true
         textView?.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         textView?.includeFontPadding = false

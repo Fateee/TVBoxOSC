@@ -13,10 +13,11 @@
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
             android:id="@+id/searchTv"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:padding="15dp"
-            android:src="@drawable/sea_bt"
+            android:layout_width="29dp"
+            android:layout_height="29dp"
+            android:layout_marginLeft="14dp"
+            android:src="@drawable/ic_search_g"
+            android:scaleType="centerCrop"
             android:layout_centerVertical="true" />
         <study.strengthen.china.tv.ui.tv.widget.SimpleCornerTextView
             android:id="@+id/sourceTv"
@@ -50,7 +51,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:tabTextColor="@color/black"
-        app:tabSelectedTextColor="@color/c4CA4FF"
+        app:tabSelectedTextColor="@color/cC50723"
         app:tabTextAppearance="@style/TabLayoutTextSize1"
         app:tabIndicatorHeight="0dp"
         app:tabBackground="@drawable/tab_selector"

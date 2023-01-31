@@ -12,7 +12,7 @@
         android:height="6dp"
         android:gravity="bottom|center_horizontal">
         <shape>
-            <solid android:color="#4CA4FF" />
+            <solid android:color="@color/cC50723" />
             <corners android:radius="123dp" />
         </shape>
     </item>
