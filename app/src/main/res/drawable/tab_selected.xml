@@ -10,7 +10,8 @@
     <item
         android:width="24dp"
         android:height="6dp"
-        android:gravity="bottom|center_horizontal">
+        android:gravity="bottom|center_horizontal"
+        android:bottom="5dp">
         <shape>
             <solid android:color="@color/cC50723" />
             <corners android:radius="123dp" />

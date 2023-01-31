@@ -290,17 +290,31 @@ class HomeFragment : BaseLazyFragment() {
                 }
             }
             pageAdapter = HomePageAdapter(childFragmentManager, fragments)
-            try {
-                val field = ViewPager::class.java.getDeclaredField("mScroller")
-                field.isAccessible = true
-                val scroller = FixedSpeedScroller(mContext, AccelerateInterpolator())
-                field[mViewPager] = scroller
-                scroller.setmDuration(300)
-            } catch (e: Exception) {
-            }
-            mViewPager?.setPageTransformer(true, DefaultTransformer())
+//            try {
+//                val field = ViewPager::class.java.getDeclaredField("mScroller")
+//                field.isAccessible = true
+//                val scroller = FixedSpeedScroller(mContext, AccelerateInterpolator())
+//                field[mViewPager] = scroller
+//                scroller.setmDuration(300)
+//            } catch (e: Exception) {
+//            }
+//            mViewPager?.setPageTransformer(true, DefaultTransformer())
             mViewPager?.adapter = pageAdapter
+            mViewPager?.addOnPageChangeListener(TabLayout.TabLayoutOnPageChangeListener(tabLayout))
             mViewPager?.setCurrentItem(currentSelected, false)
+            tabLayout?.setOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+                override fun onTabSelected(tab: TabLayout.Tab?) {
+                    tab?.position?.let {
+                        mViewPager?.currentItem = it
+                    }
+                }
+
+                override fun onTabUnselected(tab: TabLayout.Tab?) {
+                }
+
+                override fun onTabReselected(tab: TabLayout.Tab?) {
+                }
+            })
         }
     }
 
