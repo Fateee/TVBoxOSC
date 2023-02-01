@@ -9,13 +9,15 @@ import com.thoughtworks.xstream.converters.extended.ToAttributedValueConverter;
 import java.io.Serializable;
 import java.util.List;
 
+import me.zhouzhuo.zzsecondarylinkage.bean.BaseMenuBean;
+
 /**
  * @author pj567
  * @date :2020/12/18
  * @description:
  */
 @XStreamAlias("list")
-public class Movie implements Serializable {
+public class Movie extends BaseMenuBean implements Serializable {
     @XStreamAsAttribute
     public int page;
     @XStreamAsAttribute
@@ -27,8 +29,9 @@ public class Movie implements Serializable {
     @XStreamImplicit(itemFieldName = "video")
     public List<Video> videoList;
 
+    public String sourceKey;
     @XStreamAlias("video")
-    public static class Video implements Serializable {
+    public static class Video extends BaseMenuBean implements Serializable {
         @XStreamAlias("last")//时间
         public String last;
         @XStreamAlias("id")//内容id

@@ -16,6 +16,10 @@ import com.orhanobut.hawk.Hawk
 import com.owen.tvrecyclerview.widget.TvRecyclerView
 import com.owen.tvrecyclerview.widget.V7GridLayoutManager
 import com.owen.tvrecyclerview.widget.V7LinearLayoutManager
+import kotlinx.android.synthetic.main.activity_fast_search.*
+import me.zhouzhuo.zzsecondarylinkage.ZzSecondaryLinkage
+import me.zhouzhuo.zzsecondarylinkage.bean.BaseMenuBean
+import me.zhouzhuo.zzsecondarylinkage.model.ILinkage
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
@@ -28,7 +32,9 @@ import study.strengthen.china.tv.bean.SourceBean
 import study.strengthen.china.tv.event.RefreshEvent
 import study.strengthen.china.tv.event.ServerEvent
 import study.strengthen.china.tv.server.ControlManager
+import study.strengthen.china.tv.ui.adapter.LeftMenuListAdapter
 import study.strengthen.china.tv.ui.adapter.PinyinAdapter
+import study.strengthen.china.tv.ui.adapter.RightContentListAdapter
 import study.strengthen.china.tv.ui.adapter.SearchAdapter
 import study.strengthen.china.tv.ui.dialog.RemoteDialog
 import study.strengthen.china.tv.ui.tv.QRCodeGen
@@ -41,6 +47,7 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
+import kotlin.collections.ArrayList
 
 /**
  * @author pj567
@@ -48,21 +55,24 @@ import java.util.concurrent.atomic.AtomicInteger
  * @description:
  */
 class FastSearchActivity : BaseActivity() {
-    private var llLayout: LinearLayout? = null
-    private var mGridView: TvRecyclerView? = null
-    private var mGridViewWord: TvRecyclerView? = null
+//    private var llLayout: LinearLayout? = null
+//    private var mGridView: TvRecyclerView? = null
+//    private var mGridViewWord: TvRecyclerView? = null
     var sourceViewModel: SourceViewModel? = null
-    private var etSearch: EditText? = null
-    private var tvSearch: TextView? = null
-    private var tvClear: TextView? = null
-    private var keyboard: SearchKeyboard? = null
-    private var tvAddress: TextView? = null
-    private var ivQRCode: ImageView? = null
-    private var searchAdapter: SearchAdapter? = null
-    private var wordAdapter: PinyinAdapter? = null
+//    private var etSearch: EditText? = null
+//    private var tvSearch: TextView? = null
+//    private var tvClear: TextView? = null
+//    private var tvAddress: TextView? = null
+//    private var ivQRCode: ImageView? = null
+//    private var searchAdapter: SearchAdapter? = null
+//    private var wordAdapter: PinyinAdapter? = null
+    private var zzLinkage : ZzSecondaryLinkage<Movie>?=null
     private var searchTitle: String? = ""
+    private var mAllMovie : Movie? = null
+    private var mSearchRetList: MutableList<Movie?>? = ArrayList()
+//    private var mSearchRetList: MutableList<MutableList<Movie.Video>>? = ArrayList()
     override fun getLayoutResID(): Int {
-        return R.layout.activity_search
+        return R.layout.activity_fast_search
     }
 
     override fun init() {
@@ -74,104 +84,120 @@ class FastSearchActivity : BaseActivity() {
     private var pauseRunnable: MutableList<Runnable>? = null
     override fun onResume() {
         super.onResume()
-        if (pauseRunnable != null && pauseRunnable!!.size > 0) {
-            searchExecutorService = Executors.newFixedThreadPool(5)
-            allRunCount.set(pauseRunnable!!.size)
-            for (runnable: Runnable? in pauseRunnable!!) {
-                searchExecutorService.execute(runnable)
-            }
-            pauseRunnable!!.clear()
-            pauseRunnable = null
-        }
+//        if (pauseRunnable != null && pauseRunnable!!.size > 0) {
+//            searchExecutorService = Executors.newFixedThreadPool(5)
+//            allRunCount.set(pauseRunnable!!.size)
+//            for (runnable: Runnable? in pauseRunnable!!) {
+//                searchExecutorService.execute(runnable)
+//            }
+//            pauseRunnable!!.clear()
+//            pauseRunnable = null
+//        }
     }
 
     private fun initView() {
-        EventBus.getDefault().register(this)
-        llLayout = findViewById(R.id.llLayout)
-        etSearch = findViewById(R.id.etSearch)
-        tvSearch = findViewById(R.id.tvSearch)
-        tvClear = findViewById(R.id.tvClear)
-        tvAddress = findViewById(R.id.tvAddress)
-        ivQRCode = findViewById(R.id.ivQRCode)
-        mGridView = findViewById(R.id.mGridView)
-        keyboard = findViewById(R.id.keyBoardRoot)
-        mGridViewWord = findViewById(R.id.mGridViewWord)
-        mGridViewWord.setHasFixedSize(true)
-        mGridViewWord.setLayoutManager(V7LinearLayoutManager(mContext, 1, false))
-        wordAdapter = PinyinAdapter()
-        mGridViewWord.setAdapter(wordAdapter)
-        wordAdapter!!.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener { adapter, view, position -> search(wordAdapter!!.getItem(position)) })
-        mGridView.setHasFixedSize(true)
-        // lite
-        if (Hawk.get(HawkConfig.SEARCH_VIEW, 0) == 0) mGridView.setLayoutManager(V7LinearLayoutManager(mContext, 1, false)) else mGridView.setLayoutManager(V7GridLayoutManager(mContext, 3))
-        searchAdapter = SearchAdapter()
-        mGridView.setAdapter(searchAdapter)
-        searchAdapter!!.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener {
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View, position: Int) {
-                FastClickCheckUtil.check(view)
-                val video = searchAdapter!!.data[position]
-                if (video != null) {
-                    try {
-                        if (searchExecutorService != null) {
-                            pauseRunnable = searchExecutorService!!.shutdownNow()
-                            searchExecutorService = null
-                        }
-                    } catch (th: Throwable) {
-                        th.printStackTrace()
-                    }
-                    val bundle = Bundle()
-                    bundle.putString("id", video.id)
-                    bundle.putString("sourceKey", video.sourceKey)
-                    jumpActivity(DetailActivity::class.java, bundle)
-                }
+        zzLinkage = findViewById(R.id.listLinkage)
+        zzLinkage?.setLeftMenuAdapter(LeftMenuListAdapter(this, mSearchRetList))
+        val rightAdapter = RightContentListAdapter(this, ArrayList<Movie.Video>())
+        zzLinkage?.setRightContentAdapter(rightAdapter)
+        zzLinkage?.setOnItemClickListener(object : ILinkage.OnItemClickListener{
+            override fun onLeftClick(itemView: View?, position: Int) {
+                rightAdapter.setList(mSearchRetList?.get(position)?.videoList)
+            }
+
+            override fun onRightClick(itemView: View?, position: Int) {
+
             }
         })
-        tvSearch.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                FastClickCheckUtil.check(v)
-                val wd = etSearch.getText().toString().trim { it <= ' ' }
-                if (!TextUtils.isEmpty(wd)) {
-                    search(wd)
-                } else {
-                    Toast.makeText(mContext, "输入内容不能为空", Toast.LENGTH_SHORT).show()
-                }
-            }
-        })
-        tvClear.setOnClickListener(object : View.OnClickListener {
-            override fun onClick(v: View) {
-                FastClickCheckUtil.check(v)
-                etSearch.setText("")
-            }
-        })
-        keyboard.setOnSearchKeyListener(object : OnSearchKeyListener {
-            override fun onSearchKey(pos: Int, key: String) {
-                if (pos > 1) {
-                    var text = etSearch.getText().toString().trim { it <= ' ' }
-                    text += key
-                    etSearch.setText(text)
-                    if (text.length > 0) {
-                        loadRec(text)
-                    }
-                } else if (pos == 1) {
-                    var text = etSearch.getText().toString().trim { it <= ' ' }
-                    if (text.length > 0) {
-                        text = text.substring(0, text.length - 1)
-                        etSearch.setText(text)
-                    }
-                    if (text.length > 0) {
-                        loadRec(text)
-                    }
-                } else if (pos == 0) {
-                    val remoteDialog = RemoteDialog(mContext)
-                    remoteDialog.show()
-                }
-            }
-        })
-        setLoadSir(llLayout)
+//        EventBus.getDefault().register(this)
+//        llLayout = findViewById(R.id.llLayout)
+//        etSearch = findViewById(R.id.etSearch)
+//        tvSearch = findViewById(R.id.tvSearch)
+//        tvClear = findViewById(R.id.tvClear)
+//        tvAddress = findViewById(R.id.tvAddress)
+//        ivQRCode = findViewById(R.id.ivQRCode)
+//        mGridView = findViewById(R.id.mGridView)
+//        keyboard = findViewById(R.id.keyBoardRoot)
+//        mGridViewWord = findViewById(R.id.mGridViewWord)
+//        mGridViewWord.setHasFixedSize(true)
+//        mGridViewWord.setLayoutManager(V7LinearLayoutManager(mContext, 1, false))
+//        wordAdapter = PinyinAdapter()
+//        mGridViewWord.setAdapter(wordAdapter)
+//        wordAdapter!!.setOnItemClickListener(BaseQuickAdapter.OnItemClickListener { adapter, view, position -> search(wordAdapter!!.getItem(position)) })
+//        mGridView.setHasFixedSize(true)
+//        // lite
+//        if (Hawk.get(HawkConfig.SEARCH_VIEW, 0) == 0) mGridView.setLayoutManager(V7LinearLayoutManager(mContext, 1, false)) else mGridView.setLayoutManager(V7GridLayoutManager(mContext, 3))
+//        searchAdapter = SearchAdapter()
+//        mGridView.setAdapter(searchAdapter)
+//        searchAdapter!!.setOnItemClickListener(object : BaseQuickAdapter.OnItemClickListener {
+//            override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View, position: Int) {
+//                FastClickCheckUtil.check(view)
+//                val video = searchAdapter!!.data[position]
+//                if (video != null) {
+//                    try {
+//                        if (searchExecutorService != null) {
+//                            pauseRunnable = searchExecutorService!!.shutdownNow()
+//                            searchExecutorService = null
+//                        }
+//                    } catch (th: Throwable) {
+//                        th.printStackTrace()
+//                    }
+//                    val bundle = Bundle()
+//                    bundle.putString("id", video.id)
+//                    bundle.putString("sourceKey", video.sourceKey)
+//                    jumpActivity(DetailActivity::class.java, bundle)
+//                }
+//            }
+//        })
+//        tvSearch.setOnClickListener(object : View.OnClickListener {
+//            override fun onClick(v: View) {
+//                FastClickCheckUtil.check(v)
+//                val wd = etSearch.getText().toString().trim { it <= ' ' }
+//                if (!TextUtils.isEmpty(wd)) {
+//                    search(wd)
+//                } else {
+//                    Toast.makeText(mContext, "输入内容不能为空", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+//        })
+//        tvClear.setOnClickListener(object : View.OnClickListener {
+//            override fun onClick(v: View) {
+//                FastClickCheckUtil.check(v)
+//                etSearch.setText("")
+//            }
+//        })
+//        keyboard.setOnSearchKeyListener(object : OnSearchKeyListener {
+//            override fun onSearchKey(pos: Int, key: String) {
+//                if (pos > 1) {
+//                    var text = etSearch.getText().toString().trim { it <= ' ' }
+//                    text += key
+//                    etSearch.setText(text)
+//                    if (text.length > 0) {
+//                        loadRec(text)
+//                    }
+//                } else if (pos == 1) {
+//                    var text = etSearch.getText().toString().trim { it <= ' ' }
+//                    if (text.length > 0) {
+//                        text = text.substring(0, text.length - 1)
+//                        etSearch.setText(text)
+//                    }
+//                    if (text.length > 0) {
+//                        loadRec(text)
+//                    }
+//                } else if (pos == 0) {
+//                    val remoteDialog = RemoteDialog(mContext)
+//                    remoteDialog.show()
+//                }
+//            }
+//        })
+//        setLoadSir(llLayout)
     }
 
     private fun initViewModel() {
         sourceViewModel = ViewModelProvider(this).get(SourceViewModel::class.java)
+        sourceViewModel?.searchResult?.observe(this, androidx.lifecycle.Observer {
+            searchData(it ?:null)
+        })
     }
 
     /**
@@ -195,7 +221,7 @@ class FastSearchActivity : BaseActivity() {
                                 val obj = ele as JsonObject
                                 hots.add(obj["word"].asString.trim { it <= ' ' })
                             }
-                            wordAdapter!!.setNewData(hots)
+//                            wordAdapter!!.setNewData(hots)
                         } catch (th: Throwable) {
                             th.printStackTrace()
                         }
@@ -209,7 +235,6 @@ class FastSearchActivity : BaseActivity() {
     }
 
     private fun initData() {
-        refreshQRCode()
         val intent = intent
         if (intent != null && intent.hasExtra("title")) {
             val title = intent.getStringExtra("title")
@@ -229,7 +254,7 @@ class FastSearchActivity : BaseActivity() {
                                 val obj = ele as JsonObject
                                 hots.add(obj["title"].asString.trim { it <= ' ' }.replace("<|>|《|》|-".toRegex(), "").split(" ").toTypedArray()[0])
                             }
-                            wordAdapter!!.setNewData(hots)
+//                            wordAdapter!!.setNewData(hots)
                         } catch (th: Throwable) {
                             th.printStackTrace()
                         }
@@ -242,11 +267,6 @@ class FastSearchActivity : BaseActivity() {
                 })
     }
 
-    private fun refreshQRCode() {
-        val address = ControlManager.get().getAddress(false)
-        tvAddress!!.text = String.format("远程搜索使用手机/电脑扫描下面二维码或者直接浏览器访问地址\n%s", address)
-        ivQRCode!!.setImageBitmap(QRCodeGen.generateBitmap(address, 300, 300))
-    }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun server(event: ServerEvent) {
@@ -257,23 +277,23 @@ class FastSearchActivity : BaseActivity() {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun refresh(event: RefreshEvent) {
-        if (event.type == RefreshEvent.TYPE_SEARCH_RESULT) {
-            try {
-                searchData(if (event.obj == null) null else event.obj as AbsXml)
-            } catch (e: Exception) {
-                searchData(null)
-            }
-        }
-    }
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    fun refresh(event: RefreshEvent) {
+//        if (event.type == RefreshEvent.TYPE_SEARCH_RESULT) {
+//            try {
+//                searchData(if (event.obj == null) null else event.obj as AbsXml)
+//            } catch (e: Exception) {
+//                searchData(null)
+//            }
+//        }
+//    }
 
     private fun search(title: String?) {
         cancel()
         showLoading()
         searchTitle = title
-        mGridView!!.visibility = View.INVISIBLE
-        searchAdapter!!.setNewData(ArrayList())
+//        mGridView!!.visibility = View.INVISIBLE
+//        searchAdapter!!.setNewData(ArrayList())
         searchResult()
     }
 
@@ -288,7 +308,7 @@ class FastSearchActivity : BaseActivity() {
         } catch (th: Throwable) {
             th.printStackTrace()
         } finally {
-            searchAdapter!!.setNewData(ArrayList())
+//            searchAdapter!!.setNewData(ArrayList())
             allRunCount.set(0)
         }
         searchExecutorService = Executors.newFixedThreadPool(5)
@@ -318,21 +338,33 @@ class FastSearchActivity : BaseActivity() {
         if ((absXml != null) && (absXml.movie != null) && (absXml.movie.videoList != null) && (absXml.movie.videoList.size > 0)) {
             val data: MutableList<Movie.Video> = ArrayList()
             for (video: Movie.Video in absXml.movie.videoList) {
-                if (video.name.contains((searchTitle)!!)) data.add(video)
+                if (video.name.contains((searchTitle.toString()))) data.add(video)
             }
-            if (searchAdapter!!.data.size > 0) {
-                searchAdapter!!.addData(data)
-            } else {
-                showSuccess()
-                mGridView!!.visibility = View.VISIBLE
-                searchAdapter!!.setNewData(data)
+            if (mAllMovie == null) {
+                mAllMovie = Movie()
+                mAllMovie?.sourceKey = "全部结果"
+                mAllMovie?.videoList = mutableListOf<Movie.Video>()
             }
+            mAllMovie?.videoList?.addAll(data)
+            if (mSearchRetList?.isNullOrEmpty() == false) {
+                mSearchRetList?.removeAt(0)
+            }
+            mSearchRetList?.add(0, mAllMovie!!)
+            mSearchRetList?.add(absXml.movie)
+            zzLinkage?.updateData(mSearchRetList)
+//            if (searchAdapter!!.data.size > 0) {
+//                searchAdapter!!.addData(data)
+//            } else {
+//                showSuccess()
+//                mGridView!!.visibility = View.VISIBLE
+//                searchAdapter!!.setNewData(data)
+//            }
         }
         val count = allRunCount.decrementAndGet()
         if (count <= 0) {
-            if (searchAdapter!!.data.size <= 0) {
-                showEmpty()
-            }
+//            if (searchAdapter!!.data.size <= 0) {
+//                showEmpty()
+//            }
             cancel()
         }
     }

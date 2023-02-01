@@ -2,7 +2,9 @@ package study.strengthen.china.tv.bean;
 
 import java.util.ArrayList;
 
-public class SourceBean {
+import me.zhouzhuo.zzsecondarylinkage.bean.BaseMenuBean;
+
+public class SourceBean extends BaseMenuBean {
     private String key;
     private String name;
     private String api;

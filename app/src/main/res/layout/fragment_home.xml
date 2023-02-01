@@ -13,10 +13,10 @@
         app:layout_constraintTop_toTopOf="parent">
         <ImageView
             android:id="@+id/searchTv"
-            android:layout_width="29dp"
-            android:layout_height="29dp"
-            android:layout_marginLeft="14dp"
-            android:src="@drawable/ic_search_g"
+            android:padding="@dimen/dp_13"
+            android:layout_width="@dimen/dp_60"
+            android:layout_height="@dimen/dp_60"
+            android:src="@drawable/icon_search"
             android:scaleType="centerCrop"
             android:layout_centerVertical="true" />
         <study.strengthen.china.tv.ui.tv.widget.SimpleCornerTextView
@@ -35,8 +35,8 @@
             android:id="@+id/historyTv"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:padding="14dp"
-            android:src="@drawable/home_history"
+            android:padding="@dimen/dp_13"
+            android:src="@drawable/icon_history"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"/>
 

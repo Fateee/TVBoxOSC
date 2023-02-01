@@ -420,8 +420,8 @@ public class SourceViewModel extends ViewModel {
                         @Override
                         public void onError(Response<String> response) {
                             super.onError(response);
-                            // searchResult.postValue(null);
-                            EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, null));
+                             searchResult.postValue(null);
+//                            EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, null));
                         }
                     });
         } else {
@@ -595,6 +595,7 @@ public class SourceViewModel extends ViewModel {
 
     private void absXml(AbsXml data, String sourceKey) {
         if (data.movie != null && data.movie.videoList != null) {
+            data.movie.sourceKey = sourceKey;
             for (Movie.Video video : data.movie.videoList) {
                 if (video.urlBean != null && video.urlBean.infoList != null) {
                     for (Movie.Video.UrlBean.UrlInfo urlInfo : video.urlBean.infoList) {
@@ -686,7 +687,8 @@ public class SourceViewModel extends ViewModel {
             AbsXml data = (AbsXml) xstream.fromXML(xml);
             absXml(data, sourceKey);
             if (searchResult == result) {
-                EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, data));
+//                EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, data));
+                searchResult.postValue(data);
             } else if (quickSearchResult == result) {
                 EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_QUICK_SEARCH_RESULT, data));
             } else if (result != null) {
@@ -699,7 +701,8 @@ public class SourceViewModel extends ViewModel {
             return data;
         } catch (Exception e) {
             if (searchResult == result) {
-                EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, null));
+//                EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, null));
+                searchResult.postValue(null);
             } else if (quickSearchResult == result) {
                 EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_QUICK_SEARCH_RESULT, null));
             } else if (result != null) {
@@ -733,7 +736,8 @@ public class SourceViewModel extends ViewModel {
             AbsXml data = absJson.toAbsXml();
             absXml(data, sourceKey);
             if (searchResult == result) {
-                EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, data));
+//                EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, data));
+                searchResult.postValue(data);
             } else if (quickSearchResult == result) {
                 EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_QUICK_SEARCH_RESULT, data));
             } else if (result != null) {
@@ -746,7 +750,8 @@ public class SourceViewModel extends ViewModel {
             return data;
         } catch (Exception e) {
             if (searchResult == result) {
-                EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, null));
+//                EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_SEARCH_RESULT, null));
+                searchResult.postValue(null);
             } else if (quickSearchResult == result) {
                 EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_QUICK_SEARCH_RESULT, null));
             } else if (result != null) {

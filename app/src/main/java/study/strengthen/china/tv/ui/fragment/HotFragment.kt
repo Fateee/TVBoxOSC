@@ -16,6 +16,7 @@ import study.strengthen.china.tv.api.ApiConfig
 import study.strengthen.china.tv.base.BaseLazyFragment
 import study.strengthen.china.tv.bean.Movie
 import study.strengthen.china.tv.ui.activity.DetailActivity
+import study.strengthen.china.tv.ui.activity.FastSearchActivity
 import study.strengthen.china.tv.ui.activity.SearchActivity
 import study.strengthen.china.tv.ui.adapter.GridAdapter
 import study.strengthen.china.tv.util.DensityUtil
@@ -49,7 +50,7 @@ class HotFragment : BaseLazyFragment() {
                 bundle.putString("sourceKey", vod.sourceKey)
                 jumpActivity(DetailActivity::class.java, bundle)
             } else {
-                val newIntent = Intent(mContext, SearchActivity::class.java)
+                val newIntent = Intent(mContext, FastSearchActivity::class.java)
                 newIntent.putExtra("title", vod.name)
                 newIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
                 mActivity.startActivity(newIntent)

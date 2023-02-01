@@ -1,21 +1,21 @@
-<?xml version="1.0"encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat android:orientation="vertical"
     android:background="@color/common_bg_color"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <FrameLayout android:layout_width="fill_parent"
-        android:layout_height="@dimen/dp_48">
+        android:layout_height="@dimen/dp_60">
         <RelativeLayout android:gravity="center_vertical"
             android:orientation="horizontal"
             android:id="@+id/ll_top_menu_nav"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
             <ImageView android:id="@+id/iv_back"
-                android:padding="@dimen/dp_15"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
-                android:src="@drawable/back" />
+                android:padding="@dimen/dp_19"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
+                android:src="@drawable/ic_back" />
             <LinearLayout android:orientation="horizontal"
                 android:id="@+id/ll_search"
                 android:layout_width="wrap_content"
@@ -23,29 +23,29 @@
                 android:layout_toLeftOf="@+id/iv_search"
                 android:layout_toRightOf="@+id/iv_back">
                 <study.strengthen.china.tv.ui.widget.ClearEditText
-                    android:textSize="@dimen/sp_14"
+                    android:textSize="@dimen/sp_17"
                     android:textColor="@color/common_font_color"
                     android:textColorHint="@color/common_font_hint_color"
                     android:layout_gravity="center_vertical"
                     android:id="@+id/et_search"
                     android:background="@drawable/search_et_bg"
-                    android:paddingLeft="@dimen/dp_15"
-                    android:paddingRight="@dimen/dp_15"
+                    android:paddingLeft="@dimen/dp_18"
+                    android:paddingRight="@dimen/dp_18"
                     android:layout_width="fill_parent"
-                    android:layout_height="@dimen/dp_32"
+                    android:layout_height="@dimen/dp_40"
                     android:hint="请输入内容搜索"
                     android:maxLines="1"
                     android:singleLine="true"
-                    android:drawablePadding="@dimen/dp_16"
+                    android:drawablePadding="@dimen/dp_20"
                     android:imeOptions="actionSearch"
                     android:textCursorDrawable="@null" />
             </LinearLayout>
             <ImageView android:id="@+id/iv_search"
                 android:background="?selectableItemBackgroundBorderless"
-                android:padding="@dimen/dp_15"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
-                android:src="@drawable/ic_search_g"
+                android:padding="@dimen/dp_13"
+                android:layout_width="@dimen/dp_60"
+                android:layout_height="@dimen/dp_60"
+                android:src="@drawable/icon_search"
                 android:layout_alignParentRight="true" />
         </RelativeLayout>
     </FrameLayout>

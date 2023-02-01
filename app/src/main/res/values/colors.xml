@@ -124,7 +124,7 @@
     <color name="cC50723">#C50723</color>
     <color name="title">#000000</color>
     <color name="desc_primary">#CECECE</color>
-
+    <color name="main_color">@color/cC50723</color>
     <color name="appwidget_tab_selected">#000000</color>
     <color name="appwidget_tab_unselected">#5E5E5E</color>
     <color name="cD8D8D8">#D8D8D8</color>
@@ -133,10 +133,13 @@
     <color name="light_blue_600">#FF039BE5</color>
     <color name="gray_400">#FFBDBDBD</color>
     <color name="gray_600">#FF757575</color>
-
+    <color name="color_353637">#353637</color>
     <color name="common_font_color">#ff2e2e2e</color>
     <color name="common_line_color">#ffe8e8e8</color>
     <color name="common_card_color">#ffffffff</color>
     <color name="common_bg_color">#ffffffff</color>
     <color name="common_font_hint_color">#40000000</color>
+    <color name="text_gray">#ff737a80</color>
+    <color name="common_search_bg_color">#70e9e9ea</color>
+    <color name="cf2f5fa">#fff2f5fa</color>
 </resources>
