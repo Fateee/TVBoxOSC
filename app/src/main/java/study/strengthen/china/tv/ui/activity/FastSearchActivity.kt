@@ -17,6 +17,7 @@ import com.owen.tvrecyclerview.widget.TvRecyclerView
 import com.owen.tvrecyclerview.widget.V7GridLayoutManager
 import com.owen.tvrecyclerview.widget.V7LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_fast_search.*
+import kotlinx.android.synthetic.main.layout_search_title.*
 import me.zhouzhuo.zzsecondarylinkage.ZzSecondaryLinkage
 import me.zhouzhuo.zzsecondarylinkage.bean.BaseMenuBean
 import me.zhouzhuo.zzsecondarylinkage.model.ILinkage
@@ -96,6 +97,10 @@ class FastSearchActivity : BaseActivity() {
     }
 
     private fun initView() {
+        iv_back?.setOnClickListener {
+            finish()
+        }
+
         zzLinkage = findViewById(R.id.listLinkage)
         zzLinkage?.setLeftMenuAdapter(LeftMenuListAdapter(this, mSearchRetList))
         val rightAdapter = RightContentListAdapter(this, ArrayList<Movie.Video>())

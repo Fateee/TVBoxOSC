@@ -15,23 +15,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import study.strengthen.china.tv.R;
-import study.strengthen.china.tv.api.ApiConfig;
-import study.strengthen.china.tv.base.BaseActivity;
-import study.strengthen.china.tv.bean.AbsXml;
-import study.strengthen.china.tv.bean.Movie;
-import study.strengthen.china.tv.bean.SourceBean;
-import study.strengthen.china.tv.bean.VodInfo;
-import study.strengthen.china.tv.cache.RoomDataManger;
-import study.strengthen.china.tv.event.RefreshEvent;
-import study.strengthen.china.tv.picasso.RoundTransformation;
-import study.strengthen.china.tv.ui.adapter.SeriesAdapter;
-import study.strengthen.china.tv.ui.adapter.SeriesFlagAdapter;
-import study.strengthen.china.tv.ui.dialog.QuickSearchDialog;
-import study.strengthen.china.tv.util.DefaultConfig;
-import study.strengthen.china.tv.util.FastClickCheckUtil;
-import study.strengthen.china.tv.util.MD5;
-import study.strengthen.china.tv.viewmodel.SourceViewModel;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -55,13 +38,30 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import me.jessyan.autosize.utils.AutoSizeUtils;
+import study.strengthen.china.tv.R;
+import study.strengthen.china.tv.api.ApiConfig;
+import study.strengthen.china.tv.base.BaseActivity;
+import study.strengthen.china.tv.bean.AbsXml;
+import study.strengthen.china.tv.bean.Movie;
+import study.strengthen.china.tv.bean.SourceBean;
+import study.strengthen.china.tv.bean.VodInfo;
+import study.strengthen.china.tv.cache.RoomDataManger;
+import study.strengthen.china.tv.event.RefreshEvent;
+import study.strengthen.china.tv.picasso.RoundTransformation;
+import study.strengthen.china.tv.ui.adapter.SeriesAdapter;
+import study.strengthen.china.tv.ui.adapter.SeriesFlagAdapter;
+import study.strengthen.china.tv.ui.dialog.QuickSearchDialog;
+import study.strengthen.china.tv.util.DefaultConfig;
+import study.strengthen.china.tv.util.FastClickCheckUtil;
+import study.strengthen.china.tv.util.MD5;
+import study.strengthen.china.tv.viewmodel.SourceViewModel;
 
 /**
  * @author pj567
  * @date :2020/12/22
  * @description:
  */
-public class DetailActivity extends BaseActivity {
+public class DetailActivityBak extends BaseActivity {
     private LinearLayout llLayout;
     private ImageView ivThumb;
     private TextView tvName;
@@ -152,7 +152,7 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 startQuickSearch();
-                QuickSearchDialog quickSearchDialog = new QuickSearchDialog(DetailActivity.this);
+                QuickSearchDialog quickSearchDialog = new QuickSearchDialog(DetailActivityBak.this);
                 EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_QUICK_SEARCH, quickSearchData));
                 EventBus.getDefault().post(new RefreshEvent(RefreshEvent.TYPE_QUICK_SEARCH_WORD, quickSearchWord));
                 quickSearchDialog.show();
@@ -183,7 +183,7 @@ public class DetailActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 RoomDataManger.insertVodCollect(sourceKey, vodInfo);
-                Toast.makeText(DetailActivity.this, "已加入收藏夹", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailActivityBak.this, "已加入收藏夹", Toast.LENGTH_SHORT).show();
             }
         });
         mGridView.setOnItemListener(new TvRecyclerView.OnItemListener() {

@@ -142,4 +142,10 @@
     <color name="text_gray">#ff737a80</color>
     <color name="common_search_bg_color">#70e9e9ea</color>
     <color name="cf2f5fa">#fff2f5fa</color>
+    <color name="common_bg2_color">#fff2f5fa</color>
+    <color name="transparent">@android:color/transparent</color>
+    <color name="cB90520">#B90520</color>
+    <color name="c161616">#161616</color>
+    <color name="c626262">#626262</color>
+    <color name="c121212">#121212</color>
 </resources>

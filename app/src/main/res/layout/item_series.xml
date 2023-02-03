@@ -1,20 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_margin="@dimen/vs_5"
-    android:background="@drawable/shape_source_series_focus"
-    android:focusable="true">
+    android:layout_height="@dimen/dp_52"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:minWidth="@dimen/dp_122"
+    app:cardCornerRadius="@dimen/dp_7"
+    app:cardBackgroundColor="@color/cF6F6F6"
+    app:cardElevation="0dp">
 
     <TextView
         android:id="@+id/tvSeries"
-        android:layout_width="@dimen/vs_190"
-        android:layout_height="@dimen/vs_50"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:ellipsize="marquee"
         android:gravity="center"
+        android:layout_gravity="center"
         android:marqueeRepeatLimit="marquee_forever"
-        android:padding="@dimen/vs_10"
         android:singleLine="true"
+        android:includeFontPadding="false"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/ts_20" />
-</FrameLayout>
+        android:textSize="@dimen/sp_17" />
+    <ImageView
+        android:id="@+id/playingIcon"
+        android:layout_width="@dimen/dp_15"
+        android:layout_height="@dimen/dp_15"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="@dimen/dp_7"
+        android:layout_marginBottom="@dimen/dp_7"
+        android:src="@drawable/playing"
+        android:visibility="gone"/>
+</androidx.cardview.widget.CardView>

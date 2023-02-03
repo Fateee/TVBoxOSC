@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/card_view"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    tl:cardBackgroundColor="@color/common_card_color"
+    tl:cardCornerRadius="@dimen/dp_5"
+    tl:cardElevation="@dimen/dp_0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+<!--                <LinearLayout-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:id="@+id/tab_box"-->
+<!--                    android:layout_width="fill_parent"-->
+<!--                    android:layout_height="@dimen/dp_50">-->
+<!--                    <LinearLayout-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:layout_width="fill_parent"-->
+<!--                        android:layout_height="fill_parent"-->
+<!--                        android:layout_weight="1.0">-->
+<!--                        <com.owen.tvrecyclerview.widget.TvRecyclerView-->
+<!--                            android:id="@+id/mGridViewFlag"-->
+<!--                            android:paddingLeft="@dimen/dp_12"-->
+<!--                            android:paddingRight="@dimen/dp_12"-->
+<!--                            android:clipChildren="false"-->
+<!--                            android:clipToPadding="false"-->
+<!--                            android:layout_width="fill_parent"-->
+<!--                            android:layout_height="@dimen/dp_50"-->
+<!--                            android:layout_marginTop="@dimen/dp_0"-->
+<!--                            android:layout_marginBottom="@dimen/dp_8"-->
+<!--                            tl:tv_horizontalSpacingWithMargins="@dimen/dp_5"-->
+<!--                            tl:tv_selectedItemIsCentered="true"-->
+<!--                            tl:tv_verticalSpacingWithMargins="@dimen/dp_5" />-->
+<!--                    </LinearLayout>-->
+<!--                    <View-->
+<!--                        android:layout_gravity="bottom"-->
+<!--                        android:background="?colorAccent"-->
+<!--                        android:layout_width="fill_parent"-->
+<!--                        android:layout_height="2.0px" />-->
+<!--                </LinearLayout>-->
+                <LinearLayout
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="fill_parent"
+                    android:layout_height="@dimen/dp_50">
+                    <TextView
+                        android:textSize="@dimen/sp_21"
+                        android:textColor="@color/black"
+                        android:gravity="center"
+                        android:id="@+id/title_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/dp_12"
+                        android:layout_marginRight="@dimen/dp_12"
+                        android:textStyle="bold"
+                        android:text="选集" />
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="@dimen/dp_25"
+                            android:layout_weight="1.0" />
+<!--                        <ImageView android:id="@+id/iv_reverse"-->
+<!--                            android:padding="@dimen/dp_12"-->
+<!--                            android:layout_width="@dimen/dp_35"-->
+<!--                            android:layout_height="fill_parent"-->
+<!--                            android:src="@drawable/ic_reverse" />-->
+                        <LinearLayout android:gravity="center"
+                            android:orientation="horizontal"
+                            android:id="@+id/ll_all_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/dp_12"
+                            android:layout_marginRight="@dimen/dp_12">
+                            <TextView
+                                android:textSize="@dimen/sp_20"
+                                android:textColor="@color/black"
+                                android:id="@+id/btn_all_number"
+                                android:background="@color/transparent"
+                                android:paddingRight="@dimen/dp_4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="排序" />
+<!--                            <ImageView android:id="@+id/iv_abstract_arrow"-->
+<!--                                android:layout_width="@dimen/dp_15"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:src="@drawable/ic_right" />-->
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+        <com.owen.tvrecyclerview.widget.TvRecyclerView
+            android:id="@+id/mGridView"
+            android:paddingLeft="@dimen/dp_12"
+            android:paddingRight="@dimen/dp_12"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_0"
+            android:layout_marginBottom="@dimen/dp_8"
+            tl:tv_horizontalSpacingWithMargins="@dimen/dp_5"
+            tl:tv_selectedItemIsCentered="true"
+            tl:tv_verticalSpacingWithMargins="@dimen/dp_6" />
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
