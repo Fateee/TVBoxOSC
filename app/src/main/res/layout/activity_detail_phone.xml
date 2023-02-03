@@ -84,7 +84,10 @@
 <!--                        app:layout_constraintTop_toBottomOf="@id/tabLayout"-->
 <!--                        app:layout_constraintBottom_toBottomOf="parent"/>-->
                 </androidx.appcompat.widget.LinearLayoutCompat>
-                <include layout="@layout/fragment_play_pop" android:visibility="gone"/>
+                <include
+                    android:id="@+id/playInfoPop"
+                    layout="@layout/fragment_play_pop"
+                    android:visibility="gone"/>
 <!--                <FrameLayout-->
 <!--                    android:id="@+id/fl_play_pop"-->
 <!--                    android:visibility="gone"-->

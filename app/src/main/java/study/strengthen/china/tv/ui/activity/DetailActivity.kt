@@ -22,6 +22,8 @@ import com.owen.tvrecyclerview.widget.V7LinearLayoutManager
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_phone.*
 import kotlinx.android.synthetic.main.fragment_play_pop.*
+import kotlinx.android.synthetic.main.play_video_title.*
+import kotlinx.android.synthetic.main.pop_common_title.*
 import me.jessyan.autosize.utils.AutoSizeUtils
 import okhttp3.Response
 import org.greenrobot.eventbus.EventBus
@@ -147,6 +149,12 @@ class DetailActivity : BaseActivity() {
         mGridViewFlag?.setLayoutManager(V7LinearLayoutManager(mContext, 0, false))
         seriesFlagAdapter = SeriesFlagAdapter()
         mGridViewFlag?.setAdapter(seriesFlagAdapter)
+        ivInfo?.setOnClickListener {
+            playInfoPop?.visibility = View.VISIBLE
+        }
+        iv_back?.setOnClickListener {
+            playInfoPop?.visibility = View.GONE
+        }
 //        tvSort.setOnClickListener(View.OnClickListener {
 //            if (vodInfo != null && vodInfo!!.seriesMap.size > 0) {
 //                vodInfo!!.reverseSort = !vodInfo!!.reverseSort
@@ -570,6 +578,8 @@ class DetailActivity : BaseActivity() {
         setTextShow(tv_actor, "", mVideo?.actor)
         setTextShow(tv_director, "", mVideo?.director)
         setTextShow(tv_abstract, "", removeHtmlTag(mVideo?.des))
+        setTextShow(tv_update_tag, "", mVideo?.note)
+
         if (!TextUtils.isEmpty(mVideo?.pic)) {
             Picasso.get()
                     .load(DefaultConfig.checkReplaceProxy(mVideo?.pic))
