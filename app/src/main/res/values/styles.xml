@@ -48,4 +48,8 @@
         <item name="android:textSize">20sp</item>
         <item name="android:includeFontPadding">false</item>
     </style>
+
+    <style name="jc_popup_toast_anim" parent="@android:style/Animation">
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
+    </style>
 </resources>

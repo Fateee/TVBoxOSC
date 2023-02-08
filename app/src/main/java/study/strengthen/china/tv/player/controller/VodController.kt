@@ -1,20 +1,19 @@
 package study.strengthen.china.tv.player.controller
 
-import android.app.Activity
 import android.content.Context
-import android.content.pm.ActivityInfo.*
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.MotionEvent
+import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.SeekBar
-import android.widget.TextView
+import android.widget.*
 import com.orhanobut.hawk.Hawk
 import com.owen.tvrecyclerview.widget.TvRecyclerView
 import com.owen.tvrecyclerview.widget.V7LinearLayoutManager
+import kotlinx.android.synthetic.main.player_dialog_speed.view.*
 import kotlinx.android.synthetic.main.player_vod_control_view_new.view.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -25,6 +24,7 @@ import study.strengthen.china.tv.player.controller.BaseController.HandlerCallbac
 import study.strengthen.china.tv.player.thirdparty.MXPlayer
 import study.strengthen.china.tv.player.thirdparty.ReexPlayer
 import study.strengthen.china.tv.ui.adapter.ParseAdapter
+import study.strengthen.china.tv.util.DensityUtil
 import study.strengthen.china.tv.util.HawkConfig
 import study.strengthen.china.tv.util.PlayerHelper
 import xyz.doikki.videoplayer.player.VideoView
@@ -34,6 +34,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class VodController(context: Context) : BaseController(context) {
+    private var mLastSpeed: Float = 1.0f
+    private var mFastForwardPopShown: Boolean = false
+    private var mCurrentPlayState: Int = 0
     var mSeekBar: SeekBar? = null
     var mCurrentTime: TextView? = null
     var mTotalTime: TextView? = null
@@ -54,7 +57,7 @@ class VodController(context: Context) : BaseController(context) {
     var mPlayerRetry: TextView? = null
     var mPlayerTimeStartBtn: TextView? = null
     var mPlayerTimeSkipBtn: TextView? = null
-
+    var mFastForwardPop : PopupWindow? = null;
     //    TextView mPlayerTimeStepBtn;
     override fun initView() {
         super.initView()
@@ -267,18 +270,8 @@ class VodController(context: Context) : BaseController(context) {
             }
         })
         fullscreen?.setOnClickListener {
-            actionFullScreen()
+            toggleFullScreen()
         }
-    }
-
-    private fun actionFullScreen() {
-//        val orientation = mActivity?.requestedOrientation
-//        if (orientation == SCREEN_ORIENTATION_LANDSCAPE || orientation == SCREEN_ORIENTATION_SENSOR_LANDSCAPE || orientation == SCREEN_ORIENTATION_REVERSE_LANDSCAPE){
-//            stopFullScreen()
-//            return
-//        }
-//        startFullScreen()
-        toggleFullScreen()
     }
 
     override fun getLayoutId(): Int {
@@ -419,6 +412,7 @@ class VodController(context: Context) : BaseController(context) {
     override fun onPlayStateChanged(playState: Int) {
         //todo
         super.onPlayStateChanged(playState)
+        mCurrentPlayState = playState
         when (playState) {
             VideoView.STATE_ERROR -> listener!!.errReplay()
             VideoView.STATE_IDLE,STATE_START_ABORT -> {
@@ -540,6 +534,67 @@ class VodController(context: Context) : BaseController(context) {
 
     fun clearHandlerMsgCallback() {
         mHandler?.removeCallbacksAndMessages(null)
+    }
+
+    override fun onLongPress(e: MotionEvent?) {
+        super.onLongPress(e)
+        if (mCurrentPlayState != VideoView.STATE_PAUSED && !mIsLocked) {
+            this.mFastForwardPopShown = true
+            try {
+                mLastSpeed = mPlayerConfig!!.getDouble("sp").toFloat()
+                val speed = Hawk.get("long_speed", 3.0f)
+                mPlayerConfig?.put("sp", speed.toDouble())
+                updatePlayerCfgView()
+                listener?.updatePlayerCfg()
+                mControlWrapper?.speed = speed
+                showFastForwardUI(speed)
+            } catch (e : Exception) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+    private fun showFastForwardUI(speed: Float) {
+        if (!mIsLocked) {
+            if (this.mFastForwardPop == null) {
+                val view = LayoutInflater.from(context).inflate(R.layout.player_dialog_speed, null);
+                val popupWindow = PopupWindow(view, -2, -2, true);
+                popupWindow.setTouchable(true);
+                popupWindow.setOutsideTouchable(true);
+                popupWindow.setBackgroundDrawable(ColorDrawable(0));
+                popupWindow.setAnimationStyle(R.style.jc_popup_toast_anim);
+                mFastForwardPop = popupWindow;
+            }
+            if (mFastForwardPop?.isShowing() == false)
+                mFastForwardPop?.showAtLocation(this, 48, 0, DensityUtil.dip2px(25.0F));
+            mFastForwardPop?.contentView?.tv_speed?.text = "${speed}X";
+            if (isBottomOrLockShown()) {
+                tv_bottom_center_container?.visibility = View.GONE
+            } else {
+                tv_bottom_center_container?.visibility = View.VISIBLE
+            }
+        }
+    }
+
+    fun isBottomOrLockShown() : Boolean {
+        return (bottom_container?.visibility == View.VISIBLE || lock?.visibility == View.VISIBLE)
+    }
+
+    override fun onTouchEvent(event: MotionEvent?): Boolean {
+        if (event?.action == ACTION_UP && this.mFastForwardPopShown) {
+            this.mFastForwardPopShown = false
+            try {
+                tv_bottom_center_container?.visibility = View.GONE
+                mFastForwardPop?.dismiss()
+                mPlayerConfig?.put("sp", mLastSpeed)
+                updatePlayerCfgView()
+                listener?.updatePlayerCfg()
+                mControlWrapper?.speed = mLastSpeed
+            } catch (e : Exception) {
+                e.printStackTrace()
+            }
+        }
+        return super.onTouchEvent(event)
     }
 
     init {

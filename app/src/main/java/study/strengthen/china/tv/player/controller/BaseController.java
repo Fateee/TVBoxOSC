@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -21,6 +23,7 @@ import androidx.annotation.Nullable;
 
 import java.util.Map;
 
+import study.strengthen.china.tv.R;
 import xyz.doikki.videoplayer.controller.BaseVideoController;
 import xyz.doikki.videoplayer.controller.IControlComponent;
 import xyz.doikki.videoplayer.controller.IGestureComponent;
@@ -46,6 +49,9 @@ public abstract class BaseController extends BaseVideoController implements Gest
     protected Handler mHandler;
 
     protected HandlerCallback mHandlerCallback;
+    private LinearLayout slide_container;
+    private ImageView slide_icon;
+    private ProgressBar slide_percent;
 
     protected interface HandlerCallback {
         void callback(Message msg);
@@ -80,12 +86,14 @@ public abstract class BaseController extends BaseVideoController implements Gest
                 int what = msg.what;
                 switch (what) {
                     case 100: { // 亮度+音量调整
+                        slide_container.setVisibility(VISIBLE);
                         mSlideInfo.setVisibility(VISIBLE);
                         mSlideInfo.setText(msg.obj.toString());
                         break;
                     }
 
                     case 101: { // 亮度+音量调整 关闭
+                        slide_container.setVisibility(GONE);
                         mSlideInfo.setVisibility(GONE);
                         break;
                     }
@@ -101,6 +109,9 @@ public abstract class BaseController extends BaseVideoController implements Gest
         mAudioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
         mGestureDetector = new GestureDetector(getContext(), this);
         setOnTouchListener(this);
+        this.slide_container = findViewWithTag("vod_control_slide_container");
+        this.slide_icon = findViewWithTag("vod_control_slide_icon");
+        this.slide_percent = findViewWithTag("vod_control_slide_percent");
         mSlideInfo = findViewWithTag("vod_control_slide_info");
         mLoading = findViewWithTag("vod_control_loading");
         mPauseRoot = findViewWithTag("vod_control_pause");
@@ -339,6 +350,8 @@ public abstract class BaseController extends BaseVideoController implements Gest
                 ((IGestureComponent) component).onBrightnessChange(percent);
             }
         }
+        this.slide_icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dkplayer_ic_action_brightness));
+        this.slide_percent.setProgress(percent);
         Message msg = Message.obtain();
         msg.what = 100;
         msg.obj = "亮度" + percent + "%";
@@ -362,6 +375,12 @@ public abstract class BaseController extends BaseVideoController implements Gest
                 ((IGestureComponent) component).onVolumeChange(percent);
             }
         }
+        if (percent <= 0) {
+            this.slide_icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dkplayer_ic_action_volume_off));
+        } else {
+            this.slide_icon.setImageDrawable(getContext().getResources().getDrawable(R.drawable.dkplayer_ic_action_volume_up));
+        }
+        this.slide_percent.setProgress(percent);
         Message msg = Message.obtain();
         msg.what = 100;
         msg.obj = "音量" + percent + "%";
