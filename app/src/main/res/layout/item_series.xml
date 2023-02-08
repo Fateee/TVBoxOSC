@@ -19,7 +19,7 @@
         android:singleLine="true"
         android:includeFontPadding="false"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/sp_17" />
+        android:textSize="@dimen/sp_18" />
     <ImageView
         android:id="@+id/playingIcon"
         android:layout_width="@dimen/dp_15"
