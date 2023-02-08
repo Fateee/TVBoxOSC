@@ -37,8 +37,8 @@ import xyz.doikki.videoplayer.util.PlayerUtils;
 
 import static xyz.doikki.videoplayer.util.PlayerUtils.stringForTime;
 
-public class VodController extends BaseController {
-    public VodController(@NonNull @NotNull Context context) {
+public class VodController_BAK extends BaseController {
+    public VodController_BAK(@NonNull @NotNull Context context) {
         super(context);
         mHandlerCallback = new HandlerCallback() {
             @Override

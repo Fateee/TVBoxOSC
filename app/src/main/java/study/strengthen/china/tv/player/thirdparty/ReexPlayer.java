@@ -22,7 +22,7 @@ public class ReexPlayer {
     private static final String PACKAGE_NAME = "xyz.re.player.ex";
     private static final String PLAYBACK_ACTIVITY = "xyz.re.player.ex.MainActivity";
 
-    private static class ReexPackageInfo {
+    public static class ReexPackageInfo {
         final String packageName;
         final String activityName;
 

@@ -21,7 +21,7 @@ public class MXPlayer {
     private static final String PLAYBACK_ACTIVITY_PRO = "com.mxtech.videoplayer.ActivityScreen";
     private static final String PLAYBACK_ACTIVITY_AD = "com.mxtech.videoplayer.ad.ActivityScreen";
 
-    private static class MXPackageInfo {
+    public static class MXPackageInfo {
         final String packageName;
         final String activityName;
 

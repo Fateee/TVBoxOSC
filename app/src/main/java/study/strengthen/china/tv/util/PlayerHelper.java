@@ -184,4 +184,29 @@ public class PlayerHelper {
         }
         return scaleText;
     }
+
+    public static String formatNetSpeed(long paramLong) {
+        String str;
+        if (paramLong > 1048576L) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(paramLong / 1048576L);
+            stringBuilder.append("Mb/s");
+            return stringBuilder.toString();
+        }
+        if (paramLong > 1024L) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(paramLong / 1024L);
+            stringBuilder.append("Kb/s");
+            return stringBuilder.toString();
+        }
+        if (paramLong > 0L) {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.append(paramLong);
+            stringBuilder.append("B/s");
+            str = stringBuilder.toString();
+        } else {
+            str = "";
+        }
+        return str;
+    }
 }

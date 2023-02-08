@@ -14,7 +14,6 @@
     <application
         android:name=".base.App"
         android:allowBackup="true"
-        android:banner="@drawable/app_banner"
         android:configChanges="orientation|keyboardHidden|screenSize"
         android:hardwareAccelerated="true"
         android:icon="@drawable/app_icon"
@@ -42,7 +41,6 @@
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -50,7 +48,11 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.DetailActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true"
+            android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize"
+            android:excludeFromRecents="true"
+            android:launchMode="singleTask"/>
         <activity
             android:name=".ui.activity.PlayActivity"
             android:screenOrientation="portrait" />

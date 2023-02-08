@@ -250,6 +250,8 @@ public class ApiConfig {
         }
         if (sourceBeanList != null && sourceBeanList.size() > 0) {
             String home = Hawk.get(HawkConfig.HOME_API, "");
+            //todo huyi
+            home = "小苹果";
             SourceBean sh = getSource(home);
             if (sh == null)
                 setSourceBean(firstSite);

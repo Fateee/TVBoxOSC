@@ -268,7 +268,7 @@ public class DetailActivityBak extends BaseActivity {
             insertVod(sourceKey, vodInfo);
             bundle.putString("sourceKey", sourceKey);
             bundle.putSerializable("VodInfo", vodInfo);
-            jumpActivity(PlayActivity.class, bundle);
+//            jumpActivity(PlayActivity.class, bundle);
         }
     }
 

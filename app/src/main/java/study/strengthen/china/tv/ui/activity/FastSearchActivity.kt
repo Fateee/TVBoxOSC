@@ -1,25 +1,17 @@
 package study.strengthen.china.tv.ui.activity
 
+import android.graphics.Color
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.View
-import android.widget.*
 import androidx.lifecycle.ViewModelProvider
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.AbsCallback
 import com.lzy.okgo.model.Response
-import com.orhanobut.hawk.Hawk
-import com.owen.tvrecyclerview.widget.TvRecyclerView
-import com.owen.tvrecyclerview.widget.V7GridLayoutManager
-import com.owen.tvrecyclerview.widget.V7LinearLayoutManager
-import kotlinx.android.synthetic.main.activity_fast_search.*
 import kotlinx.android.synthetic.main.layout_search_title.*
 import me.zhouzhuo.zzsecondarylinkage.ZzSecondaryLinkage
-import me.zhouzhuo.zzsecondarylinkage.bean.BaseMenuBean
 import me.zhouzhuo.zzsecondarylinkage.model.ILinkage
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -30,21 +22,11 @@ import study.strengthen.china.tv.base.BaseActivity
 import study.strengthen.china.tv.bean.AbsXml
 import study.strengthen.china.tv.bean.Movie
 import study.strengthen.china.tv.bean.SourceBean
-import study.strengthen.china.tv.event.RefreshEvent
 import study.strengthen.china.tv.event.ServerEvent
-import study.strengthen.china.tv.server.ControlManager
 import study.strengthen.china.tv.ui.adapter.LeftMenuListAdapter
-import study.strengthen.china.tv.ui.adapter.PinyinAdapter
 import study.strengthen.china.tv.ui.adapter.RightContentListAdapter
-import study.strengthen.china.tv.ui.adapter.SearchAdapter
-import study.strengthen.china.tv.ui.dialog.RemoteDialog
-import study.strengthen.china.tv.ui.tv.QRCodeGen
-import study.strengthen.china.tv.ui.tv.widget.SearchKeyboard
-import study.strengthen.china.tv.ui.tv.widget.SearchKeyboard.OnSearchKeyListener
 import study.strengthen.china.tv.util.FastClickCheckUtil
-import study.strengthen.china.tv.util.HawkConfig
 import study.strengthen.china.tv.viewmodel.SourceViewModel
-import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.atomic.AtomicInteger
@@ -110,8 +92,23 @@ class FastSearchActivity : BaseActivity() {
                 rightAdapter.setList(mSearchRetList?.get(position)?.videoList)
             }
 
-            override fun onRightClick(itemView: View?, position: Int) {
-
+            override fun onRightClick(view: View?, position: Int) {
+                FastClickCheckUtil.check(view)
+                val video = rightAdapter.getItem(position)
+                if (video != null) {
+                    try {
+                        if (searchExecutorService != null) {
+                            pauseRunnable = searchExecutorService!!.shutdownNow()
+                            searchExecutorService = null
+                        }
+                    } catch (th: Throwable) {
+                        th.printStackTrace()
+                    }
+                    val bundle = Bundle()
+                    bundle.putString("id", video.id)
+                    bundle.putString("sourceKey", video.sourceKey)
+                    jumpActivity(DetailActivity::class.java, bundle)
+                }
             }
         })
 //        EventBus.getDefault().register(this)

@@ -4,13 +4,10 @@ import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
 import android.view.View
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.tabs.TabLayout
 import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.lzy.okgo.OkGo
@@ -24,7 +21,6 @@ import kotlinx.android.synthetic.main.activity_detail_phone.*
 import kotlinx.android.synthetic.main.fragment_play_pop.*
 import kotlinx.android.synthetic.main.play_video_title.*
 import kotlinx.android.synthetic.main.pop_common_title.*
-import me.jessyan.autosize.utils.AutoSizeUtils
 import okhttp3.Response
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
@@ -33,21 +29,16 @@ import org.json.JSONObject
 import study.strengthen.china.tv.R
 import study.strengthen.china.tv.api.ApiConfig
 import study.strengthen.china.tv.base.BaseActivity
-import study.strengthen.china.tv.base.BaseLazyFragment
 import study.strengthen.china.tv.bean.AbsXml
 import study.strengthen.china.tv.bean.Movie
 import study.strengthen.china.tv.bean.SourceBean
 import study.strengthen.china.tv.bean.VodInfo
 import study.strengthen.china.tv.cache.RoomDataManger
 import study.strengthen.china.tv.event.RefreshEvent
-import study.strengthen.china.tv.picasso.RoundTransformation
-import study.strengthen.china.tv.ui.adapter.HomePageAdapter
 import study.strengthen.china.tv.ui.adapter.SeriesAdapter
 import study.strengthen.china.tv.ui.adapter.SeriesFlagAdapter
-import study.strengthen.china.tv.ui.dialog.QuickSearchDialog
 import study.strengthen.china.tv.util.DefaultConfig
 import study.strengthen.china.tv.util.FastClickCheckUtil
-import study.strengthen.china.tv.util.MD5
 import study.strengthen.china.tv.viewmodel.SourceViewModel
 import java.net.URLEncoder
 import java.util.*
@@ -81,14 +72,14 @@ class DetailActivity : BaseActivity() {
     private var mEmptyPlayList: LinearLayout? = null
     private var sourceViewModel: SourceViewModel? = null
     private var mVideo: Movie.Video? = null
-    private var vodInfo: VodInfo? = null
+    var vodInfo: VodInfo? = null
     private var seriesFlagAdapter: SeriesFlagAdapter? = null
     private var seriesAdapter: SeriesAdapter? = null
     var vodId: String? = null
     var sourceKey: String? = null
     var seriesSelect = false
     private var seriesFlagFocus: View? = null
-
+    private var mPlayFragment : PlayFragment? = null
 
     override fun getLayoutResID(): Int {
         return R.layout.activity_detail_phone
@@ -253,6 +244,9 @@ class DetailActivity : BaseActivity() {
             }
         }
         setLoadSir(llLayout)
+        mPlayFragment = PlayFragment().newInstance(this)
+        supportFragmentManager.beginTransaction().add(R.id.playerContainer, mPlayFragment!!).commit()
+        supportFragmentManager.beginTransaction().show(mPlayFragment!!).commitAllowingStateLoss()
     }
 
     private var pauseRunnable: MutableList<Runnable>? = null
@@ -263,7 +257,8 @@ class DetailActivity : BaseActivity() {
             insertVod(sourceKey, vodInfo)
             bundle.putString("sourceKey", sourceKey)
             bundle.putSerializable("VodInfo", vodInfo)
-            jumpActivity(PlayActivity::class.java, bundle)
+            mPlayFragment?.initData()
+//            jumpActivity(PlayActivity::class.java, bundle)
         }
     }
 
@@ -312,19 +307,6 @@ class DetailActivity : BaseActivity() {
                 setTextShow(tvActor, "", mVideo?.actor)
 //                setTextShow(tvDirector, "导演：", mVideo?.director)
 //                setTextShow(tvDes, "内容简介：", removeHtmlTag(mVideo?.des))
-//                if (!TextUtils.isEmpty(mVideo?.pic)) {
-//                    Picasso.get()
-//                            .load(DefaultConfig.checkReplaceProxy(mVideo?.pic))
-//                            .transform(RoundTransformation(MD5.string2MD5(mVideo?.pic + mVideo?.name))
-//                                    .centerCorp(true)
-//                                    .override(AutoSizeUtils.mm2px(mContext, 300f), AutoSizeUtils.mm2px(mContext, 400f))
-//                                    .roundRadius(AutoSizeUtils.mm2px(mContext, 10f), RoundTransformation.RoundType.ALL))
-//                            .placeholder(R.drawable.img_loading_placeholder)
-//                            .error(R.drawable.img_loading_placeholder)
-//                            .into(ivThumb)
-//                } else {
-//                    ivThumb!!.setImageResource(R.drawable.img_loading_placeholder)
-//                }
                 if (vodInfo?.seriesMap != null && vodInfo?.seriesMap?.size ?:0 > 0) {
                     mGridViewFlag!!.visibility = View.VISIBLE
                     mGridView!!.visibility = View.VISIBLE
@@ -358,6 +340,7 @@ class DetailActivity : BaseActivity() {
                     seriesFlagAdapter!!.setNewData(vodInfo?.seriesFlags)
                     mGridViewFlag!!.scrollToPosition(flagScrollTo)
                     refreshList()
+                    jumpToPlay()
                     // startQuickSearch();
                 } else {
                     mGridViewFlag!!.visibility = View.GONE
@@ -520,7 +503,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private fun searchData(absXml: AbsXml?) {
-        if (absXml != null && absXml.movie != null && absXml.movie.videoList != null && absXml.movie.videoList.size > 0) {
+        if (absXml?.movie != null && absXml.movie.videoList != null && absXml.movie.videoList.size > 0) {
             val data: MutableList<Movie.Video> = ArrayList()
             for (video in absXml.movie.videoList) {
                 // 去除当前相同的影片
@@ -594,4 +577,6 @@ class DetailActivity : BaseActivity() {
             iv_thumb?.setImageResource(R.drawable.img_loading_placeholder)
         }
     }
+
+    override fun isWhiteStatusBar() = false
 }

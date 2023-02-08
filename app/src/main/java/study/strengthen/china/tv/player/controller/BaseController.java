@@ -56,6 +56,24 @@ public abstract class BaseController extends BaseVideoController implements Gest
 
     public BaseController(@NonNull Context context) {
         super(context);
+    }
+
+    public BaseController(@NonNull Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public BaseController(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+    }
+
+    private TextView mSlideInfo;
+    private ProgressBar mLoading;
+    private ViewGroup mPauseRoot;
+    private TextView mPauseTime;
+
+    @Override
+    protected void initView() {
+        super.initView();
         mHandler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
@@ -80,24 +98,6 @@ public abstract class BaseController extends BaseVideoController implements Gest
                 return false;
             }
         });
-    }
-
-    public BaseController(@NonNull Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-    }
-
-    public BaseController(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    private TextView mSlideInfo;
-    private ProgressBar mLoading;
-    private ViewGroup mPauseRoot;
-    private TextView mPauseTime;
-
-    @Override
-    protected void initView() {
-        super.initView();
         mAudioManager = (AudioManager) getContext().getSystemService(Context.AUDIO_SERVICE);
         mGestureDetector = new GestureDetector(getContext(), this);
         setOnTouchListener(this);

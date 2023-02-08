@@ -34,27 +34,6 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import study.strengthen.china.tv.R;
-import study.strengthen.china.tv.api.ApiConfig;
-import study.strengthen.china.tv.base.BaseActivity;
-import study.strengthen.china.tv.bean.ParseBean;
-import study.strengthen.china.tv.bean.SourceBean;
-import study.strengthen.china.tv.bean.VodInfo;
-import study.strengthen.china.tv.cache.CacheManager;
-import study.strengthen.china.tv.event.RefreshEvent;
-import study.strengthen.china.tv.player.controller.VodController;
-import study.strengthen.china.tv.player.thirdparty.MXPlayer;
-import study.strengthen.china.tv.player.thirdparty.ReexPlayer;
-import study.strengthen.china.tv.util.AdBlocker;
-import study.strengthen.china.tv.util.DefaultConfig;
-import study.strengthen.china.tv.util.HawkConfig;
-import study.strengthen.china.tv.util.LOG;
-import study.strengthen.china.tv.util.MD5;
-import study.strengthen.china.tv.util.PlayerHelper;
-import study.strengthen.china.tv.util.XWalkUtils;
-import study.strengthen.china.tv.util.thunder.Thunder;
-import study.strengthen.china.tv.viewmodel.SourceViewModel;
-
 import com.github.catvod.crawler.Spider;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.AbsCallback;
@@ -82,10 +61,30 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import me.jessyan.autosize.AutoSize;
+import study.strengthen.china.tv.R;
+import study.strengthen.china.tv.api.ApiConfig;
+import study.strengthen.china.tv.base.BaseActivity;
+import study.strengthen.china.tv.bean.ParseBean;
+import study.strengthen.china.tv.bean.SourceBean;
+import study.strengthen.china.tv.bean.VodInfo;
+import study.strengthen.china.tv.cache.CacheManager;
+import study.strengthen.china.tv.event.RefreshEvent;
+import study.strengthen.china.tv.player.controller.VodController;
+import study.strengthen.china.tv.player.thirdparty.MXPlayer;
+import study.strengthen.china.tv.player.thirdparty.ReexPlayer;
+import study.strengthen.china.tv.util.AdBlocker;
+import study.strengthen.china.tv.util.DefaultConfig;
+import study.strengthen.china.tv.util.HawkConfig;
+import study.strengthen.china.tv.util.LOG;
+import study.strengthen.china.tv.util.MD5;
+import study.strengthen.china.tv.util.PlayerHelper;
+import study.strengthen.china.tv.util.XWalkUtils;
+import study.strengthen.china.tv.util.thunder.Thunder;
+import study.strengthen.china.tv.viewmodel.SourceViewModel;
 import xyz.doikki.videoplayer.player.ProgressManager;
 import xyz.doikki.videoplayer.player.VideoView;
 
-public class PlayActivity extends BaseActivity {
+public class PlayActivityBak extends BaseActivity {
     private VideoView mVideoView;
     private TextView mPlayLoadTip;
     private ImageView mPlayLoadErr;
@@ -156,14 +155,14 @@ public class PlayActivity extends BaseActivity {
             @Override
             public void playNext(boolean rmProgress) {
                 String preProgressKey = progressKey;
-                PlayActivity.this.playNext();
+                PlayActivityBak.this.playNext();
                 if (rmProgress && preProgressKey != null)
                     CacheManager.delete(MD5.string2MD5(preProgressKey), 0);
             }
 
             @Override
             public void playPre() {
-                PlayActivity.this.playPrevious();
+                PlayActivityBak.this.playPrevious();
             }
 
             @Override
@@ -238,11 +237,11 @@ public class PlayActivity extends BaseActivity {
                                 boolean callResult = false;
                                 switch (playerType) {
                                     case 10: {
-                                        callResult = MXPlayer.run(PlayActivity.this, url, playTitle, playSubtitle, headers);
+                                        callResult = MXPlayer.run(PlayActivityBak.this, url, playTitle, playSubtitle, headers);
                                         break;
                                     }
                                     case 11: {
-                                        callResult = ReexPlayer.run(PlayActivity.this, url, playTitle, playSubtitle, headers);
+                                        callResult = ReexPlayer.run(PlayActivityBak.this, url, playTitle, playSubtitle, headers);
                                         break;
                                     }
                                 }
@@ -873,7 +872,7 @@ public class PlayActivity extends BaseActivity {
         public void setOverScrollMode(int mode) {
             super.setOverScrollMode(mode);
             if (mContext instanceof Activity)
-                AutoSize.autoConvertDensityOfCustomAdapt((Activity) mContext, PlayActivity.this);
+                AutoSize.autoConvertDensityOfCustomAdapt((Activity) mContext, PlayActivityBak.this);
         }
 
         @Override
@@ -891,7 +890,7 @@ public class PlayActivity extends BaseActivity {
         public void setOverScrollMode(int mode) {
             super.setOverScrollMode(mode);
             if (mContext instanceof Activity)
-                AutoSize.autoConvertDensityOfCustomAdapt((Activity) mContext, PlayActivity.this);
+                AutoSize.autoConvertDensityOfCustomAdapt((Activity) mContext, PlayActivityBak.this);
         }
 
         @Override
