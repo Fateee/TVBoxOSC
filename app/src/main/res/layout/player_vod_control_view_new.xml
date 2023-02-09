@@ -14,10 +14,10 @@
         <ImageView
             android:layout_gravity="center"
             android:id="@+id/errBack"
-            android:padding="@dimen/dp_15"
+            android:padding="@dimen/dp_18"
             android:visibility="visible"
-            android:layout_width="@dimen/dp_57"
-            android:layout_height="@dimen/dp_57"
+            android:layout_width="@dimen/dp_65"
+            android:layout_height="@dimen/dp_65"
             android:src="@drawable/dkplayer_ic_action_arrow_back" />
         <LinearLayout
             android:gravity="center"
@@ -97,10 +97,10 @@
         <ImageView
             android:layout_gravity="center"
             android:id="@+id/back"
-            android:padding="@dimen/dp_15"
+            android:padding="@dimen/dp_18"
             android:visibility="invisible"
-            android:layout_width="@dimen/dp_57"
-            android:layout_height="@dimen/dp_57"
+            android:layout_width="@dimen/dp_65"
+            android:layout_height="@dimen/dp_65"
             android:src="@drawable/dkplayer_ic_action_arrow_back" />
         <LinearLayout
             android:orientation="vertical"
@@ -176,14 +176,13 @@
     <LinearLayout
         android:id="@+id/ll_back"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
+        android:layout_height="wrap_content">
         <ImageView
             android:layout_gravity="left"
             android:id="@+id/t_back"
-            android:padding="@dimen/dp_15"
-            android:layout_width="@dimen/dp_57"
-            android:layout_height="@dimen/dp_57"
+            android:padding="@dimen/dp_18"
+            android:layout_width="@dimen/dp_65"
+            android:layout_height="@dimen/dp_65"
             android:src="@drawable/dkplayer_ic_action_arrow_back" />
     </LinearLayout>
     <!-- 上锁按钮  whdone -->
@@ -313,7 +312,7 @@
 <!--                android:layout_width="0.0dip"-->
 <!--                android:layout_height="@dimen/dp_20"-->
 <!--                android:maxHeight="2.0dip"-->
-<!--                android:max="1000"-->
+<!--                android:max="100"-->
 <!--                android:progress="111"-->
 <!--                android:progressDrawable="@drawable/shape_player_control_vod_seek"-->
 <!--                android:minHeight="2.0dip"-->
@@ -336,10 +335,10 @@
             android:layout_gravity="bottom"
             android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="@dimen/dp_57">
+            android:layout_height="@dimen/dp_65">
             <ImageView
                 android:id="@+id/iv_play_back"
-                android:padding="@dimen/dp_15"
+                android:padding="@dimen/dp_18"
                 android:visibility="gone"
                 android:layout_width="@dimen/dp_54"
                 android:layout_height="@dimen/dp_54"
@@ -347,13 +346,13 @@
                 android:rotation="180"/>
             <ImageView
                 android:id="@+id/iv_play"
-                android:padding="@dimen/dp_15"
-                android:layout_width="@dimen/dp_57"
-                android:layout_height="@dimen/dp_57"
+                android:padding="@dimen/dp_18"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="@dimen/dp_65"
                 android:src="@drawable/dkplayer_selector_play_button" />
             <ImageView
                 android:id="@+id/iv_play_next"
-                android:padding="@dimen/dp_15"
+                android:padding="@dimen/dp_18"
                 android:visibility="gone"
                 android:layout_width="@dimen/dp_54"
                 android:layout_height="@dimen/dp_54"
@@ -378,7 +377,7 @@
                     android:layout_width="0.0dip"
                     android:layout_height="50.0dip"
                     android:maxHeight="2.5dip"
-                    android:max="1000"
+                    android:max="100"
                     android:progressDrawable="@drawable/shape_player_control_vod_seek"
                     android:minHeight="2.5dip"
                     android:thumb="@drawable/shape_player_control_vod_seek_thumb"
@@ -404,15 +403,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="57.5dip"
                 android:layout_marginLeft="12.5dp"
-                android:minWidth="62.5dp"
+                android:minWidth="@dimen/dp_65"
                 android:text="x1.0"
                 android:singleLine="true" />
 <!--            <ImageView-->
 <!--                android:id="@+id/pip"-->
-<!--                android:padding="@dimen/dp_15"-->
+<!--                android:padding="@dimen/dp_18"-->
 <!--                android:visibility="gone"-->
-<!--                android:layout_width="57.5dip"-->
-<!--                android:layout_height="57.5dip"画中画-->
+<!--                android:layout_width="@dimen/dp_65"-->
+<!--                android:layout_height="@dimen/dp_65"画中画-->
 <!--                android:src="@drawable/ic_pip" />-->
             <TextView
                 android:textSize="@dimen/text_size_center"
@@ -420,14 +419,14 @@
                 android:gravity="center"
                 android:id="@+id/tv_select_number"
                 android:visibility="gone"
-                android:layout_width="62.5dp"
+                android:layout_width="@dimen/dp_65"
                 android:layout_height="fill_parent"
                 android:text="选集" />
             <ImageView
                 android:id="@+id/fullscreen"
-                android:padding="@dimen/dp_15"
-                android:layout_width="@dimen/dp_57"
-                android:layout_height="@dimen/dp_57"
+                android:padding="@dimen/dp_18"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="@dimen/dp_65"
                 android:src="@drawable/dkplayer_selector_full_screen_button" />
         </LinearLayout>
     </LinearLayout>
@@ -438,7 +437,7 @@
         android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="1.0dip"
-        android:max="1000"
+        android:max="100"
         android:progressDrawable="@drawable/dkplayer_layer_progress_bar"
         style="?android:progressBarStyleHorizontal" />
 
