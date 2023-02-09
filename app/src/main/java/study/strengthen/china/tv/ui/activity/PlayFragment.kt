@@ -332,16 +332,16 @@ class PlayFragment : BaseLazyFragment() {
 
     override fun onResume() {
         super.onResume()
-        if (mVideoView != null) {
-            mVideoView!!.resume()
-        }
+//        if (mVideoView != null) {
+//            mVideoView!!.resume()
+//        }
     }
 
     override fun onPause() {
         super.onPause()
-        if (mVideoView != null) {
-            mVideoView!!.pause()
-        }
+//        if (mVideoView != null) {
+//            mVideoView!!.pause()
+//        }
     }
 
     override fun onDestroy() {

@@ -87,7 +87,7 @@
     <dimen name="vs_960">960mm</dimen>
     <dimen name="sp_16">16sp</dimen>
     <dimen name="text_size_big">16.0sp</dimen>
-    <dimen name="text_size_center">17.5sp</dimen>
+    <dimen name="text_size_center">19sp</dimen>
     <dimen name="text_size_small">15.0sp</dimen>
     <dimen name="text_size_tip">10.0sp</dimen>
 

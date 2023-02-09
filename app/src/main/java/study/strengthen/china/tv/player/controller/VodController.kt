@@ -1,7 +1,9 @@
 package study.strengthen.china.tv.player.controller
 
 import android.content.Context
+import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.util.Log
 import android.view.KeyEvent
 import android.view.LayoutInflater
@@ -34,6 +36,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class VodController(context: Context) : BaseController(context) {
+    private val mHideBottomRunable: Runnable = Runnable {
+        hideBottom()
+    }
     private var mLastSpeed: Float = 1.0f
     private var mFastForwardPopShown: Boolean = false
     private var mCurrentPlayState: Int = 0
@@ -250,14 +255,15 @@ class VodController(context: Context) : BaseController(context) {
                 val simpleDateFormat = SimpleDateFormat("HH:mm")
                 tv_sys_time?.text = simpleDateFormat.format(date)
                 val netSpeedStr = PlayerHelper.formatNetSpeed(mControlWrapper?.tcpSpeed?:0)
-                Log.e("huyi","netSpeedStr $netSpeedStr")
+
                 tv_play_load_net_speed_right_top?.text = netSpeedStr
                 tv_play_load_net_speed?.text = netSpeedStr
                 //视频分辨率
 //            tv_videosize?.text = "[ ${mControlWrapper?.videoSize?.get(0)} X ${mControlWrapper?.videoSize?.get(1)} ]"
-                val currentPosition = mControlWrapper?.currentPosition?:0.div(1000)
-                val duration = mControlWrapper?.duration?:0.div(1000)
+                val currentPosition = (mControlWrapper?.currentPosition?:0)/1000
+                val duration = (mControlWrapper?.duration?:0)/1000
                 val stringBuilder = StringBuilder()
+//                Log.e("huyi","netSpeedStr $netSpeedStr currentPosition $currentPosition duration $duration")
                 stringBuilder.append(String.format("%02d", currentPosition / 60))
                 stringBuilder.append(":")
                 stringBuilder.append(String.format("%02d", currentPosition % 60))
@@ -461,8 +467,85 @@ class VodController(context: Context) : BaseController(context) {
         }
     }
 
-    val isBottomVisible: Boolean
-        get() = mBottomRoot!!.visibility == View.VISIBLE
+    override fun onPlayerStateChanged(playerState: Int) {
+        when(playerState) {
+            VideoView.PLAYER_NORMAL -> {
+                showUI10or12()
+                showUI10()
+            }
+            VideoView.PLAYER_FULL_SCREEN -> {
+                if (mControlWrapper?.isShowing == true && mControlWrapper?.isLocked == false) {
+                    title_container?.visibility = View.VISIBLE
+                    lock?.visibility = View.VISIBLE
+                    iv_landscape_portrait?.visibility = View.VISIBLE
+                }
+                back?.visibility = View.VISIBLE
+                ll_back?.visibility = View.GONE
+
+
+                fullscreen?.setSelected(true)
+                iv_play_next?.visibility = View.VISIBLE
+                iv_play_back?.visibility = View.VISIBLE
+                tv_select_number?.visibility = View.VISIBLE
+                pip?.visibility = View.GONE
+                play_speed?.visibility = View.VISIBLE
+
+//                seekBarBox?.visibility = View.INVISIBLE
+            }
+            VideoView.PLAYER_TINY_SCREEN -> {
+                showUI10or12()
+            }
+        }
+        if (mActivity != null && mControlWrapper?.hasCutout() == true) {
+            val i = mActivity?.requestedOrientation
+            if (i == SCREEN_ORIENTATION_PORTRAIT) {
+                play_load_error?.setPadding(0, 0, 0, 0);
+                title_container?.setPadding(0, 0, 0, 0);
+                ll_back?.setPadding(0, 0, 0, 0);
+                mBottomRoot?.setPadding(0, 0, 0, 0);
+                bottom_progress?.setPadding(0, 0, 0, 0);
+                lockBox?.setPadding(0, 0, 0, 0);
+                menuBox?.setPadding(0, 0, 0, 0);
+            } else if (i == 0 || i == 8 || i == 6) {
+                val j = mControlWrapper?.cutoutHeight?:0
+                play_load_error?.setPadding(j, 0, j, 0);
+                title_container?.setPadding(j, 0, j, 0);
+                ll_back?.setPadding(j, 0, j, 0);
+                mBottomRoot?.setPadding(j, 0, j, 0);
+                bottom_progress?.setPadding(j, 0, j, 0);
+                lockBox?.setPadding(j, 0, 0, 0);
+                menuBox?.setPadding(0, 0, j, 0);
+            }
+        }
+        super.onPlayerStateChanged(playerState)
+    }
+
+    fun showUI10or12() {
+        back?.visibility = View.INVISIBLE
+        ll_back?.visibility = View.VISIBLE
+        lock?.visibility = View.GONE
+        iv_landscape_portrait?.visibility = View.GONE
+    }
+    fun showUI10() {
+        if (play_load_error?.visibility == View.VISIBLE) {
+            play_load_error?.visibility = View.GONE
+        }
+        fullscreen?.setSelected(false)
+        iv_play_next?.visibility = View.GONE
+        iv_play_back?.visibility = View.GONE
+        tv_select_number?.visibility = View.GONE
+        if (Build.VERSION.SDK_INT >= 26) {
+            pip?.visibility = View.VISIBLE
+        }
+        play_speed?.visibility = View.GONE
+
+
+//        seekBarBox?.visibility = View.VISIBLE
+//        fullSeekBarBox?.visibility = View.GONE
+    }
+
+    private val isBottomVisible: Boolean
+        get() = mBottomRoot?.visibility == View.VISIBLE || lock?.visibility == View.VISIBLE
 
     fun showBottom() {
         mHandler.removeMessages(1003)
@@ -470,6 +553,11 @@ class VodController(context: Context) : BaseController(context) {
     }
 
     fun hideBottom() {
+        if (mFastForwardPop?.isShowing == true) {
+            tv_bottom_center_container?.visibility = View.VISIBLE
+        } else {
+            tv_bottom_center_container?.visibility = View.GONE
+        }
         mHandler.removeMessages(1002)
         mHandler.sendEmptyMessage(1003)
     }
@@ -513,8 +601,10 @@ class VodController(context: Context) : BaseController(context) {
     }
 
     override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
+        mHandler?.removeCallbacks(mHideBottomRunable)
         if (!isBottomVisible) {
             showBottom()
+            mHandler?.postDelayed(mHideBottomRunable,5000)
         } else {
             hideBottom()
         }
@@ -568,7 +658,7 @@ class VodController(context: Context) : BaseController(context) {
             if (mFastForwardPop?.isShowing() == false)
                 mFastForwardPop?.showAtLocation(this, 48, 0, DensityUtil.dip2px(25.0F));
             mFastForwardPop?.contentView?.tv_speed?.text = "${speed}X";
-            if (isBottomOrLockShown()) {
+            if (isBottomVisible) {
                 tv_bottom_center_container?.visibility = View.GONE
             } else {
                 tv_bottom_center_container?.visibility = View.VISIBLE
@@ -576,9 +666,9 @@ class VodController(context: Context) : BaseController(context) {
         }
     }
 
-    fun isBottomOrLockShown() : Boolean {
-        return (bottom_container?.visibility == View.VISIBLE || lock?.visibility == View.VISIBLE)
-    }
+//    fun isBottomOrLockShown() : Boolean {
+//        return (mBottomRoot?.visibility == View.VISIBLE || lock?.visibility == View.VISIBLE)
+//    }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
         if (event?.action == ACTION_UP && this.mFastForwardPopShown) {
@@ -610,11 +700,31 @@ class VodController(context: Context) : BaseController(context) {
                 }
                 1002 -> {
                     // 显示底部菜单
-                    mBottomRoot?.visibility = View.VISIBLE
+                    if (mControlWrapper?.isLocked == true && mControlWrapper?.isFullScreen == true) {
+                        lock?.setVisibility(View.VISIBLE)
+                    } else {
+                        title_container?.visibility = View.VISIBLE
+                        mBottomRoot?.visibility = View.VISIBLE
+                        tv_top_l_container?.visibility = View.VISIBLE
+                        tv_top_r_container?.visibility = View.VISIBLE
+                        tv_info_name?.visibility = View.VISIBLE
+                        setting?.visibility = View.VISIBLE
+                        pushTv?.visibility = View.VISIBLE
+                        if (mControlWrapper?.isFullScreen == true) {
+                            lock?.visibility = View.VISIBLE
+                            iv_landscape_portrait?.visibility = View.VISIBLE
+                        }
+                    }
+//                    a.C0 = false;
                 }
                 1003 -> {
                     // 隐藏底部菜单
                     mBottomRoot?.visibility = View.GONE
+                    title_container?.visibility = View.GONE
+                    pushTv?.visibility = View.GONE
+                    setting?.visibility = View.GONE
+                    iv_landscape_portrait?.visibility = View.GONE
+                    lock?.visibility = View.GONE
                 }
                 1004 -> {
                     // 设置速度

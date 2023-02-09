@@ -79,7 +79,7 @@ class DetailActivity : BaseActivity() {
     var sourceKey: String? = null
     var seriesSelect = false
     private var seriesFlagFocus: View? = null
-    private var mPlayFragment : PlayFragment? = null
+    var mPlayFragment : PlayFragment? = null
 
     override fun getLayoutResID(): Int {
         return R.layout.activity_detail_phone

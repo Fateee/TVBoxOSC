@@ -31,7 +31,7 @@
                 android:id="@+id/err_message"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sp_19"
+                android:textSize="@dimen/text_size_center"
                 android:text="@string/dkplayer_error_message" />
             <LinearLayout
                 android:orientation="horizontal"
@@ -49,7 +49,7 @@
                     android:layout_marginLeft="@dimen/dp_6"
                     android:layout_marginTop="20.0dip"
                     android:layout_marginRight="@dimen/dp_6"
-                    android:textSize="@dimen/sp_19"
+                    android:textSize="@dimen/text_size_center"
                     android:text=" 重 试 " />
                 <TextView
                     android:textColor="@android:color/white"
@@ -63,7 +63,7 @@
                     android:layout_marginLeft="@dimen/dp_6"
                     android:layout_marginTop="20.0dip"
                     android:layout_marginRight="@dimen/dp_6"
-                    android:textSize="@dimen/sp_19"
+                    android:textSize="@dimen/text_size_center"
                     android:text=" 换 源 " />
             </LinearLayout>
         </LinearLayout>
@@ -78,9 +78,9 @@
                 android:layout_gravity="start|center"
                 android:id="@+id/setting2"
                 android:background="@drawable/dkplayer_shape_back_bg"
-                android:padding="12.5dp"
-                android:layout_width="50.0dip"
-                android:layout_height="50.0dip"
+                android:padding="@dimen/dp_18"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="@dimen/dp_65"
                 android:src="@drawable/icon_setting" />
         </LinearLayout>
     </RelativeLayout>
@@ -123,7 +123,7 @@
                 android:singleLine="true"
                 android:layout_weight="1.0" />
             <TextView
-                android:textSize="@dimen/text_size_small"
+                android:textSize="@dimen/text_size_center"
                 android:textColor="@android:color/white"
                 android:ellipsize="end"
                 android:layout_gravity="left"
@@ -146,7 +146,7 @@
             android:layout_marginTop="12.5dp"
             android:layout_marginRight="12.5dp">
             <TextView
-                android:textSize="@dimen/text_size_small"
+                android:textSize="@dimen/text_size_center"
                 android:textColor="@android:color/white"
                 android:ellipsize="end"
                 android:layout_gravity="right"
@@ -159,7 +159,7 @@
                 android:text="00:00:00"
                 android:maxLines="1" />
             <TextView
-                android:textSize="@dimen/text_size_small"
+                android:textSize="@dimen/text_size_center"
                 android:textColor="@android:color/white"
                 android:ellipsize="end"
                 android:layout_gravity="right"
@@ -196,10 +196,10 @@
         <ImageView
             android:id="@+id/lock"
             android:background="@drawable/dkplayer_shape_back_bg"
-            android:padding="12.5dp"
             android:visibility="gone"
-            android:layout_width="50.0dip"
-            android:layout_height="50.0dip"
+            android:padding="@dimen/dp_18"
+            android:layout_width="@dimen/dp_65"
+            android:layout_height="@dimen/dp_65"
             android:src="@drawable/dkplayer_selector_lock_button" />
     </LinearLayout>
 <!-- 右边操作按钮 whdone  -->
@@ -214,30 +214,30 @@
             android:layout_gravity="start|center"
             android:id="@+id/pushTv"
             android:background="@drawable/dkplayer_shape_back_bg"
-            android:padding="12.5dp"
             android:visibility="gone"
-            android:layout_width="50.0dip"
-            android:layout_height="50.0dip"
+            android:padding="@dimen/dp_18"
+            android:layout_width="@dimen/dp_65"
+            android:layout_height="@dimen/dp_65"
             android:src="@drawable/push_bt" />
         <ImageView
             android:layout_gravity="start|center"
             android:id="@+id/setting"
             android:background="@drawable/dkplayer_shape_back_bg"
-            android:padding="12.5dp"
             android:visibility="gone"
-            android:layout_width="50.0dip"
-            android:layout_height="50.0dip"
-            android:layout_marginTop="12.5dp"
+            android:padding="@dimen/dp_18"
+            android:layout_width="@dimen/dp_65"
+            android:layout_height="@dimen/dp_65"
+            android:layout_marginTop="12dp"
             android:src="@drawable/icon_setting" />
         <ImageView
             android:layout_gravity="start|center"
             android:id="@+id/iv_landscape_portrait"
             android:background="@drawable/dkplayer_shape_back_bg"
-            android:padding="12.5dp"
             android:visibility="gone"
-            android:layout_width="50.0dip"
-            android:layout_height="50.0dip"
-            android:layout_marginTop="12.5dp"
+            android:padding="@dimen/dp_18"
+            android:layout_width="@dimen/dp_65"
+            android:layout_height="@dimen/dp_65"
+            android:layout_marginTop="12dp"
             android:src="@drawable/ic_landscape_portrait" />
     </LinearLayout>
 
@@ -340,8 +340,8 @@
                 android:id="@+id/iv_play_back"
                 android:padding="@dimen/dp_18"
                 android:visibility="gone"
-                android:layout_width="@dimen/dp_54"
-                android:layout_height="@dimen/dp_54"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="@dimen/dp_65"
                 android:src="@drawable/ic_play_next"
                 android:rotation="180"/>
             <ImageView
@@ -354,8 +354,8 @@
                 android:id="@+id/iv_play_next"
                 android:padding="@dimen/dp_18"
                 android:visibility="gone"
-                android:layout_width="@dimen/dp_54"
-                android:layout_height="@dimen/dp_54"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="@dimen/dp_65"
                 android:src="@drawable/ic_play_next" />
             <LinearLayout
                 android:gravity="center_vertical"
@@ -365,7 +365,7 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1.0">
                 <TextView
-                    android:textSize="17.5sp"
+                    android:textSize="@dimen/text_size_center"
                     android:textColor="@android:color/white"
                     android:id="@+id/curr_time"
                     android:layout_width="wrap_content"
@@ -388,7 +388,7 @@
                     android:layout_marginStart="12.5dip"
                     android:layout_marginEnd="12.5dip" />
                 <TextView
-                    android:textSize="17.5sp"
+                    android:textSize="@dimen/text_size_center"
                     android:textColor="@android:color/white"
                     android:id="@+id/total_time"
                     android:layout_width="wrap_content"
@@ -401,18 +401,19 @@
                 android:id="@+id/play_speed"
                 android:visibility="gone"
                 android:layout_width="wrap_content"
-                android:layout_height="57.5dip"
+                android:layout_height="@dimen/dp_65"
                 android:layout_marginLeft="12.5dp"
                 android:minWidth="@dimen/dp_65"
                 android:text="x1.0"
                 android:singleLine="true" />
-<!--            <ImageView-->
-<!--                android:id="@+id/pip"-->
-<!--                android:padding="@dimen/dp_18"-->
-<!--                android:visibility="gone"-->
-<!--                android:layout_width="@dimen/dp_65"-->
-<!--                android:layout_height="@dimen/dp_65"画中画-->
-<!--                android:src="@drawable/ic_pip" />-->
+            <ImageView
+                android:id="@+id/pip"
+                android:paddingVertical="@dimen/dp_18"
+                android:paddingLeft="@dimen/dp_18"
+                android:visibility="gone"
+                android:layout_width="@dimen/dp_65"
+                android:layout_height="@dimen/dp_65"
+                android:src="@drawable/ic_pip" />
             <TextView
                 android:textSize="@dimen/text_size_center"
                 android:textColor="@android:color/white"
@@ -515,7 +516,7 @@
             android:layout_width="@dimen/dp_45"
             android:layout_height="@dimen/dp_45" />
         <TextView
-            android:textSize="17.5sp"
+            android:textSize="@dimen/text_size_center"
             android:textColor="@android:color/white"
             android:id="@+id/tv_slide_progress_text"
             android:tag="vod_control_slide_info"

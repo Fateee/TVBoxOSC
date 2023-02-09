@@ -1081,4 +1081,8 @@ public class VideoView<P extends AbstractPlayer> extends FrameLayout
         saveProgress();
         return super.onSaveInstanceState();
     }
+
+    public P getMediaPlayer() {
+        return mMediaPlayer;
+    }
 }
