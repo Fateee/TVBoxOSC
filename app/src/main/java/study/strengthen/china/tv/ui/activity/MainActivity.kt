@@ -1,5 +1,6 @@
 package study.strengthen.china.tv.ui.activity
 
+import android.graphics.Typeface
 import android.view.Menu
 import android.view.View
 import androidx.viewpager.widget.ViewPager
@@ -88,9 +89,11 @@ class MainActivity : BaseActivity() {
     }
     private fun showCurrentTab(selectIndex: Int) {
         focusTab?.tabItem?.isSelected = false
-        focusTab?.tab_tv?.setTextColor(resources.getColor(R.color.cA1A1A1))
+        focusTab?.tab_tv?.setTextColor(resources.getColor(R.color.c161616))
+        focusTab?.tab_tv?.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
         focusTab = (nav_view.getChildAt(0) as BottomNavigationMenuView).getChildAt(selectIndex)
         focusTab?.tabItem?.isSelected = true
-        focusTab?.tab_tv?.setTextColor(resources.getColor(R.color.c4CA4FF))
+        focusTab?.tab_tv?.setTextColor(resources.getColor(R.color.main_color))
+        focusTab?.tab_tv?.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
     }
 }

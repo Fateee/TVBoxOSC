@@ -7,8 +7,8 @@
         android:checkable="true"/>
     <item
         android:id="@+id/navigation_live"
-        android:title="直播"
-        android:icon="@drawable/ic_mine_selector"
+        android:title="电视"
+        android:icon="@drawable/ic_tv_selector"
         android:checkable="true" />
     <item
         android:id="@+id/navigation_mine"

@@ -13,7 +13,7 @@
         android:gravity="bottom|center_horizontal"
         android:bottom="5dp">
         <shape>
-            <solid android:color="@color/cC50723" />
+            <solid android:color="@color/main_color" />
             <corners android:radius="123dp" />
         </shape>
     </item>

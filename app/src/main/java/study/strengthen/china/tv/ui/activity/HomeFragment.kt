@@ -455,7 +455,7 @@ class HomeFragment : BaseLazyFragment() {
     private fun onTabChecked(tab: TabLayout.Tab?) {
         val textView = tab?.customView as TextView?
         textView?.setTextSize(TypedValue.COMPLEX_UNIT_PX, DensityUtil.sp2px(24f).toFloat())
-        textView?.setTextColor(resources.getColor(R.color.cC50723))
+        textView?.setTextColor(resources.getColor(R.color.main_color))
         textView?.isSingleLine = true
         textView?.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
         textView?.includeFontPadding = false

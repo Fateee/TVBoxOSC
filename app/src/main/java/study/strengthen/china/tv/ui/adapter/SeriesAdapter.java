@@ -28,7 +28,7 @@ public class SeriesAdapter extends BaseQuickAdapter<VodInfo.VodSeries, BaseViewH
         TextView tvSeries = helper.getView(R.id.tvSeries);
         ImageView playingIcon = helper.getView(R.id.playingIcon);
         if (item.selected) {
-            tvSeries.setTextColor(mContext.getResources().getColor(R.color.cC50723));
+            tvSeries.setTextColor(mContext.getResources().getColor(R.color.main_color));
 //            tvSeries.setTextColor(Color.parseColor("#d0021b"));
             tvSeries.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             playingIcon.setVisibility(View.VISIBLE);

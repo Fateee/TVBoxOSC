@@ -122,9 +122,10 @@
     <color name="cFEFEFE">#FEFEFE</color>
     <color name="c573D1B">#573D1B</color>
     <color name="cC50723">#C50723</color>
+    <color name="cdd2d1e">#dd2d1e</color>
     <color name="title">#000000</color>
     <color name="desc_primary">#CECECE</color>
-    <color name="main_color">@color/cC50723</color>
+    <color name="main_color">@color/cdd2d1e</color>
     <color name="appwidget_tab_selected">#000000</color>
     <color name="appwidget_tab_unselected">#5E5E5E</color>
     <color name="cD8D8D8">#D8D8D8</color>

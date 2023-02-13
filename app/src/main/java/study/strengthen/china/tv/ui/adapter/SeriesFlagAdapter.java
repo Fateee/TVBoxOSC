@@ -26,7 +26,7 @@ public class SeriesFlagAdapter extends BaseQuickAdapter<VodInfo.VodSeriesFlag, B
         TextView tvSeries = helper.getView(R.id.tvSeriesFlag);
         View select = helper.getView(R.id.tvSeriesFlagSelect);
         if (item.selected) {
-            tvSeries.setTextColor(mContext.getResources().getColor(R.color.cC50723));
+            tvSeries.setTextColor(mContext.getResources().getColor(R.color.main_color));
             tvSeries.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             select.setVisibility(View.VISIBLE);
         } else {
