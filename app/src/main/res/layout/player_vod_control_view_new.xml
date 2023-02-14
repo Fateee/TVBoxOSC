@@ -577,6 +577,13 @@
         android:layout_marginTop="@dimen/dp_25"
         android:text="0Kb/s" />
 
+    <include android:id="@+id/mFastForwardPop"
+        layout="@layout/player_dialog_speed"
+        android:layout_gravity="center_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_25"
+        android:visibility="gone"/>
     <!--    设置UI-->
     <LinearLayout
         android:orientation="horizontal"

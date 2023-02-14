@@ -62,7 +62,7 @@ class VodController(context: Context) : BaseController(context) {
     var mPlayerRetry: TextView? = null
     var mPlayerTimeStartBtn: TextView? = null
     var mPlayerTimeSkipBtn: TextView? = null
-    var mFastForwardPop : PopupWindow? = null;
+//    var mFastForwardPop : PopupWindow? = null;
     //    TextView mPlayerTimeStepBtn;
     override fun initView() {
         super.initView()
@@ -134,10 +134,21 @@ class VodController(context: Context) : BaseController(context) {
             listener!!.playNext(false)
             hideBottom()
         })
+        iv_play_next?.setOnClickListener(OnClickListener {
+            listener?.playNext(false)
+            hideBottom()
+        })
         mPreBtn?.setOnClickListener(OnClickListener {
             listener!!.playPre()
             hideBottom()
         })
+        iv_play_back?.setOnClickListener(OnClickListener {
+            listener?.playPre()
+            hideBottom()
+        })
+        iv_play?.setOnClickListener {
+            onDoubleTap(null)
+        }
         mPlayerScaleBtn?.setOnClickListener(OnClickListener {
             try {
                 var scaleType = mPlayerConfig!!.getInt("sc")
@@ -323,6 +334,7 @@ class VodController(context: Context) : BaseController(context) {
 
     fun setTitle(playTitleInfo: String?) {
         mPlayTitle!!.text = playTitleInfo
+        tv_info_name1?.text = playTitleInfo
     }
 
     fun resetSpeed() {
@@ -559,7 +571,7 @@ class VodController(context: Context) : BaseController(context) {
     }
 
     fun hideBottom() {
-        if (mFastForwardPop?.isShowing == true) {
+        if (mFastForwardPop?.visibility == View.VISIBLE) {
             tv_bottom_center_container?.visibility = View.VISIBLE
         } else {
             tv_bottom_center_container?.visibility = View.GONE
@@ -652,18 +664,9 @@ class VodController(context: Context) : BaseController(context) {
 
     private fun showFastForwardUI(speed: Float) {
         if (!mIsLocked) {
-            if (this.mFastForwardPop == null) {
-                val view = LayoutInflater.from(context).inflate(R.layout.player_dialog_speed, null);
-                val popupWindow = PopupWindow(view, -2, -2, true);
-                popupWindow.setTouchable(true);
-                popupWindow.setOutsideTouchable(true);
-                popupWindow.setBackgroundDrawable(ColorDrawable(0));
-                popupWindow.setAnimationStyle(R.style.jc_popup_toast_anim);
-                mFastForwardPop = popupWindow;
-            }
-            if (mFastForwardPop?.isShowing() == false)
-                mFastForwardPop?.showAtLocation(this, 48, 0, DensityUtil.dip2px(25.0F));
-            mFastForwardPop?.contentView?.tv_speed?.text = "${speed}X";
+            if (mFastForwardPop?.visibility == View.GONE)
+                mFastForwardPop?.visibility = View.VISIBLE
+            mFastForwardPop?.tv_speed?.text = "${speed}X";
             if (isBottomVisible) {
                 tv_bottom_center_container?.visibility = View.GONE
             } else {
@@ -681,7 +684,7 @@ class VodController(context: Context) : BaseController(context) {
             this.mFastForwardPopShown = false
             try {
                 tv_bottom_center_container?.visibility = View.GONE
-                mFastForwardPop?.dismiss()
+                mFastForwardPop?.visibility = View.GONE
                 mPlayerConfig?.put("sp", mLastSpeed)
                 updatePlayerCfgView()
                 listener?.updatePlayerCfg()
