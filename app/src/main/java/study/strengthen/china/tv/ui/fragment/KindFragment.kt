@@ -67,7 +67,7 @@ class KindFragment : BaseLazyFragment() {
             sourceViewModel!!.getList(sortData, page)
         }, mGridView)
         gridAdapter!!.setOnItemClickListener { adapter, view, position ->
-            FastClickCheckUtil.check(view)
+//            FastClickCheckUtil.check(view)
             val video = gridAdapter!!.data[position]
             if (video != null) {
                 val bundle = Bundle()

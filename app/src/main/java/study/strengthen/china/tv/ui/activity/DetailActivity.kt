@@ -238,7 +238,7 @@ class DetailActivity : BaseActivity() {
             }
         })
         seriesAdapter?.setOnItemClickListener { adapter, view, position ->
-            FastClickCheckUtil.check(view)
+//            FastClickCheckUtil.check(view)
             if (vodInfo != null && vodInfo!!.seriesMap[vodInfo!!.playFlag]!!.size > 0) {
                 if (vodInfo!!.playIndex != position) {
                     seriesAdapter!!.data[vodInfo!!.playIndex].selected = false

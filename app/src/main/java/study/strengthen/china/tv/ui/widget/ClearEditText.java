@@ -9,13 +9,17 @@ import android.view.MotionEvent;
 import android.view.View;
 import androidx.appcompat.widget.AppCompatEditText;
 
+import org.jetbrains.annotations.NotNull;
+
+import kotlin.Unit;
+import kotlin.jvm.functions.Function1;
 import study.strengthen.china.tv.R;
 
 public class ClearEditText extends AppCompatEditText implements View.OnFocusChangeListener, TextWatcher {
 	public Drawable e;
 
 	public boolean f;
-
+	public Function1<? super Editable, Unit> mEditTextCallback;
 	public ClearEditText(Context paramContext) {
 		this(paramContext, null);
 	}
@@ -37,7 +41,9 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
 		addTextChangedListener(this);
 	}
 
-	public void afterTextChanged(Editable paramEditable) {}
+	public void afterTextChanged(Editable paramEditable) {
+		mEditTextCallback.invoke(paramEditable);
+	}
 
 	public void beforeTextChanged(CharSequence paramCharSequence, int paramInt1, int paramInt2, int paramInt3) {}
 
@@ -86,5 +92,9 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
 			drawable = null;
 		}
 		setCompoundDrawables(getCompoundDrawables()[0], getCompoundDrawables()[1], drawable, getCompoundDrawables()[3]);
+	}
+
+	public void setOnTextChangedCallback(@NotNull Function1<? super Editable, Unit> function) {
+		mEditTextCallback = function;
 	}
 }

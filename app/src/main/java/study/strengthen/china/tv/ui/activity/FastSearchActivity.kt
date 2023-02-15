@@ -2,7 +2,11 @@ package study.strengthen.china.tv.ui.activity
 
 import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
 import android.view.View
+import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -51,7 +55,7 @@ class FastSearchActivity : BaseActivity() {
 //    private var wordAdapter: PinyinAdapter? = null
     private var zzLinkage : ZzSecondaryLinkage<Movie>?=null
     private var searchTitle: String? = ""
-    private var mAllMovie : Movie? = null
+//    private var mAllMovie : Movie? = null
     private var mSearchRetList: MutableList<Movie?>? = ArrayList()
 //    private var mSearchRetList: MutableList<MutableList<Movie.Video>>? = ArrayList()
     override fun getLayoutResID(): Int {
@@ -93,7 +97,7 @@ class FastSearchActivity : BaseActivity() {
             }
 
             override fun onRightClick(view: View?, position: Int) {
-                FastClickCheckUtil.check(view)
+//                FastClickCheckUtil.check(view)
                 val video = rightAdapter.getItem(position)
                 if (video != null) {
                     try {
@@ -111,6 +115,19 @@ class FastSearchActivity : BaseActivity() {
                 }
             }
         })
+        et_search?.setOnTextChangedCallback{paramEditable : Editable ->
+            performSearch()
+        }
+        et_search?.setOnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                performSearch()
+                return@setOnEditorActionListener true
+            }
+            return@setOnEditorActionListener false
+        }
+        iv_search?.setOnClickListener {
+            performSearch()
+        }
 //        EventBus.getDefault().register(this)
 //        llLayout = findViewById(R.id.llLayout)
 //        etSearch = findViewById(R.id.etSearch)
@@ -193,6 +210,15 @@ class FastSearchActivity : BaseActivity() {
 //            }
 //        })
 //        setLoadSir(llLayout)
+    }
+
+    private fun performSearch() {
+        val str = et_search?.text?.toString()?:"".trim()
+        if (!TextUtils.isEmpty(str)) {
+            search(str)
+        } else {
+            Toast.makeText(mContext, "输入内容不能为空", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun initViewModel() {
@@ -291,6 +317,7 @@ class FastSearchActivity : BaseActivity() {
 //    }
 
     private fun search(title: String?) {
+        mSearchRetList?.clear()
         cancel()
         showLoading()
         searchTitle = title
@@ -342,16 +369,6 @@ class FastSearchActivity : BaseActivity() {
             for (video: Movie.Video in absXml.movie.videoList) {
                 if (video.name.contains((searchTitle.toString()))) data.add(video)
             }
-            if (mAllMovie == null) {
-                mAllMovie = Movie()
-                mAllMovie?.sourceKey = "全部结果"
-                mAllMovie?.videoList = mutableListOf<Movie.Video>()
-            }
-            mAllMovie?.videoList?.addAll(data)
-            if (mSearchRetList?.isNullOrEmpty() == false) {
-                mSearchRetList?.removeAt(0)
-            }
-            mSearchRetList?.add(0, mAllMovie!!)
             mSearchRetList?.add(absXml.movie)
             zzLinkage?.updateData(mSearchRetList)
 //            if (searchAdapter!!.data.size > 0) {
