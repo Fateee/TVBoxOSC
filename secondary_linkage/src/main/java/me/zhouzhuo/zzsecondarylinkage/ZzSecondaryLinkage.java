@@ -36,7 +36,7 @@ public class ZzSecondaryLinkage<T extends BaseMenuBean> extends LinearLayout imp
     private OnRefreshListener mRefreshListener;
     private OnLoadMoreListener mLoadMoreListener;
 
-    private ZzRefreshLayout refreshLayout;
+//    private ZzRefreshLayout refreshLayout;
 
     public ZzSecondaryLinkage(Context context) {
         super(context);
@@ -60,7 +60,7 @@ public class ZzSecondaryLinkage<T extends BaseMenuBean> extends LinearLayout imp
 
         customNoDataView = (RelativeLayout) rootView.findViewById(R.id.custom_no_data_view);
 
-        refreshLayout = (ZzRefreshLayout) rootView.findViewById(R.id.refresh_layout);
+//        refreshLayout = (ZzRefreshLayout) rootView.findViewById(R.id.refresh_layout);
 
         lvLeft = (ListView) rootView.findViewById(R.id.left_lv);
         lvRight = (ListView) rootView.findViewById(R.id.right_lv);
@@ -77,37 +77,37 @@ public class ZzSecondaryLinkage<T extends BaseMenuBean> extends LinearLayout imp
 
     private void setRefreshListener() {
         View footer = LayoutInflater.from(getContext()).inflate(R.layout.footer_load_more, null);
-        refreshLayout.setListViewAndFooter(lvRight, footer);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (mRefreshListener != null) {
-                    mRefreshListener.onRefresh();
-                }
-            }
-        });
-
-        refreshLayout.setOnLoadListener(new ZzRefreshLayout.OnLoadListener() {
-            @Override
-            public void onLoad() {
-                if (mLoadMoreListener != null && !refreshLayout.isRefreshing()) {
-                    refreshLayout.setEnabled(false);
-                    mLoadMoreListener.onLoad();
-                }
-            }
-        });
+//        refreshLayout.setListViewAndFooter(lvRight, footer);
+//        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                if (mRefreshListener != null) {
+//                    mRefreshListener.onRefresh();
+//                }
+//            }
+//        });
+//
+//        refreshLayout.setOnLoadListener(new ZzRefreshLayout.OnLoadListener() {
+//            @Override
+//            public void onLoad() {
+//                if (mLoadMoreListener != null && !refreshLayout.isRefreshing()) {
+//                    refreshLayout.setEnabled(false);
+//                    mLoadMoreListener.onLoad();
+//                }
+//            }
+//        });
 
     }
 
     @Override
     public void stopLoadMore() {
-        refreshLayout.setEnabled(true);
-        refreshLayout.setLoading(false);
+//        refreshLayout.setEnabled(false);
+//        refreshLayout.setLoading(false);
     }
 
     @Override
     public void stopRefresh() {
-        refreshLayout.setRefreshing(false);
+//        refreshLayout.setRefreshing(false);
     }
 
     @Override

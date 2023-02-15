@@ -1,11 +1,20 @@
 package study.strengthen.china.tv.ui.activity
 
+import android.app.PendingIntent
+import android.app.PictureInPictureParams
+import android.app.RemoteAction
+import android.content.pm.PackageManager
+import android.content.res.Configuration
+import android.graphics.drawable.Icon
+import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
+import android.util.Rational
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
@@ -579,4 +588,50 @@ class DetailActivity : BaseActivity() {
     }
 
     override fun isWhiteStatusBar() = false
+
+    //判断是否可以进入画中画模式
+    private fun isCanPipModel(): Boolean {
+        return packageManager.hasSystemFeature(PackageManager.FEATURE_PICTURE_IN_PICTURE)
+    }
+
+    fun enterPipModel() {
+        if (!isCanPipModel()) {
+            Toast.makeText(this, "无法进入PIP模式", Toast.LENGTH_SHORT).show();
+            return
+        }
+        if (Build.VERSION.SDK_INT >= 26) {
+            val builder = PictureInPictureParams.Builder()
+            //设置Actions
+            val pIntent = PendingIntent.getActivity(this,100,
+                    intent, PendingIntent.FLAG_UPDATE_CURRENT)
+            val remoteAction = RemoteAction(Icon.createWithResource(this,
+                    R.drawable.app_icon), "画中画","pip",pIntent)
+            builder.setActions(arrayListOf(remoteAction))
+            //设置宽高比例，第一个是分子，第二个是分母,指定宽高比，必须在 2.39:1或1:2.39 之间，否则会抛出IllegalArgumentException异常。
+            val rational= Rational(16,9)
+            builder.setAspectRatio(rational)
+
+            //Android12下加入的画中画配置，对于非视频内容停用无缝大小调整
+//        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+//            builder.setSeamlessResizeEnabled(false)
+//            builder.setAutoEnterEnabled(true)
+//        }
+
+            enterPictureInPictureMode(builder.build())
+        } else {
+
+        }
+    }
+
+    override fun onPictureInPictureModeChanged(
+            isInPictureInPictureMode: Boolean, configuration: Configuration?) {
+        super.onPictureInPictureModeChanged(isInPictureInPictureMode, configuration)
+        if (isInPictureInPictureMode) {
+            mPlayFragment?.mVideoView?.setVideoController(null)
+        } else {
+            mPlayFragment?.mVideoView?.setVideoController(mPlayFragment?.mController)
+            mPlayFragment?.mVideoView?.requestLayout()
+        }
+    }
+
 }

@@ -25,6 +25,7 @@ import study.strengthen.china.tv.bean.ParseBean
 import study.strengthen.china.tv.player.controller.BaseController.HandlerCallback
 import study.strengthen.china.tv.player.thirdparty.MXPlayer
 import study.strengthen.china.tv.player.thirdparty.ReexPlayer
+import study.strengthen.china.tv.ui.activity.DetailActivity
 import study.strengthen.china.tv.ui.adapter.ParseAdapter
 import study.strengthen.china.tv.util.DensityUtil
 import study.strengthen.china.tv.util.HawkConfig
@@ -294,6 +295,11 @@ class VodController(context: Context) : BaseController(context) {
         }
         back?.setOnClickListener {
             toggleFullScreen()
+        }
+        pip?.setOnClickListener {
+            if (mActivity is DetailActivity) {
+                (mActivity as DetailActivity).enterPipModel()
+            }
         }
     }
 

@@ -18,10 +18,10 @@
         android:layout_height="match_parent"
         android:layout_weight="1">
 
-        <me.zhouzhuo.zzsecondarylinkage.widget.ZzRefreshLayout
-            android:id="@+id/refresh_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+<!--        <me.zhouzhuo.zzsecondarylinkage.widget.ZzRefreshLayout-->
+<!--            android:id="@+id/refresh_layout"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent">-->
 
             <ListView
                 android:id="@+id/right_lv"
@@ -31,7 +31,7 @@
                 android:divider="#F3F5F8"
                 android:paddingHorizontal="8dp"
                 android:dividerHeight="8dp" />
-        </me.zhouzhuo.zzsecondarylinkage.widget.ZzRefreshLayout>
+<!--        </me.zhouzhuo.zzsecondarylinkage.widget.ZzRefreshLayout>-->
 
         <RelativeLayout
             android:id="@+id/custom_no_data_view"

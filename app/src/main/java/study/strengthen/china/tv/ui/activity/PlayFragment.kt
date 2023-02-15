@@ -53,11 +53,11 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class PlayFragment : BaseLazyFragment() {
-    private var mVideoView: VideoView<*>? = null
+    var mVideoView: VideoView<*>? = null
     private var mPlayLoadTip: TextView? = null
     private var mPlayLoadErr: View? = null
     private var mPlayLoading: ProgressBar? = null
-    private var mController: VodController? = null
+    var mController: VodController? = null
     private var sourceViewModel: SourceViewModel? = null
     private var mDetailActivity : DetailActivity? = null
     private var mHandler = Handler(Handler.Callback { msg ->
