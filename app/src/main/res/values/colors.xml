@@ -152,5 +152,5 @@
     <color name="dkplayer_select2_background_color">#97000000</color>
     <color name="dkplayer_select_background_color">#dd000000</color>
     <color name="dkplayer_theme_color">@color/main_color</color>
-
+    <color name="common_search_record_color">#0d000000</color>
 </resources>

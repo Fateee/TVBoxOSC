@@ -95,6 +95,7 @@ dependencies {
 
     implementation project(":player")
     implementation project(":secondary_linkage")
+    implementation project(':flowlayout')
     implementation('org.xwalk:xwalk_shared_library:23.53.589.4') {
         exclude group: 'com.android.support'
     }

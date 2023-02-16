@@ -42,7 +42,8 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
 	}
 
 	public void afterTextChanged(Editable paramEditable) {
-		mEditTextCallback.invoke(paramEditable);
+		if (mEditTextCallback != null)
+			mEditTextCallback.invoke(paramEditable);
 	}
 
 	public void beforeTextChanged(CharSequence paramCharSequence, int paramInt1, int paramInt2, int paramInt3) {}
