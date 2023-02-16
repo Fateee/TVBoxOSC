@@ -113,6 +113,11 @@ class HomeFragment : BaseLazyFragment() {
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
+        searchTv?.setOnClickListener {
+            val newIntent = Intent(mContext, FastSearchActivity::class.java)
+            newIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
+            mActivity.startActivity(newIntent)
+        }
 //        topLayout = findViewById(R.id.topLayout)
 //        tvDate = findViewById(R.id.tvDate)
 //        contentLayout = findViewById(R.id.contentLayout)
