@@ -53,6 +53,7 @@ import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 class PlayFragment : BaseLazyFragment() {
+    private var isStoped: Boolean = false
     var mVideoView: VideoView<*>? = null
     private var mPlayLoadTip: TextView? = null
     private var mPlayLoadErr: View? = null
@@ -335,6 +336,10 @@ class PlayFragment : BaseLazyFragment() {
 //        if (mVideoView != null) {
 //            mVideoView!!.resume()
 //        }
+        if (isStoped) {
+            mVideoView?.resume()
+            isStoped = false
+        }
     }
 
     override fun onPause() {
@@ -342,6 +347,22 @@ class PlayFragment : BaseLazyFragment() {
 //        if (mVideoView != null) {
 //            mVideoView!!.pause()
 //        }
+    }
+
+//    override fun onStart() {
+//        if (isStoped) {
+//            mVideoView?.start()
+//            isStoped = false;
+//        }
+//        super.onStart()
+//    }
+
+    override fun onStop() {
+        if (mVideoView?.isPlaying == true) {
+            mVideoView?.pause();
+            isStoped = true
+        }
+        super.onStop()
     }
 
     override fun onDestroy() {
