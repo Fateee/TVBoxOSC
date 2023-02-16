@@ -40,6 +40,34 @@ class VodController(context: Context) : BaseController(context) {
     private val mHideBottomRunable: Runnable = Runnable {
         hideBottom()
     }
+    private val showSpeedTimeRunnable = object : Runnable {
+        override fun run() {
+            val date = Date()
+            val simpleDateFormat = SimpleDateFormat("HH:mm")
+            tv_sys_time?.text = simpleDateFormat.format(date)
+            val netSpeedStr = PlayerHelper.formatNetSpeed(mControlWrapper?.tcpSpeed?:0)
+
+            tv_play_load_net_speed_right_top?.text = netSpeedStr
+            tv_play_load_net_speed?.text = netSpeedStr
+            //视频分辨率
+            tv_videosize?.text = "[ ${mControlWrapper?.videoSize?.get(0)} X ${mControlWrapper?.videoSize?.get(1)} ]"
+            val currentPosition = (mControlWrapper?.currentPosition?:0)/1000
+            val duration = (mControlWrapper?.duration?:0)/1000
+            val stringBuilder = StringBuilder()
+//                Log.e("huyi","netSpeedStr $netSpeedStr currentPosition $currentPosition duration $duration")
+            stringBuilder.append(String.format("%02d", currentPosition / 60))
+            stringBuilder.append(":")
+            stringBuilder.append(String.format("%02d", currentPosition % 60))
+            stringBuilder.append(" | ")
+            stringBuilder.append(String.format("%02d", duration / 60))
+            stringBuilder.append(":")
+            stringBuilder.append(String.format("%02d", duration % 60))
+            tv_seek_time?.text = stringBuilder.toString()
+            if (isBottomVisible || mLoading?.visibility == View.VISIBLE) {
+                mHandler?.postDelayed(this,900L)
+            }
+        }
+    }
     private var mLastSpeed: Float = 1.0f
     private var mFastForwardPopShown: Boolean = false
     private var mCurrentPlayState: Int = 0
@@ -261,32 +289,6 @@ class VodController(context: Context) : BaseController(context) {
 //                updatePlayerCfgView();
 //            }
 //        });
-        mHandler?.post (object : Runnable{
-            override fun run() {
-                val date = Date()
-                val simpleDateFormat = SimpleDateFormat("HH:mm")
-                tv_sys_time?.text = simpleDateFormat.format(date)
-                val netSpeedStr = PlayerHelper.formatNetSpeed(mControlWrapper?.tcpSpeed?:0)
-
-                tv_play_load_net_speed_right_top?.text = netSpeedStr
-                tv_play_load_net_speed?.text = netSpeedStr
-                //视频分辨率
-//            tv_videosize?.text = "[ ${mControlWrapper?.videoSize?.get(0)} X ${mControlWrapper?.videoSize?.get(1)} ]"
-                val currentPosition = (mControlWrapper?.currentPosition?:0)/1000
-                val duration = (mControlWrapper?.duration?:0)/1000
-                val stringBuilder = StringBuilder()
-//                Log.e("huyi","netSpeedStr $netSpeedStr currentPosition $currentPosition duration $duration")
-                stringBuilder.append(String.format("%02d", currentPosition / 60))
-                stringBuilder.append(":")
-                stringBuilder.append(String.format("%02d", currentPosition % 60))
-                stringBuilder.append(" | ")
-                stringBuilder.append(String.format("%02d", duration / 60))
-                stringBuilder.append(":")
-                stringBuilder.append(String.format("%02d", duration % 60))
-                tv_seek_time?.text = stringBuilder.toString()
-                mHandler?.postDelayed(this,1000L)
-            }
-        })
         fullscreen?.setOnClickListener {
             toggleFullScreen()
         }
@@ -481,6 +483,7 @@ class VodController(context: Context) : BaseController(context) {
                 title_container?.visibility = View.GONE
             }
             VideoView.STATE_PREPARING, VideoView.STATE_BUFFERING -> {
+                mHandler?.post(showSpeedTimeRunnable)
                 iv_play?.isSelected = mControlWrapper?.isPlaying?:false
                 if (tv_progress_container?.visibility == View.GONE) {
                     tv_play_load_net_speed?.visibility = View.VISIBLE
@@ -631,6 +634,7 @@ class VodController(context: Context) : BaseController(context) {
         mHandler?.removeCallbacks(mHideBottomRunable)
         if (!isBottomVisible) {
             showBottom()
+            mHandler?.post(showSpeedTimeRunnable)
             mHandler?.postDelayed(mHideBottomRunable,5000)
         } else {
             hideBottom()
