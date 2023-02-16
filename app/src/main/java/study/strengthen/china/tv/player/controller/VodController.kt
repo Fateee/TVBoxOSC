@@ -301,6 +301,9 @@ class VodController(context: Context) : BaseController(context) {
                 (mActivity as DetailActivity).enterPipModel()
             }
         }
+        lock?.setOnClickListener {
+            setLocked(!mIsLocked)
+        }
     }
 
     override fun getLayoutId(): Int {
@@ -700,6 +703,16 @@ class VodController(context: Context) : BaseController(context) {
             }
         }
         return super.onTouchEvent(event)
+    }
+
+    override fun onLockStateChanged(isLocked: Boolean) {
+        super.onLockStateChanged(isLocked)
+        lock?.isSelected = isLocked
+        if(isLocked) {
+            hideBottom()
+        } else {
+            showBottom()
+        }
     }
 
     init {
