@@ -68,6 +68,7 @@ class VodController(context: Context) : BaseController(context) {
             }
         }
     }
+    private var isFullScreenPortrait = false
     private var mLastSpeed: Float = 1.0f
     private var mFastForwardPopShown: Boolean = false
     private var mCurrentPlayState: Int = 0
@@ -177,6 +178,39 @@ class VodController(context: Context) : BaseController(context) {
         })
         iv_play?.setOnClickListener {
             onDoubleTap(null)
+        }
+        fullscreen?.setOnClickListener {
+            toggleFullScreen()
+            isFullScreenPortrait = false
+        }
+        t_back?.setOnClickListener {
+            mActivity?.finish()
+        }
+        back?.setOnClickListener {
+            toggleFullScreen()
+            isFullScreenPortrait = false
+        }
+        pip?.setOnClickListener {
+            if (mActivity is DetailActivity) {
+                (mActivity as DetailActivity).enterPipModel()
+            }
+        }
+        lock?.setOnClickListener {
+            mControlWrapper?.toggleLockState()
+        }
+        iv_landscape_portrait?.setOnClickListener {
+            isFullScreenPortrait = if (isFullScreenPortrait) {
+                startFullScreen()
+                false
+            } else {
+                toggleFullScreen()
+                mControlWrapper?.startFullScreen()
+                true
+            }
+
+        }
+        setting?.setOnClickListener {
+
         }
         mPlayerScaleBtn?.setOnClickListener(OnClickListener {
             try {
@@ -289,23 +323,6 @@ class VodController(context: Context) : BaseController(context) {
 //                updatePlayerCfgView();
 //            }
 //        });
-        fullscreen?.setOnClickListener {
-            toggleFullScreen()
-        }
-        t_back?.setOnClickListener {
-            mActivity?.finish()
-        }
-        back?.setOnClickListener {
-            toggleFullScreen()
-        }
-        pip?.setOnClickListener {
-            if (mActivity is DetailActivity) {
-                (mActivity as DetailActivity).enterPipModel()
-            }
-        }
-        lock?.setOnClickListener {
-            setLocked(!mIsLocked)
-        }
     }
 
     override fun getLayoutId(): Int {
@@ -504,7 +521,7 @@ class VodController(context: Context) : BaseController(context) {
                 showUI10()
             }
             VideoView.PLAYER_FULL_SCREEN -> {
-                if (mControlWrapper?.isShowing == true && mControlWrapper?.isLocked == false) {
+                if (mControlWrapper?.isLocked == false) {
                     title_container?.visibility = View.VISIBLE
                     lock?.visibility = View.VISIBLE
                     iv_landscape_portrait?.visibility = View.VISIBLE
