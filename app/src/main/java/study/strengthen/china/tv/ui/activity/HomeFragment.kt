@@ -118,6 +118,9 @@ class HomeFragment : BaseLazyFragment() {
             newIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP
             mActivity.startActivity(newIntent)
         }
+        historyTv?.setOnClickListener {
+            jumpActivity(HistoryActivity::class.java)
+        }
 //        topLayout = findViewById(R.id.topLayout)
 //        tvDate = findViewById(R.id.tvDate)
 //        contentLayout = findViewById(R.id.contentLayout)

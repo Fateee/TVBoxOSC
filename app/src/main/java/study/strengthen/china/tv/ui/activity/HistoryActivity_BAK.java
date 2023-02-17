@@ -7,13 +7,6 @@ import android.view.animation.BounceInterpolator;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import study.strengthen.china.tv.R;
-import study.strengthen.china.tv.base.BaseActivity;
-import study.strengthen.china.tv.bean.VodInfo;
-import study.strengthen.china.tv.cache.RoomDataManger;
-import study.strengthen.china.tv.event.RefreshEvent;
-import study.strengthen.china.tv.ui.adapter.HistoryAdapter;
-import study.strengthen.china.tv.util.FastClickCheckUtil;
 import com.owen.tvrecyclerview.widget.TvRecyclerView;
 import com.owen.tvrecyclerview.widget.V7GridLayoutManager;
 
@@ -24,12 +17,20 @@ import org.greenrobot.eventbus.ThreadMode;
 import java.util.ArrayList;
 import java.util.List;
 
+import study.strengthen.china.tv.R;
+import study.strengthen.china.tv.base.BaseActivity;
+import study.strengthen.china.tv.bean.VodInfo;
+import study.strengthen.china.tv.cache.RoomDataManger;
+import study.strengthen.china.tv.event.RefreshEvent;
+import study.strengthen.china.tv.ui.adapter.HistoryAdapter;
+import study.strengthen.china.tv.util.FastClickCheckUtil;
+
 /**
  * @author pj567
  * @date :2021/1/7
  * @description:
  */
-public class HistoryActivity extends BaseActivity {
+public class HistoryActivity_BAK extends BaseActivity {
     private TextView tvDel;
     private TextView tvDelTip;
     private TvRecyclerView mGridView;
