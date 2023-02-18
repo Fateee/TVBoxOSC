@@ -103,10 +103,10 @@ public class RoomDataManger {
         return vodInfoList;
     }
 
-    public static void insertVodCollect(String sourceKey, VodInfo vodInfo) {
+    public static VodCollect insertVodCollect(String sourceKey, VodInfo vodInfo) {
         VodCollect record = AppDataManager.get().getVodCollectDao().getVodCollect(sourceKey, vodInfo.id);
         if (record != null) {
-            return;
+            return record;
         }
         record = new VodCollect();
         record.sourceKey = sourceKey;
@@ -115,6 +115,7 @@ public class RoomDataManger {
         record.name = vodInfo.name;
         record.pic = vodInfo.pic;
         AppDataManager.get().getVodCollectDao().insert(record);
+        return null;
     }
 
     public static void deleteVodCollect(int id) {

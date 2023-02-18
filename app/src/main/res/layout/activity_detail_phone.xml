@@ -66,6 +66,7 @@
                                     android:id="@+id/tvSite"
                                     android:layout_width="wrap_content"
                                     android:layout_height="fill_parent"
+                                    android:maxWidth="@dimen/dp_113"
                                     android:ellipsize="end"
                                     android:gravity="center"
                                     android:maxLines="1"

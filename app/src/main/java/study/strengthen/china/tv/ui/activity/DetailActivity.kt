@@ -155,6 +155,17 @@ class DetailActivity : BaseActivity() {
         iv_back?.setOnClickListener {
             playInfoPop?.visibility = View.GONE
         }
+        cardCollect?.setOnClickListener {
+            val ret = RoomDataManger.insertVodCollect(sourceKey, vodInfo)
+            if (ret != null) {
+                RoomDataManger.deleteVodCollect(ret.getId())
+                ivCollect?.setImageResource(R.drawable.collect)
+            } else {
+                //成功
+                ivCollect?.setImageResource(R.drawable.is_collect)
+            }
+
+        }
 //        tvSort.setOnClickListener(View.OnClickListener {
 //            if (vodInfo != null && vodInfo!!.seriesMap.size > 0) {
 //                vodInfo!!.reverseSort = !vodInfo!!.reverseSort

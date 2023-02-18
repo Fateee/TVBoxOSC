@@ -204,17 +204,19 @@
 <!--                    app:cardCornerRadius="@dimen/dp_20"-->
 <!--                    app:cardElevation="@dimen/dp_0">-->
                     <LinearLayout
+                        android:id="@+id/cardCollect"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
                         android:orientation="vertical">
+
                         <ImageView
                             android:id="@+id/ivCollect"
                             android:layout_width="@dimen/dp_32"
-                            android:layout_height="@dimen/dp_32"
-                            android:src="@drawable/collect"
-                            android:scaleType="fitXY" />
+                            android:layout_height="16dp"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/collect" />
                         <TextView
                             android:textSize="@dimen/sp_17"
                             android:textColor="@color/black"

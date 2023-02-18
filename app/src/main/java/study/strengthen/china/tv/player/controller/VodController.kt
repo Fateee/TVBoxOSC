@@ -521,7 +521,7 @@ class VodController(context: Context) : BaseController(context) {
                 showUI10()
             }
             VideoView.PLAYER_FULL_SCREEN -> {
-                if (mControlWrapper?.isLocked == false) {
+                if (mControlWrapper?.isShowing == true && mControlWrapper?.isLocked == false) {
                     title_container?.visibility = View.VISIBLE
                     lock?.visibility = View.VISIBLE
                     iv_landscape_portrait?.visibility = View.VISIBLE
