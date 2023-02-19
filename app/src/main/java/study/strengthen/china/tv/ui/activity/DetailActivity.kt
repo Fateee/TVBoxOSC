@@ -5,6 +5,7 @@ import android.app.PictureInPictureParams
 import android.app.RemoteAction
 import android.content.pm.PackageManager
 import android.content.res.Configuration
+import android.graphics.Color
 import android.graphics.drawable.Icon
 import android.os.Build
 import android.os.Bundle
@@ -598,7 +599,7 @@ class DetailActivity : BaseActivity() {
         }
     }
 
-    override fun isWhiteStatusBar() = false
+    override fun initStatusBarColor() = Color.BLACK
 
     //判断是否可以进入画中画模式
     private fun isCanPipModel(): Boolean {

@@ -34,7 +34,7 @@ class Toolbar : LinearLayout {
                 attrs, R.styleable.Toolbar, defStyle, 0)
 
         val titleString = a.getString(
-                R.styleable.Toolbar_title)
+                R.styleable.Toolbar_middleTitle)
         val rightTitleString = a.getString(
                 R.styleable.Toolbar_rightTitle)
         iv_back?.setOnClickListener {

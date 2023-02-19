@@ -1,5 +1,6 @@
 package study.strengthen.china.tv.ui.activity
 
+import android.graphics.Color
 import android.graphics.Typeface
 import android.view.Menu
 import android.view.View
@@ -12,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.tab_item.view.*
 import study.strengthen.china.tv.R
+import study.strengthen.china.tv.ui.fragment.MineFragment
 
 class MainActivity : BaseActivity() {
 
@@ -36,7 +38,7 @@ class MainActivity : BaseActivity() {
         listFragment.apply {
             add(HomeFragment())
             add(HomeFragment())
-            add(HomeFragment())
+            add(MineFragment.newInstance())
 //            add(staticHorFragment)
 //            add(hotRankFragment)
 //            add(albumFragment)
@@ -56,14 +58,17 @@ class MainActivity : BaseActivity() {
             when (it.itemId) {
                 R.id.navigation_home -> {
 //                    SAStatistics.track("main_tab","dynamic")
+                    setStatusBarColor(Color.WHITE)
                     mainPager.setCurrentItem(0,false)
                 }
                 R.id.navigation_live -> {
 //                    SAStatistics.track("main_tab","quiet")
+                    setStatusBarColor(Color.WHITE)
                     mainPager.setCurrentItem(1,false)
                 }
                 R.id.navigation_mine -> {
 //                    SAStatistics.track("main_tab","quiet")
+                    setStatusBarColor(Color.parseColor("#1d1d1d"))
                     mainPager.setCurrentItem(2,false)
                 }
 //                R.id.navigation_diy -> {

@@ -52,4 +52,9 @@
     <style name="jc_popup_toast_anim" parent="@android:style/Animation">
         <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
+    <style name="MySwitchTheme">
+        <item name="colorControlActivated">@color/main_color</item>
+        <item name="colorSwitchThumbNormal">#FFF1F1F1</item>
+        <item name="android:colorForeground">#FF2F2F2F</item>
+    </style>
 </resources>

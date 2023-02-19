@@ -61,12 +61,13 @@ public abstract class BaseActivity extends AppCompatActivity implements CustomAd
         mContext = this;
         AppManager.getInstance().addActivity(this);
         init();
+        hideSysBar();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        hideSysBar();
+
     }
 
     public void hideSysBar() {
@@ -77,15 +78,17 @@ public abstract class BaseActivity extends AppCompatActivity implements CustomAd
             if (isFullScreen()) {
                 uiOptions |= View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
                 uiOptions |= View.SYSTEM_UI_FLAG_FULLSCREEN;
+            }
+            if (isHideNavigation()) {
                 uiOptions |= View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION;
                 uiOptions |= View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
             }
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            if (isWhiteStatusBar()) {
+            if (initStatusBarColor() == Color.WHITE) {
                 uiOptions |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
                 getWindow().setStatusBarColor(Color.WHITE);
             } else {
-                getWindow().setStatusBarColor(Color.BLACK);
+                getWindow().setStatusBarColor(initStatusBarColor());
             }
             getWindow().getDecorView().setSystemUiVisibility(uiOptions);
         }
@@ -183,15 +186,27 @@ public abstract class BaseActivity extends AppCompatActivity implements CustomAd
     public boolean isBaseOnWidth() {
         return !(screenRatio >= 4.0f);
     }
+    private int mStatusBarColor = Color.WHITE;
 
-    public boolean isWhiteStatusBar() {
-        return true;
+    public int initStatusBarColor() {
+        return mStatusBarColor;
     }
+
+    public void setStatusBarColor(int mStatusBarColor) {
+        this.mStatusBarColor = mStatusBarColor;
+        getWindow().getDecorView().setSystemUiVisibility(0);
+        hideSysBar();
+    }
+
     /**
      * 是否是全屏
      * @return
      */
     public boolean isFullScreen() {
+        return false;
+    }
+
+    private boolean isHideNavigation() {
         return false;
     }
 }

@@ -66,4 +66,27 @@
         <attr name="drawableWidth_bottom" format="dimension" />
         <attr name="drawableHeight_bottom" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="setItemLayout">
+        <attr name="bg" format="color|reference"/>
+        <attr name="icon" format="reference"/>
+        <attr name="title" format="string|reference"/>
+        <attr name="title_width" format="dimension"/>
+        <attr name="title_color" format="color"/>
+        <attr name="edit_hint" format="string|reference"/>
+        <attr name="sub_title" format="string|reference"/>
+        <attr name="sub_title_code" format="string"/>
+        <attr name="sub_title1" format="string"/>
+        <attr name="is_show_switch" format="boolean"/>
+        <attr name="show_switch_value" format="boolean"/>
+        <attr name="show_arraw" format="boolean"/>
+        <attr name="right_icon" format="reference"/>
+        <attr name="hide_divider" format="boolean"/>
+        <attr name="edit_type">
+            <enum name="normal" value="0"/>
+            <enum name="number" value="1"/>
+            <enum name="char_num" value="2"/>
+            <enum name="numpassword" value="3"/>
+        </attr>
+    </declare-styleable>
 </resources>
