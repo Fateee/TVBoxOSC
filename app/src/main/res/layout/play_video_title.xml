@@ -271,13 +271,13 @@
 <!--                    app:cardCornerRadius="@dimen/dp_20"-->
 <!--                    app:cardElevation="@dimen/dp_0">-->
                     <LinearLayout
+                        android:id="@+id/iv_change"
                         android:gravity="center"
                         android:layout_width="0dp"
                         android:layout_height="fill_parent"
                         android:layout_weight="1"
                         android:orientation="vertical">
                         <ImageView
-                            android:id="@+id/iv_browser"
                             android:layout_width="@dimen/dp_32"
                             android:layout_height="@dimen/dp_32"
                             android:src="@drawable/v_detail_player"
@@ -299,7 +299,8 @@
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
                     <ImageView
                         android:id="@+id/iv_full_screen"
                         android:layout_width="@dimen/dp_32"

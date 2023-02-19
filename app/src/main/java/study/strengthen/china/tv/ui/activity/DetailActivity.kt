@@ -61,6 +61,7 @@ import java.util.concurrent.Executors
  * @description:
  */
 class DetailActivity : BaseActivity() {
+    private var mSourcePosition: Int = 0
     private var llLayout: LinearLayout? = null
 //    private var ivThumb: ImageView? = null
     private var tvName: TextView? = null
@@ -167,6 +168,9 @@ class DetailActivity : BaseActivity() {
             }
 
         }
+        iv_change?.setOnClickListener {
+            refreshSource(++mSourcePosition)
+        }
 //        tvSort.setOnClickListener(View.OnClickListener {
 //            if (vodInfo != null && vodInfo!!.seriesMap.size > 0) {
 //                vodInfo!!.reverseSort = !vodInfo!!.reverseSort
@@ -208,47 +212,50 @@ class DetailActivity : BaseActivity() {
 //            RoomDataManger.insertVodCollect(sourceKey, vodInfo)
 //            Toast.makeText(this@DetailActivity, "已加入收藏夹", Toast.LENGTH_SHORT).show()
 //        })
-        mGridView?.setOnItemListener(object : OnItemListener {
-            override fun onItemPreSelected(parent: TvRecyclerView, itemView: View, position: Int) {
-                seriesSelect = false
-            }
-
-            override fun onItemSelected(parent: TvRecyclerView, itemView: View, position: Int) {
-                seriesSelect = true
-            }
-
-            override fun onItemClick(parent: TvRecyclerView, itemView: View, position: Int) {}
-        })
-        mGridViewFlag?.setOnItemListener(object : OnItemListener {
-            private fun refresh(itemView: View, position: Int) {
-                val newFlag = seriesFlagAdapter!!.data[position].name
-                if (vodInfo != null && vodInfo?.playFlag != newFlag) {
-                    for (i in vodInfo!!.seriesFlags.indices) {
-                        val flag = vodInfo!!.seriesFlags[i]
-                        if (flag.name == vodInfo!!.playFlag) {
-                            flag.selected = false
-                            seriesFlagAdapter!!.notifyItemChanged(i)
-                            break
-                        }
-                    }
-                    val flag = vodInfo!!.seriesFlags[position]
-                    flag.selected = true
-                    vodInfo!!.playFlag = newFlag
-                    seriesFlagAdapter!!.notifyItemChanged(position)
-                    refreshList()
-                }
-                seriesFlagFocus = itemView
-            }
-
-            override fun onItemPreSelected(parent: TvRecyclerView, itemView: View, position: Int) {}
-            override fun onItemSelected(parent: TvRecyclerView, itemView: View, position: Int) {
-                refresh(itemView, position)
-            }
-
-            override fun onItemClick(parent: TvRecyclerView, itemView: View, position: Int) {
-                refresh(itemView, position)
-            }
-        })
+//        mGridView?.setOnItemListener(object : OnItemListener {
+//            override fun onItemPreSelected(parent: TvRecyclerView, itemView: View, position: Int) {
+//                seriesSelect = false
+//            }
+//
+//            override fun onItemSelected(parent: TvRecyclerView, itemView: View, position: Int) {
+//                seriesSelect = true
+//            }
+//
+//            override fun onItemClick(parent: TvRecyclerView, itemView: View, position: Int) {}
+//        })
+//        mGridViewFlag?.setOnItemListener(object : OnItemListener {
+//            private fun refresh(itemView: View, position: Int) {
+//                val newFlag = seriesFlagAdapter!!.data[position].name
+//                if (vodInfo != null && vodInfo?.playFlag != newFlag) {
+//                    for (i in vodInfo!!.seriesFlags.indices) {
+//                        val flag = vodInfo!!.seriesFlags[i]
+//                        if (flag.name == vodInfo!!.playFlag) {
+//                            flag.selected = false
+//                            seriesFlagAdapter!!.notifyItemChanged(i)
+//                            break
+//                        }
+//                    }
+//                    val flag = vodInfo!!.seriesFlags[position]
+//                    flag.selected = true
+//                    vodInfo!!.playFlag = newFlag
+//                    seriesFlagAdapter!!.notifyItemChanged(position)
+//                    refreshList()
+//                }
+//                seriesFlagFocus = itemView
+//            }
+//
+//            override fun onItemPreSelected(parent: TvRecyclerView, itemView: View, position: Int) {}
+//            override fun onItemSelected(parent: TvRecyclerView, itemView: View, position: Int) {
+//                refresh(itemView, position)
+//            }
+//
+//            override fun onItemClick(parent: TvRecyclerView, itemView: View, position: Int) {
+//                refresh(itemView, position)
+//            }
+//        })
+        seriesFlagAdapter?.setOnItemClickListener { _, _, position ->
+            refreshSource(position)
+        }
         seriesAdapter?.setOnItemClickListener { adapter, view, position ->
 //            FastClickCheckUtil.check(view)
             if (vodInfo != null && vodInfo!!.seriesMap[vodInfo!!.playFlag]!!.size > 0) {
@@ -268,6 +275,30 @@ class DetailActivity : BaseActivity() {
         mPlayFragment = PlayFragment().newInstance(this)
         supportFragmentManager.beginTransaction().add(R.id.playerContainer, mPlayFragment!!).commit()
         supportFragmentManager.beginTransaction().show(mPlayFragment!!).commitAllowingStateLoss()
+    }
+
+    private fun refreshSource(pos: Int) {
+        mSourcePosition = if (pos >= seriesFlagAdapter!!.data.size) {
+            0
+        } else {
+            pos
+        }
+        val newFlag = seriesFlagAdapter!!.data[mSourcePosition].name
+        if (vodInfo != null && vodInfo?.playFlag != newFlag) {
+            for (i in vodInfo!!.seriesFlags.indices) {
+                val flag = vodInfo!!.seriesFlags[i]
+                if (flag.name == vodInfo!!.playFlag) {
+                    flag.selected = false
+                    seriesFlagAdapter!!.notifyItemChanged(i)
+                    break
+                }
+            }
+            val flag = vodInfo!!.seriesFlags[mSourcePosition]
+            flag.selected = true
+            vodInfo!!.playFlag = newFlag
+            seriesFlagAdapter!!.notifyItemChanged(mSourcePosition)
+            refreshList()
+        }
     }
 
     private var pauseRunnable: MutableList<Runnable>? = null
@@ -355,6 +386,7 @@ class DetailActivity : BaseActivity() {
                         val flag = vodInfo!!.seriesFlags[j]
                         if (flag.name == vodInfo!!.playFlag) {
                             flagScrollTo = j
+                            mSourcePosition = j
                             flag.selected = true
                         } else flag.selected = false
                     }

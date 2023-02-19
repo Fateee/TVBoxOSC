@@ -131,9 +131,11 @@ public class ZzSecondaryLinkage<T extends BaseMenuBean> extends LinearLayout imp
         if (leftAdapter != null) {
             leftAdapter.setList(this.list);
             if (this.list != null && this.list.size() > 0) {
-                leftAdapter.setSelection(0);
-                if (mItemClickListener != null) {
-                    mItemClickListener.onLeftClick(null, 0);
+                if (leftAdapter.getSelectIndex() == -1) {
+                    leftAdapter.setSelection(0);
+                    if (mItemClickListener != null) {
+                        mItemClickListener.onLeftClick(null, 0);
+                    }
                 }
             }
         }

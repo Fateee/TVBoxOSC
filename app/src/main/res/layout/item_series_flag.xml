@@ -14,12 +14,12 @@
         android:layout_gravity="center"
         android:singleLine="true"
         android:textColor="#161616"
-        android:textSize="@dimen/sp_21" />
+        android:textSize="@dimen/sp_20" />
 
     <View
         android:id="@+id/tvSeriesFlagSelect"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_4"
-        android:layout_marginTop="@dimen/dp_2"
+        android:layout_marginTop="@dimen/dp_1"
         android:background="@drawable/shape_source_flag_line" />
 </LinearLayout>

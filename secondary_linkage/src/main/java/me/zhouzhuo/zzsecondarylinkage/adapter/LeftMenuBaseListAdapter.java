@@ -106,4 +106,11 @@ public abstract class LeftMenuBaseListAdapter<T extends BaseListViewHolder, K ex
         list.get(i).setSelected(true);
         notifyDataSetChanged();
     }
+
+    public int getSelectIndex() {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).isSelected()) return i;
+        }
+        return -1;
+    }
 }

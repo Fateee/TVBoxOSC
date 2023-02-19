@@ -99,6 +99,7 @@ class FastSearchActivity : BaseActivity() {
         zzLinkage?.setRightContentAdapter(rightAdapter)
         zzLinkage?.setOnItemClickListener(object : ILinkage.OnItemClickListener{
             override fun onLeftClick(itemView: View?, position: Int) {
+//                if (itemView == null && position == 0 && rightAdapter.count != 0) return
                 rightAdapter.setList(mSearchRetList?.get(position)?.videoList)
             }
 
