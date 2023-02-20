@@ -61,13 +61,12 @@ public abstract class BaseActivity extends AppCompatActivity implements CustomAd
         mContext = this;
         AppManager.getInstance().addActivity(this);
         init();
-        hideSysBar();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
+        hideSysBar();
     }
 
     public void hideSysBar() {

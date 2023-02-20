@@ -123,9 +123,12 @@
     <color name="c573D1B">#573D1B</color>
     <color name="cC50723">#C50723</color>
     <color name="cdd2d1e">#dd2d1e</color>
+    <color name="cb5081d">#b5081d</color>
+    <color name="c3f3f3f">#3f3f3f</color>
     <color name="title">#000000</color>
     <color name="desc_primary">#CECECE</color>
-    <color name="main_color">@color/cdd2d1e</color>
+    <color name="main_color">@color/cC50723</color>
+    <color name="main_normal_color">@color/c3f3f3f</color>
     <color name="appwidget_tab_selected">#000000</color>
     <color name="appwidget_tab_unselected">#5E5E5E</color>
     <color name="cD8D8D8">#D8D8D8</color>

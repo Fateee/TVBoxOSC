@@ -10,11 +10,14 @@ import study.strengthen.china.tv.base.BaseLazyFragment
 import study.strengthen.china.tv.ui.adapter.HomePageAdapter
 import com.google.android.material.bottomnavigation.BottomNavigationItemView
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView
+import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.tab_item.view.*
 import study.strengthen.china.tv.R
 import study.strengthen.china.tv.ui.fragment.HomeFragment
 import study.strengthen.china.tv.ui.fragment.MineFragment
+import study.strengthen.china.tv.ui.fragment.RankFragment
+import study.strengthen.china.tv.util.HawkConfig
 
 class MainActivity : BaseActivity() {
 
@@ -24,6 +27,8 @@ class MainActivity : BaseActivity() {
     override fun getLayoutResID() = R.layout.activity_main
 
     override fun init() {
+        //todo hy
+        Hawk.put(HawkConfig.HOME_REC, 1)
         val menu: Menu = nav_view.menu
         for (i in 0 until menu.size()) {
             val view = (nav_view.getChildAt(0) as BottomNavigationMenuView).getChildAt(i) as BottomNavigationItemView
@@ -38,7 +43,7 @@ class MainActivity : BaseActivity() {
     private fun initPagesWithPager() {
         listFragment.apply {
             add(HomeFragment())
-            add(HomeFragment())
+            add(RankFragment())
             add(MineFragment.newInstance())
 //            add(staticHorFragment)
 //            add(hotRankFragment)
