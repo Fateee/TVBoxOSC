@@ -44,6 +44,9 @@ class MineFragment : BaseLazyFragment() {
         tvCleanCache?.setOnClickListener {
             showClearDialog()
         }
+        ll_share?.setOnClickListener {
+
+        }
     }
 
     private fun showClearDialog(): Dialog {
