@@ -24,14 +24,20 @@ public class NoScrollViewPager extends ViewPager {
         super(context, attrs);
     }
 
-    /**
-     * 禁止viewpager里面内容导致页面切换
-     *
-     * @param event
-     * @return
-     */
+//    /**
+//     * 禁止viewpager里面内容导致页面切换
+//     *
+//     * @param event
+//     * @return
+//     */
+//    @Override
+//    public boolean executeKeyEvent(KeyEvent event) {
+//        return false;
+//    }
+
+
     @Override
-    public boolean executeKeyEvent(KeyEvent event) {
+    public boolean onInterceptHoverEvent(MotionEvent event) {
         return false;
     }
 

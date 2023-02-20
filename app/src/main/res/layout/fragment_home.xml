@@ -11,32 +11,39 @@
         android:layout_height="60dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:id="@+id/searchTv"
-            android:padding="@dimen/dp_13"
-            android:layout_width="@dimen/dp_60"
-            android:layout_height="@dimen/dp_60"
-            android:src="@drawable/icon_search"
-            android:scaleType="centerCrop"
-            android:layout_centerVertical="true" />
+<!--        <ImageView-->
+<!--            android:id="@+id/searchTv"-->
+<!--            android:padding="@dimen/dp_13"-->
+<!--            android:layout_width="@dimen/dp_60"-->
+<!--            android:layout_height="@dimen/dp_60"-->
+<!--            android:src="@drawable/icon_search"-->
+<!--            android:scaleType="centerCrop"-->
+<!--            android:layout_centerVertical="true" />-->
         <study.strengthen.china.tv.ui.tv.widget.SimpleCornerTextView
-            android:id="@+id/sourceTv"
-            android:layout_width="wrap_content"
+            android:id="@+id/searchTv"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="一起看TV "
-            android:textColor="@color/black"
-            android:drawableRight="@drawable/ic_choose_arrow_down"
+            android:gravity="center_vertical"
+            android:text="搜索名称或者关键字"
+            android:textColor="#6f6f6f"
             android:textSize="20sp"
             android:layout_centerInParent="true"
-            app:drawableWidth_right="22dp"
-            app:drawableHeight_right="18dp"/>
+            android:layout_marginVertical="6dp"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_toLeftOf="@id/historyTv"
+            android:drawableLeft="@drawable/ic___search"
+            android:paddingLeft="@dimen/dp_21"
+            android:drawablePadding="@dimen/dp_13"
+            app:drawableWidth_left="30dp"
+            app:drawableHeight_left="30dp"
+            app:bgColor="@color/cf0f0f0"
+            app:radius="@dimen/dp_30"/>
         <ImageView
             android:id="@+id/historyTv"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:padding="@dimen/dp_13"
-            android:src="@drawable/icon_history"
+            android:src="@drawable/ic___history"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"/>
 

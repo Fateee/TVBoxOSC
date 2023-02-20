@@ -100,11 +100,11 @@ class MainActivity : BaseActivity() {
     }
     private fun showCurrentTab(selectIndex: Int) {
         focusTab?.tabItem?.isSelected = false
-        focusTab?.tab_tv?.setTextColor(resources.getColor(R.color.c161616))
-        focusTab?.tab_tv?.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
+        focusTab?.tab_tv?.setTextColor(resources.getColor(R.color.main_normal_color))
+//        focusTab?.tab_tv?.typeface = Typeface.defaultFromStyle(Typeface.NORMAL)
         focusTab = (nav_view.getChildAt(0) as BottomNavigationMenuView).getChildAt(selectIndex)
         focusTab?.tabItem?.isSelected = true
         focusTab?.tab_tv?.setTextColor(resources.getColor(R.color.main_color))
-        focusTab?.tab_tv?.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
+//        focusTab?.tab_tv?.typeface = Typeface.defaultFromStyle(Typeface.BOLD)
     }
 }
