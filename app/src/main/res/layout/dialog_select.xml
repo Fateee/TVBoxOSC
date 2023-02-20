@@ -31,6 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dp_5"
             app:layout_constrainedHeight="true"
             app:layout_constraintHeight_max="@dimen/dp_480"
             app:layout_constraintLeft_toLeftOf="parent"
