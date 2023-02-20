@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    android:background="@color/cE3E3E3"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <study.strengthen.china.tv.ui.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:middleTitle="设置中心" />
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_margin="@dimen/dp_10">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvApi"
+                app:show_arraw="true"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+                app:title="配置地址" />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/common_card_color"
+            android:layout_marginTop="@dimen/dp_10"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvHomeApi"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+                app:show_arraw="true"
+                app:title="首页数据源" />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvHomeRec"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+                app:show_arraw="true"
+                app:title="主页推荐" />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:visibility="gone"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvSearchThread"
+                
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+
+
+                app:title="搜索线程"
+
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvPlay"
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+                app:show_arraw="true"
+                app:title="默认播放器"
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvMediaCodec"
+                
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+                app:show_arraw="true"
+
+                app:title="IJK解码方式"
+
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/playerLongSpeed"
+                
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+
+                app:show_arraw="true"
+                app:title="全屏长按倍速"
+
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvRenderType"
+                
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+
+                app:show_arraw="true"
+                app:title="渲染方式"
+
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvDns"
+                
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+
+                app:show_arraw="true"
+                app:title="安全DNS"
+
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvHistoryNum"
+                
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+
+
+                app:title="历史记录"
+
+                />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            app:cardBackgroundColor="@color/common_card_color"
+            app:cardCornerRadius="@dimen/dp_5"
+            app:cardElevation="@dimen/dp_0">
+            <study.strengthen.china.tv.ui.widget.SetItemLayout
+                android:id="@+id/tvScaleType"
+
+                android:layout_width="fill_parent"
+                android:layout_height="@dimen/dp_75"
+
+                app:show_arraw="true"
+                app:title="画面缩放"
+
+                />
+        </androidx.cardview.widget.CardView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</LinearLayout>

@@ -12,7 +12,7 @@ import study.strengthen.china.tv.R;
 
 public class BaseDialog extends Dialog {
     public BaseDialog(@NonNull Context context) {
-        super(context, R.style.CustomDialogStyle);
+        super(context, R.style.progress_dialog);
     }
 
     public BaseDialog(Context context, int customDialogStyle) {

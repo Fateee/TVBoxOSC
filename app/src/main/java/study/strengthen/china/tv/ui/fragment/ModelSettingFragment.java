@@ -454,18 +454,18 @@ public class ModelSettingFragment extends BaseLazyFragment {
                 dialog.show();
             }
         });
-        SettingActivity.callback = new SettingActivity.DevModeCallback() {
-            @Override
-            public void onChange() {
-                findViewById(R.id.llDebug).setVisibility(View.VISIBLE);
-            }
-        };
+//        SettingActivity.callback = new SettingActivity.DevModeCallback() {
+//            @Override
+//            public void onChange() {
+//                findViewById(R.id.llDebug).setVisibility(View.VISIBLE);
+//            }
+//        };
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        SettingActivity.callback = null;
+//        SettingActivity.callback = null;
     }
 
     String getHomeRecName(int type) {

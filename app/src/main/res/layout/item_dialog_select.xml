@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<study.strengthen.china.tv.ui.tv.widget.SimpleCornerTextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/tvName"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:minWidth="@dimen/dp_150"
     android:layout_gravity="center"
-    android:background="@drawable/button_dialog_main"
     android:clickable="true"
-    android:focusable="true"
     android:gravity="center"
-    android:padding="@dimen/vs_10"
+    android:padding="@dimen/dp_10"
     android:text="@{name}"
     android:textColor="@color/color_FFFFFF"
-    android:textSize="@dimen/ts_26"
-    tools:text="11111111111111" />
+    android:textSize="@dimen/sp_20"
+    tools:text="11111111111111"
+    app:bgColor="@color/main_normal_color"
+    app:radius="@dimen/dp_25"/>

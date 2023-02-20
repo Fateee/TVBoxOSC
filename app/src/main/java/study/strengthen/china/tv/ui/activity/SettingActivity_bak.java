@@ -11,6 +11,13 @@ import android.widget.TextView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.hawk.Hawk;
+import com.owen.tvrecyclerview.widget.TvRecyclerView;
+import com.owen.tvrecyclerview.widget.V7LinearLayoutManager;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import study.strengthen.china.tv.R;
 import study.strengthen.china.tv.api.ApiConfig;
 import study.strengthen.china.tv.base.BaseActivity;
@@ -20,19 +27,13 @@ import study.strengthen.china.tv.ui.adapter.SettingPageAdapter;
 import study.strengthen.china.tv.ui.fragment.ModelSettingFragment;
 import study.strengthen.china.tv.util.AppManager;
 import study.strengthen.china.tv.util.HawkConfig;
-import com.orhanobut.hawk.Hawk;
-import com.owen.tvrecyclerview.widget.TvRecyclerView;
-import com.owen.tvrecyclerview.widget.V7LinearLayoutManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author pj567
  * @date :2020/12/23
  * @description:
  */
-public class SettingActivity extends BaseActivity {
+public class SettingActivity_bak extends BaseActivity {
     private TvRecyclerView mGridView;
     private ViewPager mViewPager;
     private SettingMenuAdapter sortAdapter;
