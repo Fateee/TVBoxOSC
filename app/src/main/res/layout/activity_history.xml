@@ -8,7 +8,7 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title="历史记录"
+        app:middleTitle="历史记录"
         app:rightTitle="清空"/>
 <!--    <LinearLayout-->
 <!--        android:layout_width="match_parent"-->
