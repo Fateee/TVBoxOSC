@@ -13,6 +13,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationMenuView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.tab_item.view.*
 import study.strengthen.china.tv.R
+import study.strengthen.china.tv.ui.fragment.HomeFragment
 import study.strengthen.china.tv.ui.fragment.MineFragment
 
 class MainActivity : BaseActivity() {

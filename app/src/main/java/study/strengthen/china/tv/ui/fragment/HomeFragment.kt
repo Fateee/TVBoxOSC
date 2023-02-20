@@ -1,4 +1,4 @@
-package study.strengthen.china.tv.ui.activity
+package study.strengthen.china.tv.ui.fragment
 
 import android.content.Intent
 import android.graphics.Color
@@ -8,12 +8,10 @@ import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.AccelerateInterpolator
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 import study.strengthen.china.tv.api.ApiConfig
 import study.strengthen.china.tv.api.ApiConfig.LoadConfigCallback
@@ -23,9 +21,6 @@ import study.strengthen.china.tv.event.RefreshEvent
 import study.strengthen.china.tv.server.ControlManager
 import study.strengthen.china.tv.ui.adapter.HomePageAdapter
 import study.strengthen.china.tv.ui.dialog.TipDialog
-import study.strengthen.china.tv.ui.fragment.GridFragment
-import study.strengthen.china.tv.ui.tv.widget.DefaultTransformer
-import study.strengthen.china.tv.ui.tv.widget.FixedSpeedScroller
 import study.strengthen.china.tv.viewmodel.SourceViewModel
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -34,8 +29,9 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import study.strengthen.china.tv.R
 import study.strengthen.china.tv.bean.MovieSort
-import study.strengthen.china.tv.ui.fragment.HotFragment
-import study.strengthen.china.tv.ui.fragment.KindFragment
+import study.strengthen.china.tv.ui.activity.DetailActivity
+import study.strengthen.china.tv.ui.activity.FastSearchActivity
+import study.strengthen.china.tv.ui.activity.HistoryActivity
 import study.strengthen.china.tv.util.*
 import java.util.*
 
@@ -87,32 +83,25 @@ class HomeFragment : BaseLazyFragment() {
     }
 
     private fun initView(data: MutableList<MovieSort.SortData>) {
-        data.forEachIndexed { index, sortData->
-            tabLayout?.newTab()?.apply {
-                customView = TextView(context).apply {
-                    text = sortData.name
-                    gravity = Gravity.CENTER
-                }
+//        data.forEachIndexed { index, sortData->
+//            tabLayout?.newTab()?.apply {
+//                customView = TextView(context).apply {
+//                    text = sortData.name
+//                    gravity = Gravity.CENTER
+//                }
+//                tabLayout?.addTab(this)
+//                if (index == 0) { //默认选中0
+//                    onTabChecked(this)
+//                } else {
+//                    onTabUnchecked(this)
+//                }
+//            }
+//        }
+        data.forEachIndexed { _, sortData->
+            tabLayout?.newTab()?.setText(sortData.name)?.apply {
                 tabLayout?.addTab(this)
-                if (index == 0) { //默认选中0
-                    onTabChecked(this)
-                } else {
-                    onTabUnchecked(this)
-                }
             }
         }
-        tabLayout?.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                onTabChecked(tab)
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                onTabUnchecked(tab)
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-        })
         searchTv?.setOnClickListener {
             val newIntent = Intent(mContext, FastSearchActivity::class.java)
             newIntent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP

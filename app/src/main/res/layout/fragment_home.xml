@@ -53,8 +53,9 @@
         app:tabTextColor="@color/black"
         app:tabSelectedTextColor="@color/main_color"
         app:tabTextAppearance="@style/TabLayoutTextSize1"
-        app:tabIndicatorHeight="0dp"
-        app:tabBackground="@drawable/tab_selector"
+        app:tabIndicator="@drawable/tab_selected"
+        app:tabIndicatorColor="@color/main_color"
+        app:tabIndicatorFullWidth="false"
         app:tabMode="auto"/>
 
     <androidx.viewpager.widget.ViewPager
