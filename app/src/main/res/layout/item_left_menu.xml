@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="horizontal"
-    android:layout_height="@dimen/dp_60"
+    android:layout_height="@dimen/dp_58"
     tools:background="@color/white">
     <View
         android:id="@+id/icon_selected"
@@ -13,7 +13,7 @@
         android:background="@color/main_color" />
     <TextView
         android:id="@+id/tv_item_text"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:ellipsize="end"
         android:lines="1"
         tools:text="广东市"

@@ -228,7 +228,7 @@ class VodController(context: Context) : BaseController(context) {
         mPlayerSpeedBtn?.setOnClickListener(OnClickListener {
             try {
                 var speed = mPlayerConfig!!.getDouble("sp").toFloat()
-                speed += 0.5f
+                speed += 0.25f
                 if (speed > 3) speed = 0.5f
                 mPlayerConfig!!.put("sp", speed.toDouble())
                 updatePlayerCfgView()
