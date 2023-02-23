@@ -14,9 +14,9 @@ class RankFragment : BaseLazyFragment() {
     override fun getLayoutResID() = R.layout.fragment_home
 
     override fun init() {
-        tabLayout?.newTab()?.setText("豆瓣热门")?.let { tabLayout?.addTab(it) }
-        tabLayout?.newTab()?.setText("360热门")?.let { tabLayout?.addTab(it) }
-        tabLayout?.newTab()?.setText("IQY热门")?.let { tabLayout?.addTab(it) }
+        tabLayout?.newTab()?.setText("豆瓣")?.let { tabLayout?.addTab(it) }
+        tabLayout?.newTab()?.setText("360")?.let { tabLayout?.addTab(it) }
+        tabLayout?.newTab()?.setText("IQY")?.let { tabLayout?.addTab(it) }
         tabLayout?.tabMode = TabLayout.MODE_FIXED
         fragments.add(HotFragment.newInstance(null))
         fragments.add(HotFragment.newInstance(null,1))

@@ -9,13 +9,14 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/dp_2"
+        android:layout_margin="@dimen/dp_3"
         app:cardCornerRadius="@dimen/dp_5"
         app:cardElevation="0.0dip">
         <LinearLayout
-            android:layout_width="@dimen/dp_20"
-            android:layout_height="@dimen/dp_20">
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24">
             <TextView
+                android:textSize="@dimen/sp_17"
                 android:textStyle="bold"
                 android:textColor="@color/common_bg_color"
                 android:gravity="center"
@@ -28,14 +29,14 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
     <TextView
-        android:textSize="@dimen/sp_14"
+        android:textSize="@dimen/sp_19"
         android:textColor="@color/text_gray"
         android:ellipsize="end"
         android:gravity="center_vertical"
         android:id="@+id/tvSearchWord"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginLeft="@dimen/dp_3"
+        android:layout_marginLeft="@dimen/dp_6"
         android:maxLines="1"
         android:singleLine="true"
         android:layout_weight="1.0"

@@ -368,12 +368,12 @@ class FastSearchActivity : BaseActivity() {
     private fun addHistorySearchItemView(paramString: String?, paramBoolean: Boolean) {
         if (searchRecordBox?.visibility == View.GONE) searchRecordBox?.visibility = View.VISIBLE
 
-        val marginLayoutParams: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(-2, DensityUtil.dip2px(30.0f))
+        val marginLayoutParams: ViewGroup.MarginLayoutParams = ViewGroup.MarginLayoutParams(-2, DensityUtil.dip2px(38.0f))
         marginLayoutParams.setMargins(DensityUtil.dip2px(10.0f), 0, DensityUtil.dip2px(10.0f), 0)
         val textView = TextView(this)
         textView.setPadding(DensityUtil.dip2px(15.0f), 0, DensityUtil.dip2px(15.0f), 0)
         textView.setTextColor(resources.getColor(R.color.text_gray))
-        textView.setTextSize(2, 14.0f)
+        textView.setTextSize(2, 18.0f)
         textView.setText(paramString)
         textView.tag = paramString
         textView.setGravity(16)

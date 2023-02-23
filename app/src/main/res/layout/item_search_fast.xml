@@ -40,7 +40,7 @@
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
-                <TextView android:textSize="@dimen/sp_19"
+                <TextView android:textSize="@dimen/sp_20"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:ellipsize="marquee"
@@ -50,7 +50,7 @@
                     android:singleLine="true"
                     android:marqueeRepeatLimit="marquee_forever"
                     />
-                <TextView android:textSize="@dimen/sp_17"
+                <TextView android:textSize="@dimen/sp_18"
                     android:textColor="@color/text_gray"
                     android:ellipsize="end"
                     android:gravity="center"
@@ -61,7 +61,7 @@
                     android:layout_marginTop="@dimen/dp_3"
                     android:singleLine="true"
                     />
-                <TextView android:textSize="@dimen/sp_17"
+                <TextView android:textSize="@dimen/sp_18"
                     android:textColor="@color/text_gray"
                     android:ellipsize="end"
                     android:gravity="center"
@@ -76,13 +76,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/dp_3"
                     android:layout_weight="1.0">
-                    <TextView android:textSize="@dimen/sp_17"
+                    <TextView android:textSize="@dimen/sp_18"
                         android:textColor="@color/text_gray"
                         android:id="@+id/tvArea"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/dp_6" />
-                    <TextView android:textSize="@dimen/sp_17"
+                    <TextView android:textSize="@dimen/sp_18"
                         android:textColor="@color/text_gray"
                         android:id="@+id/tvYear"
                         android:layout_width="wrap_content"
@@ -96,7 +96,7 @@
                 android:layout_height="fill_parent"
                 android:layout_marginTop="@dimen/dp_3">
                 <TextView
-                    android:textSize="@dimen/sp_17"
+                    android:textSize="@dimen/sp_18"
                     android:textStyle="bold"
                     android:textColor="@color/main_color"
                     android:ellipsize="end"

@@ -61,7 +61,7 @@
                         android:layout_height="fill_parent"
                         android:layout_alignParentRight="true">
                         <TextView
-                            android:textSize="@dimen/sp_17"
+                            android:textSize="@dimen/sp_18"
                             android:textColor="@color/common_font_color"
                             android:gravity="center"
                             android:id="@+id/record_clear"
@@ -131,9 +131,8 @@
                     android:clipToPadding="false"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    app:tv_horizontalSpacingWithMargins="@dimen/dp_6"
                     app:tv_selectedItemIsCentered="true"
-                    app:tv_verticalSpacingWithMargins="@dimen/dp_6"
+                    app:tv_verticalSpacingWithMargins="@dimen/dp_5"
                     />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
