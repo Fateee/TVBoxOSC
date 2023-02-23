@@ -80,8 +80,9 @@ public class ApiConfig {
     }
 
     public void loadConfig(boolean useCache, LoadConfigCallback callback, Activity activity) {
-        //todo huyi
-        String apiUrl = "http://byyds.top/w.txt";//Hawk.get(HawkConfig.API_URL, "");
+        //todo hy
+//        String apiUrl = "http://byyds.top/w.txt";
+        String apiUrl = Hawk.get(HawkConfig.API_URL, "");
         if (apiUrl.isEmpty()) {
             callback.error("-1");
             return;
@@ -250,8 +251,8 @@ public class ApiConfig {
         }
         if (sourceBeanList != null && sourceBeanList.size() > 0) {
             String home = Hawk.get(HawkConfig.HOME_API, "");
-            //todo huyi
-            home = "小苹果";
+            //todo hy
+            //home = "小苹果";
             SourceBean sh = getSource(home);
             if (sh == null)
                 setSourceBean(firstSite);

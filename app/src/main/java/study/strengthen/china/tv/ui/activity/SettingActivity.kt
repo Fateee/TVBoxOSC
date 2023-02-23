@@ -10,7 +10,9 @@ import study.strengthen.china.tv.api.ApiConfig
 import study.strengthen.china.tv.base.BaseActivity
 import study.strengthen.china.tv.bean.IJKCode
 import study.strengthen.china.tv.bean.SourceBean
+import study.strengthen.china.tv.ui.adapter.ApiHistoryDialogAdapter
 import study.strengthen.china.tv.ui.adapter.SelectDialogAdapter
+import study.strengthen.china.tv.ui.dialog.ApiHistoryDialog
 import study.strengthen.china.tv.ui.dialog.SelectDialog
 import study.strengthen.china.tv.util.FastClickCheckUtil
 import study.strengthen.china.tv.util.HawkConfig
@@ -31,20 +33,10 @@ class SettingActivity : BaseActivity() {
     }
 
     private fun initView() {
-//        tvApi?.setSubTitle(Hawk.get(HawkConfig.API_URL, ""));
-//        tvApi?.setOnClickListener { v ->
-//            val dialog = ApiDialog(this)
-////            EventBus.getDefault().register(dialog)
-//            dialog.setOnListener { api ->
-//                Hawk.put(HawkConfig.API_URL, api)
-//                tvApi?.setSubTitle(api)
-//            }
-//            dialog.setOnDismissListener { dialog ->
-//                (mActivity as BaseActivity).hideSysBar()
-//                EventBus.getDefault().unregister(dialog)
-//            }
-//            dialog.show()
-//        }
+        tvApi?.setSubTitle(Hawk.get(HawkConfig.API_URL, ""));
+        tvApi?.setOnClickListener { v ->
+            showApiDialog()
+        }
 
         tvHomeApi?.setSubTitle(ApiConfig.get().homeSourceBean.name)
         tvHomeApi?.setOnClickListener { v ->
@@ -308,6 +300,35 @@ class SettingActivity : BaseActivity() {
             }, players, defaultPos)
             dialog.show()
         }
+    }
+
+    private fun showApiDialog() {
+        val dialog = ApiHistoryDialog(this)
+        dialog.setTip("历史配置列表")
+        val history = Hawk.get(HawkConfig.API_HISTORY, ArrayList<String>())
+        if (history.isNotEmpty()) {
+            val current = Hawk.get(HawkConfig.API_URL, "")
+            var idx = 0
+            if (history.contains(current)) idx = history.indexOf(current)
+            dialog.setAdapter(object : ApiHistoryDialogAdapter.SelectDialogInterface {
+                override fun click(value: String) {
+                    tvApi?.setSubTitle(value)
+                    Hawk.put(HawkConfig.API_URL, value)
+                    dialog.dismiss()
+                }
+
+                override fun del(value: String, data: ArrayList<String>) {
+                    Hawk.put(HawkConfig.API_HISTORY, data)
+                }
+            }, history, idx)
+        }
+        dialog.setOnListener(object :ApiHistoryDialog.OnListener{
+            override fun onchange(api: String?) {
+                tvApi?.setSubTitle(api)
+                Hawk.put(HawkConfig.API_URL, api)
+            }
+        })
+        dialog.show()
     }
 
     private fun initData() {
