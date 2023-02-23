@@ -6,6 +6,7 @@ import kotlinx.android.synthetic.main.item_left_menu.view.*
 import me.zhouzhuo.zzsecondarylinkage.adapter.LeftMenuBaseListAdapter
 import me.zhouzhuo.zzsecondarylinkage.viewholder.BaseListViewHolder
 import study.strengthen.china.tv.R
+import study.strengthen.china.tv.api.ApiConfig
 import study.strengthen.china.tv.bean.Movie
 import study.strengthen.china.tv.bean.SourceBean
 
@@ -26,7 +27,12 @@ class LeftMenuListAdapter(private val ctx: Context?, list: List<Movie?>?) : Left
     override fun bindData(leftListViewHolder: BaseListViewHolder, position: Int) {
 //        leftListViewHolder.tvMacName.setText(list.get(position).getMacName());
 //        leftListViewHolder.tvMacId.setText(list.get(position).getMacId());
-        leftListViewHolder.rootView?.tv_item_text?.text = list[position]?.sourceKey
+        val key = list[position]?.sourceKey?:""
+        var value = ApiConfig.get().getSource(key)?.name?:key
+        if (value.contains("公众号") || value.contains("接口")) {
+            value = key
+        }
+        leftListViewHolder.rootView?.tv_item_text?.text = value
         if (list[position]?.isSelected == true) {
             leftListViewHolder.rootView?.icon_selected?.visibility = View.VISIBLE
             ctx?.resources?.getColor(R.color.main_color)?.let { leftListViewHolder.rootView?.tv_item_text?.setTextColor(it) }
