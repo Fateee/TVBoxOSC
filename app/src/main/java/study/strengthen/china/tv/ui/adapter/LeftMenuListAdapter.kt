@@ -1,6 +1,7 @@
 package study.strengthen.china.tv.ui.adapter
 
 import android.content.Context
+import android.graphics.Typeface
 import android.view.View
 import kotlinx.android.synthetic.main.item_left_menu.view.*
 import me.zhouzhuo.zzsecondarylinkage.adapter.LeftMenuBaseListAdapter
@@ -37,10 +38,12 @@ class LeftMenuListAdapter(private val ctx: Context?, list: List<Movie?>?) : Left
 //            leftListViewHolder.rootView?.icon_selected?.visibility = View.VISIBLE
             leftListViewHolder.rootView?.tv_item_text?.setTextColor(leftListViewHolder.rootView.context.resources.getColor(R.color.white))
             leftListViewHolder.rootView?.tv_item_text?.setBackgroundResource(R.color.main_color)
+            leftListViewHolder.rootView?.tv_item_text?.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
         } else {
 //            leftListViewHolder.rootView?.icon_selected?.visibility = View.GONE
             leftListViewHolder.rootView?.tv_item_text?.setTextColor(leftListViewHolder.rootView.context.resources.getColor(R.color.common_font_color))
             leftListViewHolder.rootView?.tv_item_text?.setBackgroundResource(R.color.transparent)
+            leftListViewHolder.rootView?.tv_item_text?.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
         }
     }
 
