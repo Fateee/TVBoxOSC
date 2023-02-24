@@ -169,7 +169,7 @@ class DetailActivity : BaseActivity() {
 
         }
         iv_change?.setOnClickListener {
-            refreshSource(++mSourcePosition)
+            changeSource()
         }
 //        tvSort.setOnClickListener(View.OnClickListener {
 //            if (vodInfo != null && vodInfo!!.seriesMap.size > 0) {
@@ -275,6 +275,11 @@ class DetailActivity : BaseActivity() {
         mPlayFragment = PlayFragment().newInstance(this)
         supportFragmentManager.beginTransaction().add(R.id.playerContainer, mPlayFragment!!).commit()
         supportFragmentManager.beginTransaction().show(mPlayFragment!!).commitAllowingStateLoss()
+    }
+
+    fun changeSource() {
+        refreshSource(++mSourcePosition)
+        jumpToPlay()
     }
 
     private fun refreshSource(pos: Int) {

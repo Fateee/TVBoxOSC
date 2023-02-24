@@ -37,6 +37,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class VodController(context: Context) : BaseController(context) {
+    private var mCanShowBottom : Boolean = false
     private val mHideBottomRunable: Runnable = Runnable {
         hideBottom()
     }
@@ -211,6 +212,17 @@ class VodController(context: Context) : BaseController(context) {
         }
         setting?.setOnClickListener {
 
+        }
+        status_btn?.setOnClickListener {
+            if (mActivity is DetailActivity) {
+                (mActivity as DetailActivity).mPlayFragment?.autoRetry()
+            }
+            hideBottom()
+        }
+        select_btn?.setOnClickListener {
+            if (mActivity is DetailActivity) {
+                (mActivity as DetailActivity).changeSource()
+            }
         }
         mPlayerScaleBtn?.setOnClickListener(OnClickListener {
             try {
@@ -468,6 +480,9 @@ class VodController(context: Context) : BaseController(context) {
         when (playState) {
             VideoView.STATE_ERROR -> listener!!.errReplay()
             VideoView.STATE_IDLE,STATE_START_ABORT -> {
+                if (playState == VideoView.STATE_IDLE) {
+                    setShowFlag(false)
+                }
                 ll_back?.visibility = if (mControlWrapper?.isFullScreen == true) {
                     View.GONE
                 } else {
@@ -476,7 +491,7 @@ class VodController(context: Context) : BaseController(context) {
             }
             VideoView.STATE_PREPARED -> {
                 tv_play_load_net_speed?.visibility = View.GONE
-
+                setShowFlag(true)
                 if (mControlWrapper?.isFullScreen == true) {
                     ll_back?.visibility = View.GONE
                 }
@@ -609,47 +624,47 @@ class VodController(context: Context) : BaseController(context) {
         mHandler.sendEmptyMessage(1003)
     }
 
-    override fun onKeyEvent(event: KeyEvent): Boolean {
-        if (super.onKeyEvent(event)) {
-            return true
-        }
-        if (isBottomVisible) {
-            return super.dispatchKeyEvent(event)
-        }
-        val isInPlayback = isInPlaybackState
-        val keyCode = event.keyCode
-        val action = event.action
-        if (action == KeyEvent.ACTION_DOWN) {
-            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT || keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                if (isInPlayback) {
-                    tvSlideStart(if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) 1 else -1)
-                    return true
-                }
-            } else if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
-                if (isInPlayback) {
-                    togglePlay()
-                    return true
-                }
-            } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
-            } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
-                if (!isBottomVisible) {
-                    showBottom()
-                }
-            }
-        } else if (action == KeyEvent.ACTION_UP) {
-            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT || keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
-                if (isInPlayback) {
-                    tvSlideStop()
-                    return true
-                }
-            }
-        }
-        return super.dispatchKeyEvent(event)
-    }
+//    override fun onKeyEvent(event: KeyEvent): Boolean {
+//        if (super.onKeyEvent(event)) {
+//            return true
+//        }
+//        if (isBottomVisible) {
+//            return super.dispatchKeyEvent(event)
+//        }
+//        val isInPlayback = isInPlaybackState
+//        val keyCode = event.keyCode
+//        val action = event.action
+//        if (action == KeyEvent.ACTION_DOWN) {
+//            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT || keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+//                if (isInPlayback) {
+//                    tvSlideStart(if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT) 1 else -1)
+//                    return true
+//                }
+//            } else if (keyCode == KeyEvent.KEYCODE_DPAD_CENTER || keyCode == KeyEvent.KEYCODE_ENTER || keyCode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
+//                if (isInPlayback) {
+//                    togglePlay()
+//                    return true
+//                }
+//            } else if (keyCode == KeyEvent.KEYCODE_DPAD_UP) {
+//            } else if (keyCode == KeyEvent.KEYCODE_DPAD_DOWN) {
+//                if (!isBottomVisible) {
+//                    showBottom()
+//                }
+//            }
+//        } else if (action == KeyEvent.ACTION_UP) {
+//            if (keyCode == KeyEvent.KEYCODE_DPAD_RIGHT || keyCode == KeyEvent.KEYCODE_DPAD_LEFT) {
+//                if (isInPlayback) {
+//                    tvSlideStop()
+//                    return true
+//                }
+//            }
+//        }
+//        return super.dispatchKeyEvent(event)
+//    }
 
     override fun onSingleTapConfirmed(e: MotionEvent): Boolean {
         mHandler?.removeCallbacks(mHideBottomRunable)
-        if (!isBottomVisible) {
+        if (!isBottomVisible && mCanShowBottom) {
             showBottom()
             mHandler?.post(showSpeedTimeRunnable)
             mHandler?.postDelayed(mHideBottomRunable,5000)
@@ -734,6 +749,10 @@ class VodController(context: Context) : BaseController(context) {
         } else {
             showBottom()
         }
+    }
+
+    fun setShowFlag(canShowBottom: Boolean) {
+        mCanShowBottom = canShowBottom
     }
 
     init {

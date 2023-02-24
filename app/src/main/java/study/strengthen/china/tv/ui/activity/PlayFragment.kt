@@ -22,6 +22,7 @@ import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.AbsCallback
 import com.lzy.okgo.model.HttpHeaders
 import com.orhanobut.hawk.Hawk
+import kotlinx.android.synthetic.main.player_vod_control_view_new.view.*
 import me.jessyan.autosize.AutoSize
 import okhttp3.Response
 import org.greenrobot.eventbus.EventBus
@@ -90,8 +91,8 @@ class PlayFragment : BaseLazyFragment() {
         mVideoView = findViewById(R.id.mVideoView)
         mPlayLoadTip = findViewById(R.id.play_load_tip)
         mPlayLoading = findViewById(R.id.play_loading)
-        mPlayLoadErr = findViewById(R.id.play_load_error)
         mController = VodController(requireContext())
+        mPlayLoadErr = mController?.play_load_error
         mController!!.setCanChangePosition(true)
         mController!!.setEnableInNormal(true)
         mController!!.setGestureEnabled(true)
@@ -143,7 +144,7 @@ class PlayFragment : BaseLazyFragment() {
             }
 
             override fun errReplay() {
-                errorWithRetry("视频播放出错", false)
+                errorWithRetry("", false)
             }
         })
         mVideoView?.setVideoController(mController)
