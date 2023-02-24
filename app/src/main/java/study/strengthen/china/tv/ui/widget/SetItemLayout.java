@@ -90,7 +90,7 @@ public class SetItemLayout extends LinearLayout {
             setRightIcon(rightIconId);
         }
 
-        boolean hideDivider = a.getBoolean(R.styleable.setItemLayout_hide_divider, false);
+        boolean hideDivider = a.getBoolean(R.styleable.setItemLayout_hide_divider, true);
         if (hideDivider) hideDivider();
 
 

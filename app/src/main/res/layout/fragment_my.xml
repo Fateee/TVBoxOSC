@@ -233,6 +233,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 app:title="设置中心"
+                                app:hide_divider="false"
                                 app:show_arraw="true"/>
                         </androidx.cardview.widget.CardView>
                         <androidx.cardview.widget.CardView
@@ -260,6 +261,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 app:title="用户协议"
+                                app:hide_divider="false"
                                 app:show_arraw="true"/>
                         </androidx.cardview.widget.CardView>
                         <androidx.cardview.widget.CardView
@@ -273,6 +275,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 app:title="隐私政策"
+                                app:hide_divider="false"
                                 app:show_arraw="true"/>
                         </androidx.cardview.widget.CardView>
                         <androidx.cardview.widget.CardView
@@ -301,6 +304,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 app:title="版本更新"
+                                app:hide_divider="false"
                                 app:show_arraw="true"/>
 
                         </androidx.cardview.widget.CardView>
@@ -315,6 +319,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="80dp"
                                 app:title="清除缓存"
+                                app:hide_divider="false"
                                 app:show_arraw="true"/>
 
 <!--                            <one.easybox.app.widget.supertext.SuperTextView-->
