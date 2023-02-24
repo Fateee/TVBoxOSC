@@ -45,6 +45,7 @@ import java.util.concurrent.atomic.AtomicInteger
  * @description:
  */
 class FastSearchActivity : BaseActivity() {
+    private var rightAdapter: RightContentListAdapter? = null
     private var mHistorySearch: java.util.ArrayList<String>? = null
 
     //    private var llLayout: LinearLayout? = null
@@ -95,16 +96,16 @@ class FastSearchActivity : BaseActivity() {
 
         zzLinkage = findViewById(R.id.listLinkage)
         zzLinkage?.setLeftMenuAdapter(LeftMenuListAdapter(this, mSearchRetList))
-        val rightAdapter = RightContentListAdapter(this, ArrayList<Movie.Video>())
+        rightAdapter = RightContentListAdapter(this, ArrayList<Movie.Video>())
         zzLinkage?.setRightContentAdapter(rightAdapter)
         zzLinkage?.setOnItemClickListener(object : ILinkage.OnItemClickListener{
             override fun onLeftClick(itemView: View?, position: Int) {
 //                if (itemView == null && position == 0 && rightAdapter.count != 0) return
-                rightAdapter.setList(mSearchRetList?.get(position)?.videoList)
+                rightAdapter?.setList(mSearchRetList?.get(position)?.videoList)
             }
 
             override fun onRightClick(view: View?, position: Int) {
-                val video = rightAdapter.getItem(position)
+                val video = rightAdapter?.getItem(position)
                 if (video != null) {
                     try {
                         if (searchExecutorService != null) {
@@ -171,7 +172,7 @@ class FastSearchActivity : BaseActivity() {
     private fun initViewModel() {
         sourceViewModel = ViewModelProvider(this).get(SourceViewModel::class.java)
         sourceViewModel?.searchResult?.observe(this, androidx.lifecycle.Observer {
-            searchData(it ?:null)
+            searchDataResult(it ?:null)
         })
     }
 
@@ -282,12 +283,16 @@ class FastSearchActivity : BaseActivity() {
         showLoading()
         searchTitle = title
         et_search?.setText(title)
-        title?.length?.let { et_search?.setSelection(it) }
+        title?.length?.let {
+            et_search?.setSelection(it)
+            rightAdapter?.searchKey = title
+        }
         searchResult()
     }
 
     private var searchExecutorService: ExecutorService? = null
     private val allRunCount = AtomicInteger(0)
+    private val siteKey = ArrayList<String>()
     private fun searchResult() {
         try {
             if (searchExecutorService != null) {
@@ -305,7 +310,7 @@ class FastSearchActivity : BaseActivity() {
         val home = ApiConfig.get().homeSourceBean
         searchRequestList.remove(home)
         searchRequestList.add(0, home)
-        val siteKey = ArrayList<String>()
+        siteKey.clear()
         for (bean: SourceBean in searchRequestList) {
             if (!bean.isSearchable) {
                 continue
@@ -313,16 +318,15 @@ class FastSearchActivity : BaseActivity() {
             siteKey.add(bean.key)
             allRunCount.incrementAndGet()
         }
+        mSearchTitle?.text = "聚合搜索结果(0/${siteKey.size})"
         for (key: String in siteKey) {
-            searchExecutorService?.execute(object : Runnable {
-                override fun run() {
-                    sourceViewModel!!.getSearch(key, searchTitle)
-                }
-            })
+            searchExecutorService?.execute {
+                sourceViewModel?.getSearch(key, searchTitle)
+            }
         }
     }
 
-    private fun searchData(absXml: AbsXml?) {
+    private fun searchDataResult(absXml: AbsXml?) {
         if ((absXml != null) && (absXml.movie != null) && (absXml.movie.videoList != null) && (absXml.movie.videoList.size > 0)) {
             val data: MutableList<Movie.Video> = ArrayList()
             for (video: Movie.Video in absXml.movie.videoList) {
@@ -330,6 +334,7 @@ class FastSearchActivity : BaseActivity() {
             }
             mSearchRetList?.add(absXml.movie)
             showSuccess()
+            mSearchTitle?.text = "聚合搜索结果(${mSearchRetList?.size?:0}/${siteKey.size})"
             zzLinkage?.updateData(mSearchRetList)
 //            if (searchAdapter!!.data.size > 0) {
 //                searchAdapter!!.addData(data)
@@ -340,9 +345,9 @@ class FastSearchActivity : BaseActivity() {
         }
         val count = allRunCount.decrementAndGet()
         if (count <= 0) {
-//            if (searchAdapter!!.data.size <= 0) {
-//                showEmpty()
-//            }
+            if (mSearchRetList?.size?:0 <= 0) {
+                showEmpty()
+            }
             cancel()
         }
     }

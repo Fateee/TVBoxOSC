@@ -1,7 +1,11 @@
 package study.strengthen.china.tv.ui.adapter
 
 import android.content.Context
+import android.graphics.Color
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.TextUtils
+import android.text.style.ForegroundColorSpan
 import android.view.View
 import com.squareup.picasso.Picasso
 import me.zhouzhuo.zzsecondarylinkage.adapter.RightMenuBaseListAdapter
@@ -15,6 +19,14 @@ import study.strengthen.china.tv.util.DefaultConfig
  * Created by zz on 2016/8/20.
  */
 class RightContentListAdapter(ctx: Context?, list: List<Movie.Video?>?) : RightMenuBaseListAdapter<BaseListViewHolder, Movie.Video?>(ctx, list) {
+    var searchKey: String = ""
+        get() {
+            return field
+        }
+        set(value) {
+            field = value
+        }
+
     override fun getViewHolder(): BaseListViewHolder {
         return BaseListViewHolder()
     }
@@ -37,8 +49,18 @@ class RightContentListAdapter(ctx: Context?, list: List<Movie.Video?>?) : RightM
 //        rightListViewHolder.tvTaskId.setText(getItem(position).getTaskId());
 //        rightListViewHolder.tvStartTime.setText(getItem(position).getStartTime());
         val item = list[position]
-        rightListViewHolder?.rootView?.tvName?.text = item?.name
-        rightListViewHolder?.rootView?.tvSite?.text = "来源:"+item?.sourceKey
+        item?.name?.let {
+            var name : CharSequence? = item.name
+            if (item.name.contains(searchKey)) {
+                name = SpannableStringBuilder(item.name).apply {
+                    val start = item.name.indexOf(searchKey, ignoreCase = true)
+                    val end = start + searchKey.length
+                    setSpan(ForegroundColorSpan(context.resources.getColor(R.color.main_color)), start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                }
+            }
+            rightListViewHolder?.rootView?.tvName?.text = name
+        }
+//        rightListViewHolder?.rootView?.tvSite?.text = "来源:"+item?.sourceKey
         if (item?.year?:0 <= 0) {
             rightListViewHolder?.rootView?.tvYear?.setVisibility(View.GONE)
         } else {

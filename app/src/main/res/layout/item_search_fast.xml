@@ -94,18 +94,26 @@
                 android:orientation="horizontal"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginTop="@dimen/dp_3">
-                <TextView
-                    android:textSize="@dimen/sp_18"
-                    android:textStyle="bold"
-                    android:textColor="@color/main_color"
+                android:layout_marginTop="@dimen/dp_3"
+                android:layout_marginBottom="@dimen/dp_3">
+                <study.strengthen.china.tv.ui.tv.widget.SimpleCornerTextView
+                    android:textSize="@dimen/sp_17"
+                    android:textColor="@color/white"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:id="@+id/tvSite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="来源:"
-                    android:singleLine="true" />
+                    android:text="立即播放"
+                    android:singleLine="true"
+                    android:paddingVertical="@dimen/dp_6"
+                    android:paddingHorizontal="@dimen/dp_10"
+                    android:drawableLeft="@drawable/play"
+                    android:drawablePadding="4dp"
+                    app:drawableWidth_left="@dimen/dp_14"
+                    app:drawableHeight_left="@dimen/dp_18"
+                    app:radius="@dimen/dp_5"
+                    app:bgColor="@color/main_color"/>
             </LinearLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

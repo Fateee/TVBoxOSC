@@ -34,11 +34,13 @@ class LeftMenuListAdapter(private val ctx: Context?, list: List<Movie?>?) : Left
         }
         leftListViewHolder.rootView?.tv_item_text?.text = value
         if (list[position]?.isSelected == true) {
-            leftListViewHolder.rootView?.icon_selected?.visibility = View.VISIBLE
-            ctx?.resources?.getColor(R.color.main_color)?.let { leftListViewHolder.rootView?.tv_item_text?.setTextColor(it) }
+//            leftListViewHolder.rootView?.icon_selected?.visibility = View.VISIBLE
+            leftListViewHolder.rootView?.tv_item_text?.setTextColor(leftListViewHolder.rootView.context.resources.getColor(R.color.white))
+            leftListViewHolder.rootView?.tv_item_text?.setBackgroundResource(R.color.main_color)
         } else {
-            leftListViewHolder.rootView?.icon_selected?.visibility = View.GONE
-            ctx?.resources?.getColor(R.color.common_font_color)?.let { leftListViewHolder.rootView?.tv_item_text?.setTextColor(it) }
+//            leftListViewHolder.rootView?.icon_selected?.visibility = View.GONE
+            leftListViewHolder.rootView?.tv_item_text?.setTextColor(leftListViewHolder.rootView.context.resources.getColor(R.color.common_font_color))
+            leftListViewHolder.rootView?.tv_item_text?.setBackgroundResource(R.color.transparent)
         }
     }
 

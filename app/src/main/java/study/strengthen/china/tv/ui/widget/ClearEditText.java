@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function1;
 import study.strengthen.china.tv.R;
+import study.strengthen.china.tv.util.DensityUtil;
 
 public class ClearEditText extends AppCompatEditText implements View.OnFocusChangeListener, TextWatcher {
 	public Drawable e;
@@ -30,12 +31,13 @@ public class ClearEditText extends AppCompatEditText implements View.OnFocusChan
 
 	public ClearEditText(Context paramContext, AttributeSet paramAttributeSet, int paramInt) {
 		super(paramContext, paramAttributeSet, paramInt);
+		int iconWh = DensityUtil.dip2px(20f);
 		Drawable drawable = getCompoundDrawables()[2];
 		this.e = drawable;
 		if (drawable == null)
 			this.e = getResources().getDrawable(R.drawable.sea_delete);
 		drawable = this.e;
-		drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), this.e.getIntrinsicHeight());
+		drawable.setBounds(0, 0, iconWh, iconWh);
 		setClearIconVisible(false);
 		setOnFocusChangeListener(this);
 		addTextChangedListener(this);
