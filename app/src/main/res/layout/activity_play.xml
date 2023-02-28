@@ -63,12 +63,10 @@
 <!--        </LinearLayout>-->
 <!--    </RelativeLayout>-->
     <LinearLayout
-        android:layout_gravity="bottom|center|left"
+        android:layout_gravity="center"
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginBottom="@dimen/dp_40">
+        android:layout_height="wrap_content">
         <ProgressBar android:id="@+id/play_loading"
             android:visibility="gone"
             android:layout_width="@dimen/dp_30"

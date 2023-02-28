@@ -574,7 +574,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_25"
-        android:text="0Kb/s" />
+        android:text="" />
 
     <include android:id="@+id/mFastForwardPop"
         layout="@layout/player_dialog_speed"

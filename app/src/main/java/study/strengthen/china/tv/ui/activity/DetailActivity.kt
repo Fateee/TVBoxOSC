@@ -255,6 +255,7 @@ class DetailActivity : BaseActivity() {
 //        })
         seriesFlagAdapter?.setOnItemClickListener { _, _, position ->
             refreshSource(position)
+            jumpToPlay()
         }
         seriesAdapter?.setOnItemClickListener { adapter, view, position ->
 //            FastClickCheckUtil.check(view)
