@@ -11,6 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Html
 import android.text.TextUtils
+import android.util.Log
 import android.util.Rational
 import android.view.View
 import android.widget.LinearLayout
@@ -29,6 +30,7 @@ import com.owen.tvrecyclerview.widget.V7LinearLayoutManager
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_detail_phone.*
 import kotlinx.android.synthetic.main.fragment_play_pop.*
+import kotlinx.android.synthetic.main.play_video_select_number.*
 import kotlinx.android.synthetic.main.play_video_title.*
 import kotlinx.android.synthetic.main.pop_common_title.*
 import okhttp3.Response
@@ -143,7 +145,7 @@ class DetailActivity : BaseActivity() {
         mEmptyPlayList = findViewById(R.id.mEmptyPlaylist)
         mGridView = findViewById(R.id.mGridView)
         mGridView?.setHasFixedSize(true)
-        mGridView?.setLayoutManager(V7GridLayoutManager(mContext, if (isBaseOnWidth) 4 else 5))
+        mGridView?.setLayoutManager(V7GridLayoutManager(mContext, 4))
         seriesAdapter = SeriesAdapter()
         mGridView?.setAdapter(seriesAdapter)
         mGridViewFlag = findViewById(R.id.mGridViewFlag)
@@ -171,14 +173,16 @@ class DetailActivity : BaseActivity() {
         iv_change?.setOnClickListener {
             changeSource()
         }
-//        tvSort.setOnClickListener(View.OnClickListener {
-//            if (vodInfo != null && vodInfo!!.seriesMap.size > 0) {
-//                vodInfo!!.reverseSort = !vodInfo!!.reverseSort
-//                vodInfo!!.reverse()
-//                insertVod(sourceKey, vodInfo)
+        ll_all_sorter?.setOnClickListener {
+            if (vodInfo != null && vodInfo!!.seriesMap.size > 0) {
+                vodInfo!!.reverseSort = !vodInfo!!.reverseSort
+                vodInfo!!.reverse()
+                vodInfo?.playIndex = seriesAdapter!!.data.lastIndex - vodInfo!!.playIndex
+                insertVod(sourceKey, vodInfo)
 //                seriesAdapter!!.notifyDataSetChanged()
-//            }
-//        })
+                scrollToNowIndex()
+            }
+        }
 //        tvPlay.setOnClickListener(View.OnClickListener { v ->
 //            FastClickCheckUtil.check(v)
 //            jumpToPlay()
@@ -303,6 +307,7 @@ class DetailActivity : BaseActivity() {
             flag.selected = true
             vodInfo!!.playFlag = newFlag
             seriesFlagAdapter!!.notifyItemChanged(mSourcePosition)
+            mGridViewFlag?.scrollToPosition(mSourcePosition)
             refreshList()
         }
     }
@@ -329,7 +334,21 @@ class DetailActivity : BaseActivity() {
             vodInfo!!.seriesMap[vodInfo?.playFlag]!![vodInfo!!.playIndex].selected = true
         }
         seriesAdapter!!.setNewData(vodInfo!!.seriesMap[vodInfo?.playFlag])
-        mGridView!!.postDelayed({ mGridView!!.scrollToPosition(vodInfo!!.playIndex) }, 100)
+        scrollToNowIndex()
+    }
+
+    fun scrollToNowIndex() {
+        if (mPlayFragment?.mController?.isFullScreenPortrait == true) return
+        if (vodInfo!!.reverseSort) {
+            iv_sorter_arrow?.rotation = 180F
+        } else {
+            iv_sorter_arrow?.rotation = 0F
+        }
+        mGridView!!.postDelayed({
+            mGridView?.requestLayout()
+            val pos = refreshItemSelect()
+            mGridView!!.scrollToPosition(pos)
+        }, 100)
     }
 
     private fun setTextShow(view: TextView?, tag: String, info: String?) {
@@ -684,4 +703,28 @@ class DetailActivity : BaseActivity() {
         }
     }
 
+    fun refreshItemSelect(refresh : Boolean = true): Int {
+        var selectIndex = 0
+        seriesAdapter?.data?.forEachIndexed { index, _ ->
+            if (index == vodInfo?.playIndex) {
+                selectIndex = index
+            }
+            seriesAdapter!!.data[index].selected = index == vodInfo?.playIndex
+        }
+        if (refresh) {
+            seriesAdapter?.notifyDataSetChanged()
+        }
+        return selectIndex
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // 设备方向为横屏，执行相应操作
+        } else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            // 设备方向为竖屏，执行相应操作
+            Log.i("huyi","设备方向为竖屏")
+            scrollToNowIndex()
+        }
+    }
 }

@@ -2,16 +2,16 @@ package study.strengthen.china.tv.player.controller
 
 import android.content.Context
 import android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.util.Log
-import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.MotionEvent.ACTION_UP
 import android.view.View
 import android.view.View.OnClickListener
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.SeekBar
+import android.widget.TextView
 import com.orhanobut.hawk.Hawk
 import com.owen.tvrecyclerview.widget.TvRecyclerView
 import com.owen.tvrecyclerview.widget.V7LinearLayoutManager
@@ -27,7 +27,6 @@ import study.strengthen.china.tv.player.thirdparty.MXPlayer
 import study.strengthen.china.tv.player.thirdparty.ReexPlayer
 import study.strengthen.china.tv.ui.activity.DetailActivity
 import study.strengthen.china.tv.ui.adapter.ParseAdapter
-import study.strengthen.china.tv.util.DensityUtil
 import study.strengthen.china.tv.util.HawkConfig
 import study.strengthen.china.tv.util.PlayerHelper
 import xyz.doikki.videoplayer.player.VideoView
@@ -69,7 +68,7 @@ class VodController(context: Context) : BaseController(context) {
             }
         }
     }
-    private var isFullScreenPortrait = false
+    var isFullScreenPortrait = false
     private var mLastSpeed: Float = 1.0f
     private var mFastForwardPopShown: Boolean = false
     private var mCurrentPlayState: Int = 0
@@ -182,7 +181,9 @@ class VodController(context: Context) : BaseController(context) {
         }
         fullscreen?.setOnClickListener {
             toggleFullScreen()
-            isFullScreenPortrait = false
+//            Log.i("huyi","isFullScreen "+mControlWrapper?.isFullScreen)
+            isFullScreenPortrait = mControlWrapper?.isFullScreen ?: false
+            refreshGridSelectIndex()
         }
         t_back?.setOnClickListener {
             mActivity?.finish()
@@ -190,6 +191,7 @@ class VodController(context: Context) : BaseController(context) {
         back?.setOnClickListener {
             toggleFullScreen()
             isFullScreenPortrait = false
+            refreshGridSelectIndex()
         }
         pip?.setOnClickListener {
             if (mActivity is DetailActivity) {
@@ -200,15 +202,13 @@ class VodController(context: Context) : BaseController(context) {
             mControlWrapper?.toggleLockState()
         }
         iv_landscape_portrait?.setOnClickListener {
-            isFullScreenPortrait = if (isFullScreenPortrait) {
+            if (isPortrait()) {
                 startFullScreen()
-                false
             } else {
                 toggleFullScreen()
                 mControlWrapper?.startFullScreen()
-                true
             }
-
+            Log.i("huyi"," - isFullScreen "+mControlWrapper?.isFullScreen)
         }
         setting?.setOnClickListener {
 
@@ -335,6 +335,12 @@ class VodController(context: Context) : BaseController(context) {
 //                updatePlayerCfgView();
 //            }
 //        });
+    }
+
+    fun refreshGridSelectIndex() {
+        if (!isFullScreenPortrait && mActivity is DetailActivity) {
+            (mActivity as DetailActivity).scrollToNowIndex()
+        }
     }
 
     override fun getLayoutId(): Int {
@@ -807,5 +813,9 @@ class VodController(context: Context) : BaseController(context) {
                 }
             }
         }
+    }
+
+    fun isPortrait(): Boolean {
+        return mActivity?.requestedOrientation == SCREEN_ORIENTATION_PORTRAIT
     }
 }

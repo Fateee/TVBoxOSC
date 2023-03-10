@@ -82,9 +82,9 @@
 <!--                            android:layout_width="@dimen/dp_35"-->
 <!--                            android:layout_height="fill_parent"-->
 <!--                            android:src="@drawable/ic_reverse" />-->
-                        <LinearLayout android:gravity="center"
+                        <RelativeLayout android:gravity="center"
                             android:orientation="horizontal"
-                            android:id="@+id/ll_all_number"
+                            android:id="@+id/ll_all_sorter"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/dp_12"
@@ -94,15 +94,20 @@
                                 android:textColor="@color/black"
                                 android:id="@+id/btn_all_number"
                                 android:background="@color/transparent"
-                                android:paddingRight="@dimen/dp_4"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
                                 android:text="排序" />
-<!--                            <ImageView android:id="@+id/iv_abstract_arrow"-->
-<!--                                android:layout_width="@dimen/dp_15"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:src="@drawable/ic_right" />-->
-                        </LinearLayout>
+                            <ImageView
+                                android:id="@+id/iv_sorter_arrow"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_alignTop="@id/btn_all_number"
+                                android:layout_alignBottom="@id/btn_all_number"
+                                android:layout_toRightOf="@id/btn_all_number"
+                                android:src="@drawable/ic__sorter" />
+                        </RelativeLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

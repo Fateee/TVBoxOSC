@@ -393,6 +393,7 @@ class PlayFragment : BaseLazyFragment() {
             return
         }
         mVodInfo!!.playIndex++
+        mController?.refreshGridSelectIndex()
         play()
     }
 
@@ -408,6 +409,7 @@ class PlayFragment : BaseLazyFragment() {
             return
         }
         mVodInfo!!.playIndex--
+        mController?.refreshGridSelectIndex()
         play()
     }
 
