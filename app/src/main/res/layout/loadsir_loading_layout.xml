@@ -1,13 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <View
+        android:id="@+id/middleDivider"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_centerInParent="true"/>
+
     <ProgressBar
-        android:layout_width="@dimen/vs_50"
-        android:layout_height="@dimen/vs_50"
-        android:layout_gravity="center"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_above="@id/loadingTv"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
         android:indeterminateBehavior="repeat"
         android:indeterminateDrawable="@drawable/anim_loading"
         android:indeterminateOnly="true" />
-</FrameLayout>
+    <TextView
+        android:id="@+id/loadingTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="正在加载..."
+        android:layout_above="@id/middleDivider"
+        android:layout_centerHorizontal="true"
+        android:textColor="#D2D7DC"
+        android:textSize="21sp" />
+</RelativeLayout>

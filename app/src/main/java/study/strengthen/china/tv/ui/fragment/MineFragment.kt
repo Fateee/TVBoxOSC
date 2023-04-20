@@ -18,6 +18,7 @@ import study.strengthen.china.tv.ui.activity.HistoryActivity
 import study.strengthen.china.tv.ui.activity.SettingActivity
 import study.strengthen.china.tv.ui.dialog.AboutDialog
 import study.strengthen.china.tv.util.DensityUtil
+import study.strengthen.china.tv.util.DialogUtils
 
 class MineFragment : BaseLazyFragment() {
     companion object {
@@ -49,29 +50,32 @@ class MineFragment : BaseLazyFragment() {
         }
     }
 
-    private fun showClearDialog(): Dialog {
-        val root = LayoutInflater.from(mContext).inflate(R.layout.dialog_title_msg_two_bts, null)
-        val cancelView = root.findViewById<View>(R.id.cancel) as TextView
-        val okView = root.findViewById<View>(R.id.ok) as TextView
-        root.message?.text = "确认清除缓存吗？"
-        val dialog: Dialog = AlertDialog.Builder(mContext, R.style.progress_dialog).create()
-        cancelView.setOnClickListener { v: View? ->
-            dialog.dismiss()
-        }
-        okView.setOnClickListener { v: View? ->
+    private fun showClearDialog(): Dialog? {
+//        val root = LayoutInflater.from(mContext).inflate(R.layout.dialog_title_msg_two_bts, null)
+//        val cancelView = root.findViewById<View>(R.id.cancel) as TextView
+//        val okView = root.findViewById<View>(R.id.ok) as TextView
+//        root.message?.text = "确认清除缓存吗？"
+//        val dialog: Dialog = AlertDialog.Builder(mContext, R.style.progress_dialog).create()
+//        cancelView.setOnClickListener { v: View? ->
+//            dialog.dismiss()
+//        }
+//        okView.setOnClickListener { v: View? ->
+//            Toast.makeText(mContext,"清除成功",Toast.LENGTH_SHORT).show()
+//            dialog.dismiss()
+//        }
+//        dialog.setCancelable(false)
+//        dialog.setCanceledOnTouchOutside(false)
+//        dialog.show()
+//        dialog.window?.setContentView(root)
+//        val width = DensityUtil.getWidth()- DensityUtil.dip2px(120f)
+//        val params = dialog.window?.attributes
+//        params?.width = width
+//        params?.height = WindowManager.LayoutParams.WRAP_CONTENT
+//        dialog.window?.attributes = params
+//        return dialog
+        return DialogUtils.showTextDialog(requireContext(),null,"确认清除缓存吗？",null, View.OnClickListener {
             Toast.makeText(mContext,"清除成功",Toast.LENGTH_SHORT).show()
-            dialog.dismiss()
-        }
-        dialog.setCancelable(false)
-        dialog.setCanceledOnTouchOutside(false)
-        dialog.show()
-        dialog.window?.setContentView(root)
-        val width = DensityUtil.getWidth()- DensityUtil.dip2px(120f)
-        val params = dialog.window?.attributes
-        params?.width = width
-        params?.height = WindowManager.LayoutParams.WRAP_CONTENT
-        dialog.window?.attributes = params
-        return dialog
+        })
     }
 
     private fun showDialog(txt : String): Dialog {

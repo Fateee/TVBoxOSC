@@ -1,5 +1,6 @@
 package study.strengthen.china.tv.ui.fragment
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
@@ -20,7 +21,6 @@ import study.strengthen.china.tv.bean.AbsSortXml
 import study.strengthen.china.tv.event.RefreshEvent
 import study.strengthen.china.tv.server.ControlManager
 import study.strengthen.china.tv.ui.adapter.HomePageAdapter
-import study.strengthen.china.tv.ui.dialog.TipDialog
 import study.strengthen.china.tv.viewmodel.SourceViewModel
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -201,7 +201,7 @@ class HomeFragment : BaseLazyFragment() {
                     override fun success() {
                         jarInitOk = true
                         mHandler.postDelayed({
-                            if (!useCacheConfig) Toast.makeText(activity, "自定义jar加载成功", Toast.LENGTH_SHORT).show()
+                            if (!useCacheConfig) Toast.makeText(activity, "加载成功", Toast.LENGTH_SHORT).show()
                             initData()
                         }, 50)
                     }
@@ -210,7 +210,7 @@ class HomeFragment : BaseLazyFragment() {
                     override fun error(msg: String) {
                         jarInitOk = true
                         mHandler.post {
-                            Toast.makeText(activity, "jar加载失败", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, "加载失败", Toast.LENGTH_SHORT).show()
                             initData()
                         }
                     }
@@ -219,7 +219,7 @@ class HomeFragment : BaseLazyFragment() {
             return
         }
         ApiConfig.get().loadConfig(useCacheConfig, object : LoadConfigCallback {
-            var dialog: TipDialog? = null
+            var dialog: Dialog? = null
             override fun retry() {
                 mHandler.post { initData() }
             }
@@ -242,32 +242,21 @@ class HomeFragment : BaseLazyFragment() {
                     return
                 }
                 mHandler.post {
-                    if (dialog == null) dialog = TipDialog(context!!, msg, "重试", "取消", object : TipDialog.OnListener {
-                        override fun left() {
+                    if (dialog == null) {
+                        dialog = DialogUtils.showTextDialog(requireContext(),null,msg,"重试", "取消", View.OnClickListener {
                             mHandler.post {
                                 initData()
                                 dialog?.hide()
                             }
-                        }
-
-                        override fun right() {
+                        }, View.OnClickListener {
                             dataInitOk = true
                             jarInitOk = true
                             mHandler.post {
                                 initData()
                                 dialog?.hide()
                             }
-                        }
-
-                        override fun cancel() {
-                            dataInitOk = true
-                            jarInitOk = true
-                            mHandler.post {
-                                initData()
-                                dialog?.hide()
-                            }
-                        }
-                    })
+                        })
+                    }
                     if (dialog?.isShowing == false) dialog?.show()
                 }
             }
