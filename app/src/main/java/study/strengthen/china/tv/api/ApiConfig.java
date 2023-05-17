@@ -11,6 +11,7 @@ import study.strengthen.china.tv.bean.IJKCode;
 import study.strengthen.china.tv.bean.LiveChannelItem;
 import study.strengthen.china.tv.bean.ParseBean;
 import study.strengthen.china.tv.bean.SourceBean;
+import study.strengthen.china.tv.config.AppInfo;
 import study.strengthen.china.tv.server.ControlManager;
 import study.strengthen.china.tv.util.AdBlocker;
 import study.strengthen.china.tv.util.DefaultConfig;
@@ -82,7 +83,7 @@ public class ApiConfig {
     public void loadConfig(boolean useCache, LoadConfigCallback callback, Activity activity) {
         //todo hy
 //        String apiUrl = "http://byyds.top/w.txt";
-        String apiUrl = Hawk.get(HawkConfig.API_URL, "");
+        String apiUrl = Hawk.get(HawkConfig.API_URL, AppInfo.INSTANCE.getMAddress());
         if (apiUrl.isEmpty()) {
             callback.error("-1");
             return;

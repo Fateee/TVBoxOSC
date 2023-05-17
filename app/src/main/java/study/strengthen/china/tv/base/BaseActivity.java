@@ -205,7 +205,7 @@ public abstract class BaseActivity extends AppCompatActivity implements CustomAd
         return false;
     }
 
-    private boolean isHideNavigation() {
+    public boolean isHideNavigation() {
         return false;
     }
 }

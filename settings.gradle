@@ -1,3 +1,4 @@
 rootProject.name = "TVBox"
 include ':app'
+include ':network'
 include ':player',":secondary_linkage", 'flowlayout'

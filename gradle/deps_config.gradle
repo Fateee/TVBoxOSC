@@ -1,0 +1,74 @@
+ext {
+    build_config = [
+            min_sdk    : 21,
+            target_sdk : 29,
+            compile_sdk : 29,
+            build_tools : "29.0.2",
+    ]
+
+    app_config = [
+            application_id : "com.tiantian.wallpaper",
+            ver_code : 100,
+            ver_name : "1.0.0"
+    ]
+
+    androidx_config = [
+            androidx_core_ver : "1.2.0",
+            androidx_appcompat_ver : "1.1.0",
+            test_junit_ver : "1.1.1",
+            test_espresso_ver : "3.2.0",
+    ]
+
+    google = [
+            material_ver : "1.1.0"
+    ]
+
+    kotlin_ver = "1.3.72"
+    gradle_ver = "4.1.0"
+    channel_ver = "2.0.3"
+    deps_version = [
+            okhttp : "3.11.0",
+            retrofit : "2.4.0",
+            converterGson : "2.4.0",
+            retrofit_fastjson : "2.1.0",
+            fastjson : '1.1.72.android',
+            adapterRxjava2 : "2.4.0",
+            rxandroid : "2.1.1",
+            rxjava : "2.1.12",
+            loggingInterceptor : "3.4.1",
+            arouterApi : "1.5.1",
+            arouterCompiler : "1.5.1",
+            loadsir : "1.3.8",
+            autosize: "1.2.1",
+            refreshLayout : "2.0.1",
+            glide: "4.11.0",
+            and_permission : "13.6"
+    ]
+
+    deps = [
+            okhttp : "com.squareup.okhttp3:okhttp:$deps_version.okhttp",
+            retrofit : "com.squareup.retrofit2:retrofit:$deps_version.retrofit",
+            converterGson : "com.squareup.retrofit2:converter-gson:$deps_version.converterGson",
+            converterFastjson: "org.ligboy.retrofit2:converter-fastjson-android:$deps_version.retrofit_fastjson",
+            fastjson             : "com.alibaba:fastjson:$deps_version.fastjson",
+            adapterRxjava2 : "com.squareup.retrofit2:adapter-rxjava2:$deps_version.adapterRxjava2",
+            rxandroid : "io.reactivex.rxjava2:rxandroid:$deps_version.rxandroid",
+            rxjava : "io.reactivex.rxjava2:rxjava:$deps_version.rxjava",
+            loggingInterceptor : "com.squareup.okhttp3:logging-interceptor:$deps_version.loggingInterceptor",
+            arouterApi : "com.alibaba:arouter-api:$deps_version.arouterApi",
+            arouterCompiler : "com.alibaba:arouter-compiler:$deps_version.arouterCompiler",
+            loadsir : "com.kingja.loadsir:loadsir:$deps_version.loadsir",
+            //屏幕适配
+            autosize : "me.jessyan:autosize:$deps_version.autosize",
+            refreshLayout : "com.scwang.smart:refresh-layout-kernel:$deps_version.refreshLayout",      //核心必须依赖
+            refreshHeader : "com.scwang.smart:refresh-header-classics:$deps_version.refreshLayout",    //经典刷新头
+            refreshFooter : "com.scwang.smart:refresh-footer-classics:$deps_version.refreshLayout",    //经典加载
+            glide : "com.github.bumptech.glide:glide:$deps_version.glide",
+            glide_compiler : "com.github.bumptech.glide:compiler:$deps_version.glide",
+            and_permission : "com.github.getActivity:XXPermissions:$deps_version.and_permission",
+//            photoView: "com.github.chrisbanes:PhotoView:2.3.0",
+            liveBus: 'com.jeremyliao:live-event-bus-x:1.7.3'
+
+    ]
+
+}

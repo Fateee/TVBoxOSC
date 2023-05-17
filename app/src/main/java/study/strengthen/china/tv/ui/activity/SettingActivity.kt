@@ -1,6 +1,8 @@
 package study.strengthen.china.tv.ui.activity
 
+import android.content.Intent
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import com.orhanobut.hawk.Hawk
 import kotlinx.android.synthetic.main.activity_setting_new.*
@@ -49,6 +51,7 @@ class SettingActivity : BaseActivity() {
                         ApiConfig.get().setSourceBean(value)
                         tvHomeApi?.setSubTitle(ApiConfig.get().homeSourceBean.name)
                         dialog.dismiss()
+                        rebootApp()
                     }
 
                     override fun getDisplay(`val`: SourceBean): String {
@@ -82,6 +85,7 @@ class SettingActivity : BaseActivity() {
                     Hawk.put(HawkConfig.HOME_REC, value)
                     tvHomeRec?.setSubTitle(getHomeRecName(value))
                     dialog.dismiss()
+                    rebootApp()
                 }
 
                 override fun getDisplay(`val`: Int): String {
@@ -315,6 +319,7 @@ class SettingActivity : BaseActivity() {
                     tvApi?.setSubTitle(value)
                     Hawk.put(HawkConfig.API_URL, value)
                     dialog.dismiss()
+                    rebootApp()
                 }
 
                 override fun del(value: String, data: ArrayList<String>) {
@@ -326,6 +331,7 @@ class SettingActivity : BaseActivity() {
             override fun onchange(api: String?) {
                 tvApi?.setSubTitle(api)
                 Hawk.put(HawkConfig.API_URL, api)
+                rebootApp()
             }
         })
         dialog.show()
@@ -344,4 +350,13 @@ class SettingActivity : BaseActivity() {
         }
     }
 
+    fun rebootApp() {
+        Toast.makeText(this, "配置生效，即将重启!", Toast.LENGTH_SHORT).show()
+        tvApi?.postDelayed({
+            val intent = baseContext.packageManager.getLaunchIntentForPackage(baseContext.packageName)
+            intent?.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            startActivity(intent)
+            finishAffinity()
+        },1000)
+    }
 }

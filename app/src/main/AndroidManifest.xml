@@ -23,36 +23,42 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true">
-
-<!--        <activity-->
-<!--            android:name=".ui.activity.HomeActivity"-->
-<!--            android:screenOrientation="portrait">-->
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.MAIN" />-->
-
-<!--                <category android:name="android.intent.category.LAUNCHER" />-->
-<!--                <category android:name="android.intent.category.LEANBACK_LAUNCHER" />-->
-<!--            </intent-filter>-->
-<!--        </activity>-->
-        <activity
-            android:name=".ui.activity.MainActivity"
-            android:screenOrientation="portrait">
+        <activity android:name=".ui.activity.SplashActivity"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!-- <activity -->
+        <!-- android:name=".ui.activity.HomeActivity" -->
+        <!-- android:screenOrientation="portrait"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.intent.action.MAIN" /> -->
+        <!-- <category android:name="android.intent.category.LAUNCHER" /> -->
+        <!-- <category android:name="android.intent.category.LEANBACK_LAUNCHER" /> -->
+        <!-- </intent-filter> -->
+        <!-- </activity> -->
+        <activity
+            android:name=".ui.activity.MainActivity"
+            android:screenOrientation="portrait">
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
+
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
+        </activity>
         <activity
             android:name=".ui.activity.LivePlayActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.activity.DetailActivity"
-            android:screenOrientation="portrait"
-            android:supportsPictureInPicture="true"
             android:configChanges="orientation|screenLayout|screenSize|smallestScreenSize"
             android:excludeFromRecents="true"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:supportsPictureInPicture="true" />
         <activity
             android:name=".ui.activity.PlayActivity"
             android:screenOrientation="portrait" />
@@ -102,7 +108,6 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="960" />
-
         <meta-data
             android:name="xwalk_enable_download_mode"
             android:value="enable" />
