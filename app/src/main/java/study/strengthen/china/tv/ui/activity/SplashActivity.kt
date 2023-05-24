@@ -63,13 +63,17 @@ class SplashActivity : BaseActivity() {
      * @param context
      * @return
      */
-    fun getStatusBarHeight(context: Context): Int {
-        return context.resources.getDimensionPixelSize(
-            context.resources.getIdentifier(
-                "status_bar_height",
-                "dimen",
-                "android"
+    private fun getStatusBarHeight(context: Context): Int {
+        return try {
+            context.resources.getDimensionPixelSize(
+                context.resources.getIdentifier(
+                    "status_bar_height",
+                    "dimen",
+                    "android"
+                )
             )
-        )
+        } catch (e : Exception) {
+            0
+        }
     }
 }
