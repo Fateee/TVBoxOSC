@@ -23,6 +23,18 @@
 <!--        <item name="colorPrimaryDark">@color/color_3700B3</item>-->
         <item name="colorAccent">@color/main_color</item>
     </style>
+
+    <style name="SplashTheme" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowBackground">@drawable/splash_img</item>
+        <!--        <item name="android:windowIsTranslucent">true</item>-->
+        <!--        <item name="android:windowTranslucentStatus">true</item>-->
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+    </style>
+
     <!-- 自定义dialog样式 -->
     <style name="CustomDialogStyle" parent="@android:style/Theme.Dialog">
         <item name="android:windowBackground">@android:color/transparent</item>
