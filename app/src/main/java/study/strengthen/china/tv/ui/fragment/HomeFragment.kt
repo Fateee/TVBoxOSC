@@ -69,7 +69,7 @@ class HomeFragment : BaseLazyFragment() {
     var useCacheConfig = false
     override fun init() {
         EventBus.getDefault().register(this)
-        ControlManager.get().startServer()
+//        ControlManager.get().startServer()
 //        setLoadSir(contentLayout)
 //        initView()
         initViewModel()
@@ -186,81 +186,86 @@ class HomeFragment : BaseLazyFragment() {
         })
     }
 
-    private var dataInitOk = false
-    private var jarInitOk = false
+    companion object {
+        var dataInitOk = false
+        var jarInitOk = false
+    }
+
+//    private var dataInitOk = false
+//    private var jarInitOk = false
     private fun initData() {
         if (dataInitOk && jarInitOk) {
             showLoading()
             sourceViewModel?.getSort(ApiConfig.get().homeSourceBean.key)
             return
         }
-        showLoading()
-        if (dataInitOk && !jarInitOk) {
-            if (!ApiConfig.get().spider.isEmpty()) {
-                ApiConfig.get().loadJar(useCacheConfig, ApiConfig.get().spider, object : LoadConfigCallback {
-                    override fun success() {
-                        jarInitOk = true
-                        mHandler.postDelayed({
-                            if (!useCacheConfig) Toast.makeText(activity, "加载成功", Toast.LENGTH_SHORT).show()
-                            initData()
-                        }, 50)
-                    }
-
-                    override fun retry() {}
-                    override fun error(msg: String) {
-                        jarInitOk = true
-                        mHandler.post {
-                            Toast.makeText(activity, "加载失败", Toast.LENGTH_SHORT).show()
-                            initData()
-                        }
-                    }
-                })
-            }
-            return
-        }
-        ApiConfig.get().loadConfig(useCacheConfig, object : LoadConfigCallback {
-            var dialog: Dialog? = null
-            override fun retry() {
-                mHandler.post { initData() }
-            }
-
-            override fun success() {
-                dataInitOk = true
-                if (ApiConfig.get().spider.isEmpty()) {
-                    jarInitOk = true
-                }
-                mHandler.postDelayed({ initData() }, 50)
-            }
-
-            override fun error(msg: String) {
-                if (msg.equals("-1", ignoreCase = true)) {
-                    mHandler.post {
-                        dataInitOk = true
-                        jarInitOk = true
-                        initData()
-                    }
-                    return
-                }
-                mHandler.post {
-                    if (dialog == null) {
-                        dialog = DialogUtils.showTextDialog(requireContext(),null,msg,"重试", "取消", View.OnClickListener {
-                            mHandler.post {
-                                initData()
-                                dialog?.hide()
-                            }
-                        }, View.OnClickListener {
-                            dataInitOk = true
-                            jarInitOk = true
-                            mHandler.post {
-                                initData()
-                                dialog?.hide()
-                            }
-                        })
-                    }
-                    if (dialog?.isShowing == false) dialog?.show()
-                }
-            }
-        }, activity)
+//        showLoading()
+//        if (dataInitOk && !jarInitOk) {
+//            if (!ApiConfig.get().spider.isEmpty()) {
+//                ApiConfig.get().loadJar(useCacheConfig, ApiConfig.get().spider, object : LoadConfigCallback {
+//                    override fun success() {
+//                        jarInitOk = true
+//                        mHandler.postDelayed({
+//                            if (!useCacheConfig) Toast.makeText(activity, "加载成功", Toast.LENGTH_SHORT).show()
+//                            initData()
+//                        }, 50)
+//                    }
+//
+//                    override fun retry() {}
+//                    override fun error(msg: String) {
+//                        jarInitOk = true
+//                        mHandler.post {
+//                            Toast.makeText(activity, "加载失败", Toast.LENGTH_SHORT).show()
+//                            initData()
+//                        }
+//                    }
+//                })
+//            }
+//            return
+//        }
+//        ApiConfig.get().loadConfig(useCacheConfig, object : LoadConfigCallback {
+//            var dialog: Dialog? = null
+//            override fun retry() {
+//                mHandler.post { initData() }
+//            }
+//
+//            override fun success() {
+//                dataInitOk = true
+//                if (ApiConfig.get().spider.isEmpty()) {
+//                    jarInitOk = true
+//                }
+//                mHandler.postDelayed({ initData() }, 50)
+//            }
+//
+//            override fun error(msg: String) {
+//                if (msg.equals("-1", ignoreCase = true)) {
+//                    mHandler.post {
+//                        dataInitOk = true
+//                        jarInitOk = true
+//                        initData()
+//                    }
+//                    return
+//                }
+//                mHandler.post {
+//                    if (dialog == null) {
+//                        dialog = DialogUtils.showTextDialog(requireContext(),null,msg,"重试", "取消", View.OnClickListener {
+//                            mHandler.post {
+//                                initData()
+//                                dialog?.hide()
+//                            }
+//                        }, View.OnClickListener {
+//                            dataInitOk = true
+//                            jarInitOk = true
+//                            mHandler.post {
+//                                initData()
+//                                dialog?.hide()
+//                            }
+//                        })
+//                    }
+//                    if (dialog?.isShowing == false) dialog?.show()
+//                }
+//            }
+//        }, activity)
     }
 
     private fun initViewPager(absXml: AbsSortXml?, rootData: MutableList<MovieSort.SortData>) {
