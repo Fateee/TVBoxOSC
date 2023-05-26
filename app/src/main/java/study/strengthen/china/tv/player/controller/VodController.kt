@@ -14,9 +14,11 @@ import android.widget.SeekBar
 import android.widget.TextView
 import com.orhanobut.hawk.Hawk
 import com.owen.tvrecyclerview.widget.TvRecyclerView
+import com.owen.tvrecyclerview.widget.V7GridLayoutManager
 import com.owen.tvrecyclerview.widget.V7LinearLayoutManager
 import kotlinx.android.synthetic.main.player_dialog_speed.view.*
 import kotlinx.android.synthetic.main.player_vod_control_view_new.view.*
+import kotlinx.android.synthetic.main.player_vod_control_view_new.view.mGridViewFlag
 import org.json.JSONException
 import org.json.JSONObject
 import study.strengthen.china.tv.R
@@ -27,8 +29,11 @@ import study.strengthen.china.tv.player.thirdparty.MXPlayer
 import study.strengthen.china.tv.player.thirdparty.ReexPlayer
 import study.strengthen.china.tv.ui.activity.DetailActivity
 import study.strengthen.china.tv.ui.adapter.ParseAdapter
+import study.strengthen.china.tv.ui.adapter.SeriesAdapter
+import study.strengthen.china.tv.ui.adapter.SeriesFlagAdapter
 import study.strengthen.china.tv.util.HawkConfig
 import study.strengthen.china.tv.util.PlayerHelper
+import study.strengthen.china.tv.util.setVisible
 import xyz.doikki.videoplayer.player.VideoView
 import xyz.doikki.videoplayer.player.VideoView.STATE_START_ABORT
 import xyz.doikki.videoplayer.util.PlayerUtils
@@ -36,6 +41,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class VodController(context: Context) : BaseController(context) {
+    private var seriesFlagAdapter: SeriesFlagAdapter? = null
+    private var seriesAdapter: SeriesAdapter? = null
     private var mCanShowBottom : Boolean = false
     private val mHideBottomRunable: Runnable = Runnable {
         hideBottom()
@@ -184,6 +191,47 @@ class VodController(context: Context) : BaseController(context) {
 //            Log.i("huyi","isFullScreen "+mControlWrapper?.isFullScreen)
             isFullScreenPortrait = mControlWrapper?.isFullScreen ?: false
             refreshGridSelectIndex()
+        }
+        mGridViewFlag?.setHasFixedSize(true)
+        mGridViewFlag?.layoutManager = V7LinearLayoutManager(context, 0, false)
+        seriesFlagAdapter = SeriesFlagAdapter()
+        mGridViewFlag?.adapter = seriesFlagAdapter
+        //源
+        seriesFlagAdapter?.setOnItemClickListener { adapter, view, position ->
+            if (mActivity is DetailActivity) {
+                val activity = (mActivity as DetailActivity)
+                activity.refreshSource(position)
+                activity.jumpToPlay()
+                seriesFlagAdapter?.notifyDataSetChanged()
+                seriesAdapter?.setNewData(activity.vodInfo!!.seriesMap[activity.vodInfo?.playFlag])
+            }
+        }
+
+        rvVideoNumber?.setHasFixedSize(true)
+        rvVideoNumber?.layoutManager = V7GridLayoutManager(context, 5)
+        seriesAdapter = SeriesAdapter()
+        rvVideoNumber?.adapter = seriesAdapter
+        //集
+        seriesAdapter?.setOnItemClickListener { _, _, position ->
+            if (mActivity is DetailActivity) {
+                (mActivity as DetailActivity).clickSeries(position)
+            }
+            seriesAdapter?.notifyDataSetChanged()
+            settingBox?.setVisible(false)
+        }
+
+        //选集
+        tv_select_number?.setOnClickListener {
+            if (mActivity is DetailActivity) {
+                val activity = (mActivity as DetailActivity)
+                settingBox?.setVisible(true)
+                numberBox?.setVisible(true)
+                seriesFlagAdapter?.setNewData(activity.vodInfo?.seriesFlags)
+                seriesAdapter?.setNewData(activity.vodInfo!!.seriesMap[activity.vodInfo?.playFlag])
+            }
+        }
+        settingBox?.setOnClickListener {
+            settingBox?.setVisible(false)
         }
         t_back?.setOnClickListener {
             mActivity?.finish()

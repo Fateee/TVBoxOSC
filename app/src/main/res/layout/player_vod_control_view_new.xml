@@ -625,7 +625,8 @@
                         android:id="@+id/numberBox"
                         android:visibility="gone"
                         android:layout_width="fill_parent"
-                        android:layout_height="fill_parent">
+                        android:layout_height="fill_parent"
+                        android:layout_marginTop="30dp">
                         <RelativeLayout
                             android:layout_width="fill_parent"
                             android:layout_height="fill_parent">
@@ -653,15 +654,15 @@
                                             android:layout_height="@dimen/dp_50"
                                             android:layout_marginTop="@dimen/dp_0"
                                             android:layout_marginBottom="@dimen/dp_10"
-                                            app:tv_horizontalSpacingWithMargins="6.25dip"
+                                            app:tv_horizontalSpacingWithMargins="10dp"
                                             app:tv_selectedItemIsCentered="true"
-                                            app:tv_verticalSpacingWithMargins="6.25dip" />
+                                            app:tv_verticalSpacingWithMargins="10dp" />
                                     </LinearLayout>
                                     <View
                                         android:layout_gravity="bottom"
-                                        android:background="?colorAccent"
+                                        android:background="@color/white"
                                         android:layout_width="fill_parent"
-                                        android:layout_height="2.0px" />
+                                        android:layout_height="1dp" />
                                 </LinearLayout>
                                 <com.owen.tvrecyclerview.widget.TvRecyclerView
                                     android:id="@+id/rvVideoNumber"
@@ -670,9 +671,9 @@
                                     android:clipToPadding="false"
                                     android:layout_width="fill_parent"
                                     android:layout_height="fill_parent"
-                                    app:tv_horizontalSpacingWithMargins="6.25dip"
+                                    app:tv_horizontalSpacingWithMargins="8dip"
                                     app:tv_selectedItemIsCentered="true"
-                                    app:tv_verticalSpacingWithMargins="6.25dip" />
+                                    app:tv_verticalSpacingWithMargins="8dip" />
                             </LinearLayout>
                         </RelativeLayout>
                     </LinearLayout>

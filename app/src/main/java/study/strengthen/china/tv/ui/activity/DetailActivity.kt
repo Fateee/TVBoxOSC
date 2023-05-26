@@ -261,20 +261,9 @@ class DetailActivity : BaseActivity() {
             refreshSource(position)
             jumpToPlay()
         }
-        seriesAdapter?.setOnItemClickListener { adapter, view, position ->
+        seriesAdapter?.setOnItemClickListener { _, _, position ->
 //            FastClickCheckUtil.check(view)
-            if (vodInfo != null && vodInfo!!.seriesMap[vodInfo!!.playFlag]!!.size > 0) {
-                if (vodInfo!!.playIndex != position) {
-                    seriesAdapter!!.data[vodInfo!!.playIndex].selected = false
-                    seriesAdapter!!.notifyItemChanged(vodInfo!!.playIndex)
-                    seriesAdapter!!.data[position].selected = true
-                    seriesAdapter!!.notifyItemChanged(position)
-                    vodInfo!!.playIndex = position
-                }
-                seriesAdapter!!.data[vodInfo!!.playIndex].selected = true
-                seriesAdapter!!.notifyItemChanged(vodInfo!!.playIndex)
-                jumpToPlay()
-            }
+            clickSeries(position)
         }
         setLoadSir(llLayout)
         mPlayFragment = PlayFragment().newInstance(this)
@@ -282,12 +271,27 @@ class DetailActivity : BaseActivity() {
         supportFragmentManager.beginTransaction().show(mPlayFragment!!).commitAllowingStateLoss()
     }
 
+    fun clickSeries(position: Int) {
+        if (vodInfo != null && vodInfo!!.seriesMap[vodInfo!!.playFlag]!!.size > 0) {
+            if (vodInfo!!.playIndex != position) {
+                seriesAdapter!!.data[vodInfo!!.playIndex].selected = false
+                seriesAdapter!!.notifyItemChanged(vodInfo!!.playIndex)
+//                seriesAdapter!!.data[position].selected = true
+//                seriesAdapter!!.notifyItemChanged(position)
+                vodInfo!!.playIndex = position
+            }
+            seriesAdapter!!.data[vodInfo!!.playIndex].selected = true
+            seriesAdapter!!.notifyItemChanged(vodInfo!!.playIndex)
+            jumpToPlay()
+        }
+    }
+
     fun changeSource() {
         refreshSource(++mSourcePosition)
         jumpToPlay()
     }
 
-    private fun refreshSource(pos: Int) {
+    fun refreshSource(pos: Int) {
         mSourcePosition = if (pos >= seriesFlagAdapter!!.data.size) {
             0
         } else {
@@ -313,7 +317,7 @@ class DetailActivity : BaseActivity() {
     }
 
     private var pauseRunnable: MutableList<Runnable>? = null
-    private fun jumpToPlay() {
+    fun jumpToPlay() {
         if (vodInfo != null && vodInfo!!.seriesMap[vodInfo!!.playFlag]!!.size > 0) {
             val bundle = Bundle()
             //保存历史
@@ -330,9 +334,12 @@ class DetailActivity : BaseActivity() {
         if (vodInfo!!.seriesMap[vodInfo?.playFlag]!!.size <= vodInfo!!.playIndex) {
             vodInfo!!.playIndex = 0
         }
-        if (vodInfo!!.seriesMap[vodInfo?.playFlag] != null) {
-            vodInfo!!.seriesMap[vodInfo?.playFlag]!![vodInfo!!.playIndex].selected = true
+        vodInfo!!.seriesMap[vodInfo?.playFlag]?.forEachIndexed { index, vodSeries ->
+            vodSeries.selected = index == vodInfo!!.playIndex
         }
+//        if (vodInfo!!.seriesMap[vodInfo?.playFlag] != null) {
+//            vodInfo!!.seriesMap[vodInfo?.playFlag]!![vodInfo!!.playIndex].selected = true
+//        }
         seriesAdapter!!.setNewData(vodInfo!!.seriesMap[vodInfo?.playFlag])
         scrollToNowIndex()
     }
