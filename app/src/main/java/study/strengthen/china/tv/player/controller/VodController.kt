@@ -259,7 +259,9 @@ class VodController(context: Context) : BaseController(context) {
             Log.i("huyi"," - isFullScreen "+mControlWrapper?.isFullScreen)
         }
         setting?.setOnClickListener {
-
+            settingBox?.setVisible(true)
+            settingContent?.setVisible(true)
+            hideBottom()
         }
         status_btn?.setOnClickListener {
             if (mActivity is DetailActivity) {
@@ -371,6 +373,16 @@ class VodController(context: Context) : BaseController(context) {
                 e.printStackTrace()
             }
         })
+        play_time_reset?.setOnClickListener {
+            try {
+                mPlayerConfig!!.put("st", 0)
+                mPlayerConfig!!.put("et", 0)
+                updatePlayerCfgView()
+                listener!!.updatePlayerCfg()
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            }
+        }
         //        mPlayerTimeStepBtn.setOnClickListener(new OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
