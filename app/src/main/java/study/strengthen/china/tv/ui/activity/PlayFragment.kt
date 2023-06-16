@@ -12,12 +12,12 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
 import android.webkit.*
-import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.codelang.window.FloatingWindowManager
 import com.lzy.okgo.OkGo
 import com.lzy.okgo.callback.AbsCallback
 import com.lzy.okgo.model.HttpHeaders
@@ -221,6 +221,17 @@ class PlayFragment : BaseLazyFragment() {
     private fun initViewModel() {
         sourceViewModel = ViewModelProvider(this).get(SourceViewModel::class.java)
         sourceViewModel!!.playResult.observe(this, Observer { info ->
+            //删除对话框
+            val dialogsByToken = FloatingWindowManager.getFloatWindowViewByToken(requireActivity())
+            val dialogsByView = FloatingWindowManager.getFloatWindowViewByView(requireActivity())
+            var removed = false
+            if (dialogsByToken.isNotEmpty()) {
+                requireActivity().windowManager.removeView(dialogsByToken[0])
+                removed = true
+            }
+            if (!removed && dialogsByView.isNotEmpty()) {
+                requireActivity().windowManager.removeView(dialogsByView[0])
+            }
             if (info != null) {
                 try {
                     progressKey = info.optString("proKey", null)

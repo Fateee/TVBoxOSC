@@ -11,6 +11,8 @@ import study.strengthen.china.tv.server.ControlManager;
 import study.strengthen.china.tv.util.HawkConfig;
 import study.strengthen.china.tv.util.OkGoHelper;
 import study.strengthen.china.tv.util.PlayerHelper;
+
+import com.codelang.window.FloatingWindowManager;
 import com.kingja.loadsir.core.LoadSir;
 import com.orhanobut.hawk.Hawk;
 
@@ -29,6 +31,7 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        FloatingWindowManager.init(this);
         initParams();
         // OKGo
         OkGoHelper.init();
